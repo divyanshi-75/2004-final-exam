@@ -1,0 +1,571 @@
+Week 3 Applied Sheet
+(Solutions)
+Useful advice:The following solutions pertain to the theoretical problems given in the applied classes. You are
+strongly advised to attempt the problems thoroughly before looking at these solutions. Simply reading the solu-
+tions without thinking about the problems will rob you of the practice required to be able to solve complicated
+problems on your own. You will perform poorly on the exam if you simply attempt to memorise solutions to
+these problems. Thinking about a problem, even if you do not solve it, will greatly increase your understanding
+of the underlying concepts. Solutions are typically not provided for Python implementation questions. In some
+cases, pseudocode may be provided where it illustrates a particular useful concept.
+Problems
+Problem 1.Consider the following algorithm that returns the number of occurrences oftargetin the sequence
+A. Identify a useful invariant that is true at the beginning of each iteration of thewhileloop. Prove that it holds,
+and use it to prove that the algorithm is correct.
+1:functionCOUNT(A[1..n], target)
+2:count=0
+3:i=1
+4:whilei≤ndo
+5:ifA[i] =targetthen
+6:count=count+1
+7:i=i+1
+8:returncount
+Solution
+A useful invariant is that, at the start of iterationi,countis equal to the number of occurrences oftarget
+inA[1..i−1], where we considerA[1..0]to be an empty list.
+Note:To prove this loop invariant, we will use induction. First we show that the invariant holds at ini-
+tialisation, at the start of the first iteration of the loop. This is our base case. Next we assume that the
+invariant holds at the start of some iteration of the loop, and show that it still holds at the start of the next
+iteration. At this point we are done, since we have shown that the invariant holds at the start of the first
+loop, and that if it holds at the start of loopi, it also holds at the start of loopi+1. This means it holds at
+the start of every loop, and importantly, that it holds at the start of the loop where the loop condition is
+false, i.e., it holds when the loop ends.
+Proof:At the start of the first iteration,i=1. Also,count=0, socountis equal to the number of occur-
+rences oftargetinA[1..0], sinceA[1..0]is an empty list. So the invariant is true at initialisation.
+Assume that the invariant holds at the start ofk-th iteration. Socountis equal to the number of occur-
+rences oftargetinA[1..k−1]. Call this number of occurrencesc. During thisk-th iteration of the loop,
+ifA[k] =target, we will incrementcount, socountwill equalc+1, which is the number of occurrences
+oftargetinA[1..k]. IfA[k]̸=target, thencountwill not be changed, socountwill equalc, which is
+equal to the number of occurrences oftargetinA[1..k]. Either way the invariant holds at the start of
+k+1-th iteration, that is,countis equal to the number of occurrences oftargetinA[1..k]. Since we
+know the invariant holds at the start, by induction it holds for all values ofi, including wheni=n+1, so
+the invariant holds.
+To prove the algorithm is correct, we need to show that at loop termination,countis equal to the number
+of occurrences oftargetinA. The invariant tells us thatcountis equal to the number of occurrences
+1
+
+---PAGE_BREAK---
+
+of target inA[1..i−1], but at loop termination,i=n+1, socountis equal to the number of occurrences
+of target inA[1..n]which is all ofA. Therefore the algorithm is correct.
+Problem 2.Describe a simple modification that can be made to any comparison-based sorting algorithm to
+make it stable. How much space and time overhead does this modification incur?
+Solution
+Assume that the sequence is{a 1,a2,···,a n}wherea irepresents the element atit hposition in the se-
+quence (e.g., element at indexiin the array). To stabilise a comparison-based sorting algorithm, we
+can replace each element of the sequencea iwith a pair(a i,i). Since each index is unique, the pairs are
+unique. We can then apply any comparison-based sorting algorithm on these pairs where two pairs(a i,i)
+and(a j,j)are first compared based on the valuesa ianda jand, if these values are equal (i.e.,a i=a j),
+they are then compared on their index positionsiandj. Our comparison ensures that they will retain
+their relative order, i.e.,a ialways appears beforea jifa i=a jandi<j, therefore, they will be sorted
+stably.
+This modification increases the auxiliary space complexity byΘ(n)since we store an additional integer
+for each of thenelements, but does not affect the time complexity since it only adds a constant overhead
+to each comparison andΘ(n)additional preprocessing time.
+Problem 3.A subroutine used by Mergesort is the merge routine, which takes two sorted lists and produces
+from them a single sorted list consisting of the elements from both original lists. In this problem, we want to
+design and analyse some algorithms for merging many lists, specificallyk≥2 lists.
+(a) Design an algorithm for mergingksorted lists of total sizenthat runs inO(nk)time
+(b) Design a better algorithm for mergingksorted lists of total sizenthat runs inO(nlog(k))
+(c) Is it possible to write a comparison-based algorithm that mergesksorted lists that is faster thanO(nlog(k))?
+Solution
+To solve part (a), we can just do the naive algorithm. For allnelements, let’s loop over allkof the lists
+and take the smallest element that we find. We must remember to keep track of where we are up to in
+each list.
+1:functionKWISE_MERGE(A[1..k][1..n i])
+2:Set pos[1..k]=1
+3:Set result[1..n]
+4:fori=1tondo
+5:Set min=0
+6:forj=1tokdo
+7:ifpos[j]≤n jand(min=0orA[j][pos[j]]<A[min][pos[min]])then
+8:min=j
+9:result[i]=A[min][pos[min]]
+10:pos[min] =pos[min] +1
+11:returnresult
+The valuen idenotes the length of theithlist. This solution has worst-case complexityΘ(nk)since there
+arenelements in total and we spendΘ(k)time looking for the minimum in each iteration. There are
+multiple ways to write a faster algorithm for part (b). Let’s have a look at two of them.
+Option 1: Divide and Conquer
+2
+
+---PAGE_BREAK---
+
+We can speed up the merge by doing divide and conquer. Given a sequence ofklists to merge, let’s
+recursively merge the firstk/2 of them, the secondk/2 of them and then merge the results together.
+1:functionKWISE_MERGE(A[1..k][1..n i])
+2:ifk=1then
+3:returnA[1][1..n 1]
+4:else
+5:Set list1=KWISE_MERGE(A[1..k/2][1..n i])
+6:Set list2=KWISE_MERGE(A[k/2+1..k][1..n i])
+7:returnMERGE(list1, list2)//The ordinary 2-way merge algorithm from Mergesort
+We recurse to a depth ofΘ(log(k))and in each level of the recursion tree we performΘ(n)total work by
+doing the usual 2-way merges among the smaller subproblems in that level. In total this algorithm runs
+inΘ(nlog(k))time.
+Option 2: Use a priority queue
+The second option is to speed up the naive algorithm by using a heap/priority queue. In the naive
+algorithm, we spendΘ(k)time searching for the minimum element to add next. Let’s just do this step by
+maintaining a priority queue of the next values, so that this step takesΘ(log(k))time.
+1:functionKWISE_MERGE(A[1..k][1..n i])
+2:Set pos[1..k]=1
+3:Set result[1..n]
+4:Set queue=PriorityQueue(1...k, key(j)=A[j][pos[j]])
+5:fori=1tondo
+6:Set min=queue.pop()
+7:result[i]=A[min][pos[min]]
+8:pos[min] =pos[min] +1
+9:ifpos[min]≤n minthen
+10:queue.push(min, key=A[min][pos[min]])
+11:returnresult
+We now find the minimum element (and update the heap) inΘ(log(k))time hence the total complexity
+isΘ(nlog(k)).
+Finally, we cannot write an algorithm fork-wise merging that runs faster thanO(nlog(k))in thecompar-
+ison model. Suppose that we have a sequence of lengthnand split it intonsequences of length 1 and
+merge them. This is just going to sort the list, which we know has a lower bound ofΩ(nlog(n)), and hence
+a merge algorithm than ran faster thanO(nlog(k))withk=nwould surpass this lower bound.
+Problem 4.Consider an application of radix sort to sorting a sequence of non-empty strings of lowercase letters
+atozin alphabetical order (each character of the strings can be interpreted as being base-26 for running the
+internal counting sort rounds). Radix sort is traditionally applied to a sequence of equal length elements, but we
+can modify it to work on variable length strings by simply padding the shorter strings with empty characters at
+the end.
+(a) What is the time complexity of this algorithm? In what situation is this algorithm very inefficient?
+(b) Describe how the algorithm can be improved to overcome the problem mentioned in (a). The improved
+algorithm should have worst-case time complexityO(n), wherenis the sum of all of the string lengths, i.e.
+it should be optimal.
+3
+
+---PAGE_BREAK---
+
+Solution
+Letℓdenote the length of the longest string andkthe number of strings. Since we scan each stringℓ
+times, the complexity of this algorithm isΘ(ℓk). This is inefficient if there are many short strings in the
+list and only a few long ones. For example, if there were one million strings of length 10 and a single string
+of length one million, the algorithm would perform one trillion operations, which would take far too long.
+To improve this toΘ(n)wherenis the total length of all strings, we want to avoid looking at the short
+strings before they actually matter. Note that a string of lengthionly needs to be looked at in the finali
+iterations. To achieve this, let’s first sort the strings by length. This can be done inΘ(ℓ+k)using counting
+sort with the string’s length as the key. We need to sort them shortest to longest, since we want shorter
+strings to come before longer strings if they share a prefix.
+Then let’s keep a pointerjsuch that the stringsS[j. . .k]have length≥i. Each iteration when we decre-
+menti, we decrementjwhilelength(S[j-1])≥ito account for strings that have just become worth
+considering. By doing so, we will only perform the inner sort on the strings that actually have charac-
+ters in positionj, hence we do not waste any time sorting on non-existent characters. This improves the
+complexity toΘ(n)as required. An example implementation in pseudocode is shown below.
+1:functionRADIX_SORT(S[1 . . .k])
+2:Setℓ=max(length(S[1 . . .k]))//ℓis the length of the longest string
+3:Sort length(S[1 . . .k])by ascending length using counting sort//Takes O(ℓ+k)time
+4:Setj=k
+5:fori=ℓto1do
+6:whilej>1andlength(S[j−1])≥ido
+7:j-=1
+8:Set count[a . . . z] =0
+9:forp=jtokdo
+10:count[S[p][i]]+=1
+11:Set pos[‘a’] =1
+12:forchar=‘b’to‘z’do
+13:Set pos[char] =pos[char-1] +count[char-1]
+14:Set temp[1 . . .k−j+1] =null
+15:forp=jtokdo
+16:temp[pos[S[p][i]]] =S[p]
+17:pos[S[p][i]]+=1
+18:Swap(S[j. . .k], temp)
+Problem 5.Write an in-place algorithm that takes a sequence ofnintegers and removes all duplicate elements
+from it. The relative order of the remaining elements is not important. Your algorithm should run inO(nlog(n))
+time and useO(1)auxiliary space (i.e. it must be in-place).
+Solution
+The easiest way to remove duplicates from a sequence would be to store them in a data structure that
+doesn’t hold duplicates, like a binary search tree or hashtable. This would use extra space though and
+hence would not be an in-place solution. Instead, let’s make use of the fact that when a sequence is
+sorted, all duplicate elements are guaranteed to be next to each other.
+If we sort the sequence, we can iterate over it, and check whether an elementA[i]is a duplicate by check-
+ing whetherA[i] =A[i−1]. We will maintain an indexjinto the sequence such thatA[1..j]contains the
+non-duplicate elements that we have seen. Whenever we see a non-duplicate, we will copy that element
+intoA[j+1]and incrementj. This way, we will overwrite duplicates with the succeeding non-duplicates.
+At the end, the contents ofA[1..j]will contain all of the non-duplicate elements, andA[j+1..n]will con-
+4
+
+---PAGE_BREAK---
+
+tain leftovers that we will delete. An example implementation might look like this.
+1:functionREMOVE_DUPLICATES(A[1..n])
+2:sort(A[1..n])
+3:j=1
+4:fori=2tondo
+5:ifA[i]̸=A[i−1]then
+6:A[j+1] =A[i]
+7:j=j+1
+8:deleteA[j+1..n]
+Notice that we do not create any additional data structures and only use a constant number of variables,
+hence this solution is in-place provided that the sorting algorithm we use is also in-place. Let’s say that
+we use Heapsort since it is in-place and hasΘ(nlog(n))complexity. The complexity of our algorithm is
+dominated by the sorting, hence it takesΘ(nlog(n))time and is in-place as required.
+Problem 6.Devise an efficient online algorithm1that finds the smallestkelements of a sequence of integers.
+Write pseudocode for your algorithm.[Hint: Use a data structure that you have learned about in a previous unit]
+Solution
+An offline method to solve this problem would be to find thekthsmallest element of the sequence and
+then take all elements less than it, but this solution would not be online since thekthsmallest element
+may change if we increase the input size.
+Each time we see a new number, we need to know if this should go in our set ofksmallest numbers or
+not. This means we need to compare it to themaximumelement in our set. If our new number is smaller
+than the existing max, we should remove the max, insert our new number into our smallestkelements,
+and thenstillhave fast access to whatever the new maximum is (so that we are ready to do this process
+again for the next number). For these operations (get-max, delete-max, insert) we should think of a heap.
+Since we need fast access to the max, we will use a max-heap. Whenever we encounter a new element, we
+know that it should become part of the solution if it is smaller than the currentkthsmallest element, i.e.
+the largest value in the max-heap. We can check this inΘ(1)with a max-heap, and swap out the maximum
+value with the new value inΘ(log(k))time if it is smaller.
+We can write a solution that looks like this.
+1:functionK_MINIMUM_ELEMENTS(A[1...],k)
+2:Initialize an empty MaxHeap named k_smallest
+3:foreach incoming elementedo
+4:ifk_smallest.size()<kthen
+5:k_smallest.push(e)
+6:else ife<k_smallest.max_element()then
+7:k_smallest.pop()
+8:k_smallest.push(e)
+9:reportk_smallest
+Since we can add more elements to the sequenceAat any time and the algorithm will still work, this
+solution is online. It runs inΘ(nlog(k))time assuming that the heap is a binary heap with operations
+costingΘ(log(k))for a heap of sizek(wherenis the number of elements processed).
+1In this case, online means that you are given the numbers one at a time, and at any point you need to know which are the smallestk.
+5
+
+---PAGE_BREAK---
+
+Problem 7.The engineers in your company believe they have created a phone that is ultra-resistant against
+falls (perhaps even falls from as high as 150m). To test that hypothesis, your company built two prototypes and
+asked you to perform the test to determine the maximum height in meters (without considering fractions) that
+the phone can be dropped from without breaking.
+There is an unknown integer value 0≤x≤150 such that if the prototype is dropped from heights up toxmeters
+it will not break, while if it is dropped from heights ofx+1 meters or higher it will break. Your job is to determine
+x. If one prototype is broken, it cannot be used in the tests anymore.
+As a computer science student, you want to optimise your work. For doing so, you plan to develop an algorithm
+for determining the heights you should drop the prototype from at each iteration. No matter what is the value of
+0≤x≤150, your algorithm should be correct and determine the value ofx. For an algorithmAand an unknown
+integer 0≤x≤150, letDrop(A,x)denote the number of times you need to drop a prototype if you use algorithm
+Aandxis the threshold. LetDrop(A)denote the worst-case performance ofA, which is given by the maximum
+ofDrop(A,x)over all possible 0≤x≤150.
+For an optimal deterministic algorithmAthat hasDrop(A)as small as possible, what is the value ofDrop(A)?
+[Hint: Since you have two prototypes, it is possible to do better than linear search. But as you only have two
+prototypes, you need to be very careful if only one prototype remains intact (and thus the search cannot be as
+efficient as binary search).]
+Solution
+Leth 1,h2,h3, . . . denote the sequence of heights that you will drop the first prototype from until you either
+break it or test the height 150m without breaking the prototype. We assume without loss of generality that
+this is an increasing sequence.
+One might initially think that the ideal strategy would be to haveh 1,h2,h3, . . . equally spaced, but is that
+really an optimal strategy?
+If you break the first prototype while dropping it from heighth ifori>1, what you now know is that
+hi−1≤x<h iand that you haven’t dropped a prototype from any height in betweenh i−1andh i. As
+moving forward you would only have one prototype left, and your algorithm needs to find the correct
+value ofxin all situations, you would need to move cautiously and do a linear search on heightsh i−1+
+1,h i−1+2,h i−1+3, . . . ,h i−1 until you either break the second prototype (but by breaking it, you are able to
+determine the correct value ofxat that moment), or you finish testing all this sequence without breaking
+the second prototype (in which casex=h i−1). In the edge case that the first prototype is broken already
+when dropped fromh 1, you would need do a linear search on 1, 2, 3, . . . ,h 1−1 with the second prototype.
+So let’s analyse what is the worst-case behaviour on each of the possible scenarios for when the first
+prototype is broken:
+1. If you break the first prototype when dropping it from heighth 1, then you are doing 1 drop of the
+first prototype, plus|h 1−1|drops of the second prototype in the worst case, for a total of 1+|h 1−1|
+drops.
+2. If you break the first prototype when dropping it from heighth 2, then you are doing 2 drops of
+the first prototype, plus|h 2−h 1−1|drops of the second prototype in the worst case, for a total of
+2+|h 2−h 1−1|drops.
+3. If you break the first prototype when dropping it from heighth 3, then you are doing 3 drops of
+the first prototype, plus|h 3−h 2−1|drops of the second prototype in the worst case, for a total of
+3+|h 3−h 2−1|drops.
+4. If you break the first prototype when dropping it from heighth 4, then you are doing 4 drops of
+the first prototype, plus|h 4−h 3−1|drops of the second prototype in the worst case, for a total of
+4+|h 4−h 3−1|drops.
+5. And so on.
+6
+
+---PAGE_BREAK---
+
+So if you are looking to minimiseDrop(A), you want to balance those cases out and pick the sequence of
+heights such that the values|h 1−1|,|h 2−h 1−1|,|h 3−h 2−1|,|h 4−h 3−1|, . . . form a decreasing sequence
+in which each element is smaller than the previous by 1 (apart from borderline conditions for the last
+difference, when you only need to drop at most from the height of 150m).
+Therefore if you leth 1=n, thenh 2=n+ (n−1),h 3=n+ (n−1) + (n−2),h 4=n+ (n−1) + (n−2) + (n−3),
+and so on.
+Summing it up, the problem is essentially about finding the smallestnsuch thatn+(n−1)+(n−2)+(n−
+3) +. . .+1>150.
+Using the formula for the sum of arithmetic series, you want to find the smallestnsuch thatn(n+1)
+2>150,
+which isn=17.
+The sequence of heights for the first prototype is 17, 33, 48, 62, 75, 87, 98, 108, 117, 125, 132, 138, 143, 147, 150
+(you still have unused capacity to test for heights up to 153m with the same amount of worst-case drops
+by continuing this initial sequence with 152 and 153). If at some point the first prototype is broken, you
+just use the second prototype to linearly test all heights between the previous element of the sequence
+and the current one. You can check that no matter what is the value ofxyou would always find it with at
+most 17 drops and only 2 prototypes by using this strategy.
+Alternative approach:
+Rather than trying to outright determine the strategy from the get-go, let us instead try to analyse the
+general problem of determining how many drops is optimal for any problem size, where 0≤x≤n. This
+may give some insight into where to drop the phone optimally.
+LetF 1(k)denote the largest value ofnfor which the problem can always be solved with 1 phone, which
+can be dropped up toktimes.
+With 1 phone available, our only strategy must be to drop the phone at heights 1, 2, 3, . . ., up untiln, or the
+phone breaks. Therefore, if we havekdrops available, then we can drop the phone from 1 tok, solving
+the problem for 0≤x≤k. SoF 1(k) =k.
+Now, we can tackle the harder version of the problem. LetF 2(k)denote the largest value ofnfor which
+the problem can always be solved with 2 phones, allowing a total ofkphone drops.
+Let us suppose that we are dealing with the problem 0≤x≤F 2(k)(i.e., the problem is at its largest before
+requiring an additional phone drop). Presumably, our choice of the first phone drop can only go in one
+particular place. Let’s say we drop the phone at positiony.
+Now, when this phone drops, one of two things may occur. Either:
+• The phone breaks. This means we have 1 phone left, and the new valid positions forxare 0≤x<y,
+or 0≤x≤y−1.
+• The phone does not break. This means we have 2 phones left, and the new valid positions forxare
+y≤x≤F 2(k)(which is equivalent to solving the problem 0≤x≤F 2(k)−y).
+Since these sub-problems still needs to be solvable withk−1 remaining drops, this means:
+•y−1≤F 1(k−1)(Equation 1),
+•F 2(k)−y≤F 2(k−1)(Equation 2).
+And in particular, since our problem will get harder if we increasenby 1, these should be a strict equality
+(if there is slack, we can simply moveyto remove the slack and increase our problem size).
+7
+
+---PAGE_BREAK---
+
+So then:
+F2(k) =y+F 2(k−1)(From Equation 2)
+=1+F 1(k−1) +F 2(k−1)(From Equation 1)
+=F 2(k−1) +k−1+1
+=F 2(k−1) +k.
+Together with the base caseF 2(0) =0, this gives a recurrence relation that we can telescope. Substituting
+our recurrence on itself twice, we get
+F2(k) =k+ (k−1) + (k−2) +F 2(k−3)
+which we hopefully see can be extended to
+F2(k) =F 2(k−j) +kX
+i=k−j+1i.
+Substitutingj=k, we get
+F2(k) =kX
+i=1i=(k+1)k
+2
+from the formula for the triangular numbers.
+We can now use this to determine the number of drops required for 0≤x≤150. SinceF 2(16) =136 and
+F2(17) =153, 17 is the minimum drops required to solve the problem.
+Our findings in computingF 2(k)can also help us determine the optimal dropping position for the phone
+as well. We know that dropping aty=F 1(k−1) +1 still allows the problem to be solvable if the phone
+breaks, so drop aty=F 1(16) +1=17. If the phone doesn’t break, then our problem is 17≤x≤150. This
+is equivalent to 0≤133, with the units shifted up by 17. So now we can drop atF 1(17−2) +1=16 (or at
+33, in the original unshifted version).
+In other words, we can move the phone up byk−i+1 steps on dropi, wherekis the number of optimal
+drops, and whenever the phone breaks, go back to the simple 1 phone strategy of linearly searching up.
+Supplementary Problems
+Problem 8.Write pseudocode for insertion sort, except instead of sorting the elements into non-decreasing
+order, sort them into non-increasing order. Identify a useful invariant of this algorithm.
+Solution
+We write the usual insertion sort algorithm, except that when performing the insertion step, we loop as
+long asA[j]<key(rather thanA[j]>key), so that larger elements get moved to the left.
+1:functionINSERTION_SORT(A[1..n])
+2:fori=2tondo
+3:Set key=A[i]
+4:Set j=i - 1
+5:whilej≥1andA[j]<keydo
+8
+
+---PAGE_BREAK---
+
+6:A[j+1] =A[j]
+7:j=j - 1
+8:A[j+1]=key
+A useful invariant is that at the end of iterationi, the sub-arrayA[1..i]is sorted in non-increasing order.
+Problem 9.Write an iterative Python function that implements binary search on a sorted, non-empty list, and
+returns the position of the key, or None if it does not exist.
+(a) If there are multiple occurrences of the key, return the position of thefinalone. Identify a useful invariant
+of your program and explain why your algorithm is correct
+(b) If there are multiple occurrences of the key, return the position of thefirstone. Identify a useful invariant
+of your program and explain why your algorithm is correct
+Solution
+For part (a), the implementation of binary search in the lecture notes satisfies this property. Note that
+since the invariant isarray[lo]≤keyandarray[hi] > key,lowill point to the final element of
+arraythat is not greater thankey. This means that if there are multiple occurrences ofkey,lowill point
+to the last one.
+For part (b), we make a slight adjustment to the algorithm in the lecture notes. We modify the binary
+search such that we maintain the following similar invariant,array[lo] < keyandarray[hi]≥
+key. To do so, we must change the initial values ofloandhito 0 andnrespectively, change the con-
+dition of theifstatement appropriately and change the final check toarray[hi] = key. This works
+because when the algorithm terminates,hiis now pointing to the first element that is at least as large as
+the key. This means that if there are multiple occurrences ofkey,hiwill point to the first one. Here is
+some pseudocode for concreteness.
+1:functionBINARY_SEARCH(array[1..n], key)
+2:Set lo=0 and hi=n
+3:whilelo<hi - 1do
+4:Set mid=⌊(lo+hi)/2⌋
+5:ifkey>array[mid]thenlo=mid
+6:elsehi=mid
+7:ifarray[hi]=keythen returnhi
+8:else return null
+Problem 10.Devise an algorithm that given a sorted sequence of distinct integersa 1,a2, ...,a ndetermines
+whether there exists an element such thata i=i. Your algorithm should run inO(log(n))time.
+Solution
+Since the elements ofaare sorted and distinct, it is true thata i≤a i+1−1. We are seeking an element
+such thata i=i, which is equivalent to searching for an element such thata i−i=0. Sincea i≤a i+1−1,
+the sequence(a i−i)for alliis a non-decreasing sequence, because
+ai−i≤a i+1−1−i=a i+1−(i+1).
+Therefore the problem becomes searching for zero in the non-decreasing sequencea i−i, which can be
+solved using binary search. See the pseudocode implementation below.
+1:functionVALUE_INDEX(a[1..n])
+2:ifa[n]-n=0then return True
+9
+
+---PAGE_BREAK---
+
+3:ifa[n]-n<0then return False
+4:ifa[1]- 1>0then return False
+5://Invariant: a[lo]- lo≤0, a[hi]- hi>0
+6:Set lo=1, hi=n+1
+7:whilelo<hi - 1do
+8:Set mid=⌊(lo+hi)/2⌋
+9:ifa[mid]- mid≤0thenlo=mid
+10:elsehi=mid
+11:ifa[lo] =lothen return True
+12:else return False
+Problem 11.Consider the following variation on the usual implementation of insertion sort.
+1:functionFAST_INSERTION_SORT(A[1..n])
+2:fori=2tondo
+3:Set key=A[i]
+4:Binary search to find maxk<isuch thatA[k]≤key
+5:forj=idowntok+1do
+6:A[j] =A[j−1]
+7:A[k] =key
+(a) What is the number of comparisons performed by this implementation of insertion sort?
+(b) What is the worst-case time complexity of this implementation of insertion sort?
+(c) What do the above two facts imply about the use of the comparison model (analysing a sorting algorithm’s
+complexity by the number of comparisons it does) for analysing time complexity?
+Solution
+For (a), note that we perform a binary search for each element of the sequence. The worst-case complex-
+ity of performing thosensearches isΘ(nlog(n))comparisons.
+For (b), note that in the worst case we will have to swap every element all the way to the beginning of
+the sequence. This means that we will performΘ(n2)swaps and hence the worst-case complexity will be
+Θ(n2).
+Comparing (a) and (b) reveals an interesting fact. Although we perform justΘ(nlog(n))comparisons
+which is optimal in the comparison model, we still takeΘ(n2)time to sort due to the swaps required.
+This shows that the comparison model is not always suitable for proving upper bounds on the running
+times of sorting algorithms, but rather, its main purpose is for proving lower bounds. This algorithm
+might still be useful if the items being sorted were expensive to compare but fast to swap however. For
+example, it would perform okay for sorting a sequence of large strings since the comparisons would be the
+bottleneck, and the swaps could be done fast (assuming an implementation that allows moving strings
+inO(1)).
+Problem 12. (Advanced)Consider the problem of sorting one million 64-bit integers using radix sort.
+(a) Write down a formula in terms ofbfor the number of operations performed by radix sort when sorting one
+million 64-bit integers in baseb.
+(b) Using your preferred program (for example, Wolfram Alpha), plot a graph of this formula againstband
+find the best value ofb, the one that minimises the number of operations required. How many passes of
+radix sort will be performed for this value ofb?
+10
+
+---PAGE_BREAK---
+
+(c) Implement radix sort and use it to sort one million randomly generated 64-bit integers. Compare various
+choices for the baseband see whether or not the one that you found in Part (b) is in fact the best.
+Solution
+Recall that the complexity of radix sort fornintegers withkdigits in basebis
+Θ(k(n+b)).
+Since our integers are 64 bits, the number of digitskwill be equal to
+k=64
+log2(b),
+and hence the number of operations will be proportional to
+64
+log2(b) 
+106+b
+.
+A plot of this function looks like:
+0 1 2 3 4 5 6 7 8 9
+1054.555.566.5106
+Your favourite mathematics software will then tell you that the minimum of this function occurs forb=
+95536. Since log2(95536)≈16.5, and the closest divisor of 64 to that is 16, a base of 216=65536 should
+perform optimally.
+My test implementation found the following results for various bases. Your results should hopefully look
+similar.
+Base (b) In base-2 Time (seconds)
+4 2223.52
+16 2411.77
+256 286.19
+65536 2163.38
+1048576 2204.63
+16777216 22414.87
+This seems to confirm our prediction thatb=216would be the optimal base. Of course, the bases 220and
+224are naturally disadvantaged since 20 and 24 do not divide 64, but attempting to test base 232caused
+my computer to run out of RAM.
+Problem 13. (Advanced)When we analyse the complexity of an algorithm, we always make assumptions about
+the kinds of operations we can perform, how long they will take, and how much space that we will use. We call
+11
+
+---PAGE_BREAK---
+
+this themodel of computationunder which we analyse the algorithm. The assumptions that we make can lead
+to wildly different conclusions in our analysis.
+An early model of computation used by computed scientists was theRAM, the Random-Access Machine. In the
+RAM model, we assume that we have unlimited memory, consisting ofregisters. Each register has anaddress
+and some contents, which can be any integer. Additionally, integers are used as pointers to refer to memory
+addresses. A RAM is endowed with certain operations that it is allowed to perform in constant time. The total
+amount of space used by an algorithm is the total size of all of the contents of the registers used by it.
+(a) State some unrealistic aspects of the RAM model of computation.
+(b) Explain why the definition of an in-place algorithm being those which useO(1)auxiliary space is near
+worthless in this description of the RAM model.
+(c) In the Week 2 Applied, we discussed fast algorithms for computing Fibonacci numbers. In particular, we
+saw thatF(n)can be computed using matrix powers, which can be computed in justO(log(n))multipli-
+cations. If a RAM is endowed with all arithmetic operations, then we can computeF(n)inO(log(n))time
+using this algorithm. If instead the RAM is only allowed to perform addition, subtraction, and bitwise op-
+erations in constant time, we can still simulate multiplication using any multiplication algorithm (for ex-
+ample, Karatsuba multiplication). Explain why in this model, it is impossible to computeF(n)inO(log(n))
+time with this algorithm.
+A model that is more commonly used in modern algorithm and data structure analysis is theword RAM(short
+for word Random-Access Machine). In the word RAM model, every word is a fixed-sizew-bit integer, wherew
+is a parameter of the model. We can perform all standard arithmetic and bitwise operations onw-bit integers in
+constant time. The total amount of space used by an algorithm is the number of words that it uses
+(d) What is the maximum amount of memory that can be used by aw-bit word RAM?
+(e) Suppose we wish to solve a problem whose input is a sequence of sizen. What assumption must be made
+about the model for this to make sense?
+(f) Discuss some aspects that the word RAM still fails to account for in realistic modern computers
+(g) Does the word RAM model allow us to computeF(n), thenthFibonacci number, inO(log(n))time?
+Solution
+The RAM model
+(a) The RAM model is unrealistic for several reasons. Here is a non-exhaustive list of possible reasons:
+• It has an infinite amount of memory. Although this is unrealistic, most models of computation
+are similar, since if we restrict ourselves to a finite amount of memory, then technically every
+problem is solvable inO(1)time since there are only a finite number of possible inputs to the
+problem and the input size is constant.
+• It can store arbitrarily large integers in a single register and operate on them in constant time.
+This is the most overpowered part of the model. In fact, under certain assumptions, it is pos-
+sible to show that certain problems like integer sorting can be solved inO(1)in this model!
+This is because the machine can cheat by concatenating arbitrarily many integers into a sin-
+gle register and then operating on them in constant time. If you are interested in these kinds
+of strange problems, you should read Michael Brand’s PhD thesisComputing with Arbitrary
+and Random Numbers.
+(b) If we define an in-place algorithm as one that takesO(1)space, then in the RAM model we are
+instantly dead. A problem that takes as input a sequence of sizenrequires pointers of sizeO(log(n))
+to refer to those elements, which is not constant. It is therefore common in complexity theory to use
+different definitions of in-place. Examples including defining in-place asO(log(n))space, asO(1)
+space notcounting pointers, or aso(n)space (that’s a little-O, not a big-O, meaning asymptotically
+12
+
+---PAGE_BREAK---
+
+smaller than. For example log(n),pn, andn0.99are allo(n)).
+(c) Computing Fibonacci numbers using matrix multiplication takesO(log(n))multiplications. If mul-
+tiplications can be performed in constant time then we are happy and can computeF(n)in just
+O(log(n))time. Otherwise, things get trickier. If multiplication cannot be done in constant time,
+then it needs to be done manually using a multiplication algorithm, whose running time is depen-
+dant on the length of the integers being multiplied. Since the Fibonacci numbers grow exponen-
+tially, specifically likeφnwhereφ≈1.618 is the golden ratio, they haveΘ(log(φn)) =Θ(n)digits.
+Even if we had a linear time multiplication algorithm (we do not), this means that it would take
+Ω(nlog(n))time to computeF(n)since those multiplications costΩ(n).
+The word-RAM model
+(d) The largest integer that can write withwbits is 2w. Since we use integers as pointers to address
+memory, we can address at most 2wdistinct registers and hence we cannot use more thanO(2w)
+memory.
+(e) To address a sequence of sizen, we need to be able store pointers to at leastndifferent registers. A
+pointer referring to addressnrequires log2(n)bits to store, hence we require thatw≥log2(n).
+(f) While the word-RAM addresses many of the failings of the RAM, it still does not account for the
+following:
+• Parallel computation
+• Memory hierarchies - the differences in speed between reading from disk, reading from main
+memory or reading from cache
+(g) We cannot computeF(n)inO(log(n))time on a word-RAM. Even though we can multiplyw-bit
+integers in constant time (the contents of a single register), sinceF(n)hasΘ(n)bits, it would have
+to be split acrossΘ(n/w)different registers, and multiplication would have to be performed using
+a multiplication algorithm that would takeΩ(n/w)time.
+13

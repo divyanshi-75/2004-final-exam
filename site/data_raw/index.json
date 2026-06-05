@@ -1,0 +1,106 @@
+[
+  {
+    "source": "Exam-structure.pdf",
+    "out": "Exam-structure.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied01-solutions.pdf",
+    "out": "applied-questions__applied01-solutions.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied02-solutions.pdf",
+    "out": "applied-questions__applied02-solutions.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied03-solutions.pdf",
+    "out": "applied-questions__applied03-solutions.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied04-solutions.pdf",
+    "out": "applied-questions__applied04-solutions.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied05-solutions.pdf",
+    "out": "applied-questions__applied05-solutions.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied06-problems.pdf",
+    "out": "applied-questions__applied06-problems.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied06-solutions.pdf",
+    "out": "applied-questions__applied06-solutions.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied07-solutions.pdf",
+    "out": "applied-questions__applied07-solutions.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied08-solutions.pdf",
+    "out": "applied-questions__applied08-solutions.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied09-solutions.pdf",
+    "out": "applied-questions__applied09-solutions.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied10-solutions.pdf",
+    "out": "applied-questions__applied10-solutions.pdf.txt"
+  },
+  {
+    "source": "applied-questions/applied11-solutions.pdf",
+    "out": "applied-questions__applied11-solutions.pdf.txt"
+  },
+  {
+    "source": "course-note/FIT2004_course_notes_20260321.pdf",
+    "out": "course-note__FIT2004_course_notes_20260321.pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 1 - Introduction (handout).pdf",
+    "out": "slides__Recorded Lecture 1 - Introduction (handout).pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 10 - Network Flow (handout).pdf",
+    "out": "slides__Recorded Lecture 10 - Network Flow (handout).pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 11 - Circulation with Demands and Applications of Network Flow (handout).pdf",
+    "out": "slides__Recorded Lecture 11 - Circulation with Demands and Applications of Network Flow (handout).pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 12 - Overview and Revision.pdf",
+    "out": "slides__Recorded Lecture 12 - Overview and Revision.pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 2 - Analysis of Algorithms (handout).pdf",
+    "out": "slides__Recorded Lecture 2 - Analysis of Algorithms (handout).pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 3 - Quick Sort and Select (handout).pdf",
+    "out": "slides__Recorded Lecture 3 - Quick Sort and Select (handout).pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 4 - Introduction to Graphs (handout).pdf",
+    "out": "slides__Recorded Lecture 4 - Introduction to Graphs (handout).pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 5 - Greedy Algorithms (handout).pdf",
+    "out": "slides__Recorded Lecture 5 - Greedy Algorithms (handout).pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 6 - Dynamic Programming (handout).pdf",
+    "out": "slides__Recorded Lecture 6 - Dynamic Programming (handout).pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 7 - Dynamic Programming Graph Algorithms (handout).pdf",
+    "out": "slides__Recorded Lecture 7 - Dynamic Programming Graph Algorithms (handout).pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 8 - Retrieval Data Structures for Strings (handout).pdf",
+    "out": "slides__Recorded Lecture 8 - Retrieval Data Structures for Strings (handout).pdf.txt"
+  },
+  {
+    "source": "slides/Recorded Lecture 9 - Search Trees (handout).pdf",
+    "out": "slides__Recorded Lecture 9 - Search Trees (handout).pdf.txt"
+  }
+]

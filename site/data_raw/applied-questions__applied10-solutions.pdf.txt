@@ -1,0 +1,482 @@
+Week 10 Applied Sheet
+(Solutions)
+Useful advice:The following solutions pertain to the theoretical problems given in the applied classes. You are
+strongly advised to attempt the problems thoroughly before looking at these solutions. Simply reading the solu-
+tions without thinking about the problems will rob you of the practice required to be able to solve complicated
+problems on your own. You will perform poorly on the exam if you simply attempt to memorise solutions to
+these problems. Thinking about a problem, even if you do not solve it, will greatly increase your understanding
+of the underlying concepts. Solutions are typically not provided for Python implementation questions. In some
+cases, pseudocode may be provided where it illustrates a particular useful concept.
+Problems
+Problem 1.Insert 6 into the following AVL tree and show the rebalancing procedure step by step.
+3
+2 8
+1 5 9
+4 7
+Solution
+We insert 6 using the ordinary BST insertion procedure and we obtain the following tree:
+3
+2 8
+1 5 9
+4 7
+6
+This tree is imbalanced at node 8 since it has a left subtree of height 3 and a right subtree of height 1,
+leading to a balance factor of 2. Note that the root node 3 is also imbalanced, but we always perform
+rotations on the lower levels first since this may fix the imbalances at higher levels.
+Since node 8 has a taller left subtree and node 5 has a taller right subtree, this is a left-right imbalance so
+we must perform a double rotation on node 7 to correct it. We perform the first rotation to obtain:
+1
+
+---PAGE_BREAK---
+
+3
+2 8
+1 5 9
+4 7
+63
+2 8
+1 7 9
+5
+4 6
+We then perform the second rotation and are left with:
+3
+2 8
+1 7 9
+5
+4 63
+2 7
+1 5 8
+9 4 6
+This is a balanced tree, so we are done.
+Problem 2.Recall the algorithm for deleting an element from a binary search tree. If that element has no
+children, we do nothing. If it has one child, we can simply remove it and move its child upwards. Otherwise, if
+the node has two children, we replace the node we are deleting with itssuccessor(and if the successor has one
+child, move the successor child upwards to be a child of the previous parent of the successor). This algorithm
+works because of the following fact: the successor of a node with two children has no left child. Prove this fact.
+(a) First prove that the successor of a nodexwith two children must be contained in the right subtree ofx.
+(b) Use this fact to prove that the successor ofxcannot have a left child.
+Solution
+This problem is related to the correctness of the deletion operation in the binary search trees.
+(a) Lets denote the successor ofxbys. Recall that the successor of a node is the minimum value node
+that is greater thanx. Suppose for contradiction purposes thatxandshave a common ancestora̸=x,s
+such thatxandsare in different subtrees ofa. Then asx<s, it must be the case thatxis in the left
+subtree ofaandsis in the right subtree ofa. But this would imply thatx<a<swhich contradicts the
+fact thatsis the successor ofx. Therefore it must be the case that eitherxis an ancestor ofs, orsis an
+ancestor ofx.
+Suppose for contradiction purposes thatsis an ancestor ofx. Thenxmust be in the left subtree ofsas
+x<s. Now letrdenote the right child ofx. We have thatx<r. Asris in the left subtree ofs, we have that
+r<s. Combining these two facts we get thatx<r<s, which contradicts the fact thatsis the successor
+ofx. Therefore it must be the case thatxis an ancestor ofs. And, asx<s,sneeds to be in right subtree
+ofx.
+2
+
+---PAGE_BREAK---
+
+(b) Suppose for contradiction purposes thatshad a left childt. By the BST property we havet<s. But
+astis contained in the right subtree ofxby item (a), we also have thatx<t. Combining these two facts
+we getx<t<s, which contradicts the fact thatsis the successor ofx. Therefore the successorsofx
+cannot have a left child.
+Putting the facts together for the purposes of BST correctness analysis: whenever we are deleting a BST
+nodexthat has two children and replacing it with its successors,swill either have no subtrees or only a
+right subtree (which can then be moved upwards to be a child of the previous parent of nodes).
+Problem 3.We know that when inserting an element into a binary search tree, there is only one valid place to
+put that item in the tree (and that is an important property for the correctness of binary search trees). Let’s prove
+this fact rigorously. LetTbe a binary search tree and letxbe an integer not contained inT. Prove that exactly
+one of the following statements is true:
+• Statement 1: The successor ofxhas no left child.
+• Statement 2: The predecessor ofxhas no right child.
+That is, prove that it cannot be the case that both of these statements are true simultaneously, nor that both of
+these statements are false simultaneously. This implies that there is a unique insertion point forxsince upon
+insertionxmust either become the left child of its successor or the right child of its predecessor.
+Note:the fact that we are proving (that every element has a unique insertion point) is still true when the element
+we are inserting would be the minimum or maximum value in the tree, but the two statements we have given do
+not make sense in this case. Think about why this is true!
+Solution
+Let the predecessor ofxbep, and the successor bes. We know thatp<x<s, and that there is no keyk
+in the tree such thatp<k<xorx<k<s.
+We claim that eithersis an ancestor ofp, orpis an ancestor ofs. Suppose for contradiction that neither
+is an ancestor of the other, and thereforepandshave a common ancestorasuch thatpandsare in
+different subtrees ofa. Notice that in this case, asp<s,pwould need to be in the left subtree ofaands
+in the right subtree:
+a
+. . .
+p. . .
+s
+Then we know thatp<a<s. Asxis not in the tree and thereforex̸=a, that means that eitherp<a<x
+orx<a<s. But by the definitions of successor and predecessor both of those cases are impossible. So
+we have a contradiction, meaning that:
+• eithersis an ancestor ofp;
+• orpis an ancestor ofs.
+Let’s analyse the case in whichsis an ancestor ofp. In this case,shas a left child aspneeds to be in
+the left subtree ofsby the properties of a BST, and thus Statement 1 is false. Assume for contradiction
+purposes thatphas a right child denoted byr. Sinceris a right child ofp, it holds thatp<r. Sinceris
+in the left subtree ofs, it holds thatr<s. Thereforep<r<s. Asxis not in the tree and thereforex̸=r,
+that means that eitherp<r<xorx<r<s. But by the definitions of successor and predecessor both of
+those cases are impossible. So we have a contradiction and thereforepcannot have a right child, which
+3
+
+---PAGE_BREAK---
+
+implies that Statement 2 is true. Therefore, in the case in whichsis an ancestor ofp, Statement 1 is false
+and Statement 2 is true.
+Let’s analyse the case in whichpis an ancestor ofs. In this case,phas a right child assneeds to be in
+the right subtree ofpby the properties of a BST, and thus Statement 2 is false. Assume for contradiction
+purposes thatshas a left child denoted byℓ. Sinceℓis a left child ofs, it holds thatℓ <s. Sinceℓis in
+the right subtree ofp, it holds thatp< ℓ. Thereforep< ℓ <s. Asxis not in the tree and thereforex̸=ℓ,
+that means that eitherp< ℓ <xorx< ℓ <s. But by the definitions of successor and predecessor both
+of those cases are impossible. So we have a contradiction and thereforescannot have a left child, which
+implies that Statement 1 is true. Therefore, in the case in whichpis an ancestor ofs, Statement 1 is true
+and Statement 2 is false.
+Notice that by following the insertion procedures of a BST,xwill be inserted as a right child ofpin the
+case in whichsis an ancestor ofp, otherwise it will be inserted as a left child ofs.
+Problem 4.Consider the binary search tree shown below, with balance factors as indicated. Assume that the
+subtreesST1,ST2,ST3andST4are AVL trees. Show that performing the rotation algorithm for the right-left case
+results in an AVL tree.
+x−2
+z 1
+y 0ST1
+ST2 ST3ST4
+Solution
+Letheight(ST2)beh. We can deduce thatheight(ST3),height(ST4)andheight(ST1)are alsoh(based on
+the balance factors).
+After applying the two phases of the right-left case rotations, we obtain the following situation:
+y 0
+x 0 z 0
+ST1 ST2 ST3 ST4
+Based on the heights ofST1,ST2,ST3andST4we can deduce the balance factors ofx,yandzas all being
+0. SinceST1,ST2,ST3andST4are AVL trees, the balance factors of all nodes in the tree are in{−1, 0, 1}.
+So the tree is now an AVL tree.
+Problem 5.Consider the following 2-3 Search Tree:
+4
+
+---PAGE_BREAK---
+
+0 4 812 16 18 23 25 40 59 65 7036 19 28 6015 51
+(a) Visualise the state of the tree after sequentially performing each of the following actions:
+i. Insert key 5
+ii. Insert key 62
+iii. Delete key 59
+iv. Insert key 10
+v. Delete key 40
+Note: We are only covering deletion if the key is a leaf node.
+(b) Convert the resulting 2-3 Search Tree from part (a) into the equivalent Left-Leaning Red-Black Tree.
+Solution
+(a) i. To insert key 5, we must first identify if it exists or not. This traversal of the tree will indicate
+where we can place key 5 if it is not present in the tree.
+0 4 812 16 18 23 25 40 59 65 7036 19 28 6015 51
+The orange-highlighted 2-Node is where key 5 can be inserted. Since it is a 2-Node, we can
+simply just add the new key by converting the leaf into a 3-Node.
+0 45 812 16 18 23 25 40 59 65 7036 19 28 6015 51
+ii. To insert key 62, we traverse down the tree to find it’s corresponding position. This path has
+been highlighted in the tree below.
+5
+
+---PAGE_BREAK---
+
+0 45 812 16 18 23 25 40 59 65 7036 19 28 6015 51
+We insert 62 into the 3-Node leaf, creating a 4-Node.
+0 45 812 16 18 23 25 40 59 62 65 7036 19 28 6015 51
+A 4-Node is not allowed to exist and we must remedy this by promoting the middle element of
+the 4-Node into the above level, whilst leaving the two remaining keys as individual 2-Nodes.
+In doing so every node now satisfies the constraints.
+0 45 812 16 18 23 25 40 59 62 7036 19 28 60 6515 51
+iii. To delete key 59, we must make sure to always maintain the invariant that the node we are
+currently processing is larger than a 2-Node. We start the traversal at the root, making sure it
+meets the criteria imposed by the invariant, which it does. We continue to traverse and reach
+the 3-Node containing keys 60 and 65.
+0 45 812 16 18 23 25 40 59 62 7036 19 28 60 6515 51
+Our next target cell to reach is the 2-Node containing key 59. However, we must maintain the
+invariant and therefore must do some adjustments. The immediate neighbour of 59 is a 2-
+Node and hence we can combine the two 2-Nodes and demote the current cell in the 3-Node
+we are in (key 60) into a 4-Node.
+6
+
+---PAGE_BREAK---
+
+0 45 812 16 18 23 25 40 59 60 62 7036 19 28 6515 51
+Finally, we can recurse into the leaf 4-Node. Since we are at a leaf and it is larger than a 2-Node,
+we can safely delete the target key.
+0 45 812 16 18 23 25 40 60 62 7036 19 28 6515 51
+iv. A simple traversal down the tree can determine where the key 10 should be inserted.
+0 45 812 16 18 23 25 40 60 62 7036 19 28 6515 51
+The highlighted path shows that the leaf is a 3-Node, hence an insertion will cause it to become
+a 4-Node.
+0 45 810 12 16 18 23 25 40 60 62 7036 19 28 6515 51
+To deal with this situation, we perform the insertion and then promote the middle element of
+the 4-Node into the above level. The remaining two nodes will become individual 2-Nodes.
+0 45 8 12 16 18 23 25 40 60 62 703610 19 28 6515 51
+7
+
+---PAGE_BREAK---
+
+We must make sure to recursively perform this adjustment until we are at the root.
+0 45 8 12 16 18 23 25 40 60 62 703 10 19 28 65615 51
+If the root also becomes a 4-Node, as is this case, we promote the middle element above as
+the new root. Note that this is the only way a 2-3 Search Tree gains height.
+0 45 8 12 16 18 23 25 40 60 62 703 10 19 28 656 5115
+v. Deleting key 40 will require to consider a series of unique cases in order to preserve the special
+rules of the 2-3 Search Tree. As in part iii. we must always process the node we intend to go to
+so that it is larger than a 2-Node. This processing also applies to the root before we start the
+recursion.
+0 45 8 12 16 18 23 25 40 60 62 703 10 19 28 65615 51
+Now that the root has been processed, we can begin at the root. The next node that allows us
+to reach key 40 is the 3-Node holding keys 19 and 28. Since this is already larger than a 2-Node,
+we can safely recurse into it.
+0 45 8 12 16 18 23 25 40 60 62 703 10 19 28 65615 51
+Next, we can directly access key 40. However, since this is a 2-Node we must make some ad-
+8
+
+---PAGE_BREAK---
+
+justments. The immediate sibling of key 40 is not another 2-Node. Because the immediate
+sibling is a 3-Node, we can rotate an element from it into the current node, which rotates an-
+other element into the 2-Node containing key 40. Specifically, we will move the largest key of
+the sibling into the current, and the largest key of the current into the target 2-Node.
+0 45 8 12 16 18 23 28 40 60 62 703 10 19 25 65615 51
+We can now recurse into the final leaf node and safely delete key 40.
+0 45 8 12 16 18 23 28 60 62 703 10 19 25 65615 51
+However, we must always make sure we fix any remaining 4-Nodes that may have formed as
+we exit the recursion. In this case, the root node remains a 4-Node and will be adjusted by
+promoting the middle element, key 15, to a higher level.
+0 45 8 12 16 18 23 28 60 62 703 10 19 25 656 5115
+(b) The 2-3 Search Tree can be converted to the Left Leaning Red-Black Tree shown below:
+9
+
+---PAGE_BREAK---
+
+0 5 8 12 19 28 62 70
+4 18 23 60
+163 10 25 656 5115
+Problem 6.Sequentially perform the following operations on an empty Left-Leaning Red-Black-Tree. For each
+operation; (1) draw the resulting Red-Black-Tree, (2) the equivalent 2-3 Search Tree, and (3) state the black height
+of the Red-Black-Tree
+(a) Insert key 40
+(b) Insert key 20
+(c) Insert key 5
+(d) Insert key 1
+(e) Insert key 32
+(f) Insert key 64
+(g) Insert key 13
+(h) Insert key 5
+(i) Insert key 38
+(j) Insert key 36
+Solution
+When performing insertions into a RBT all nodes are inserted as red nodes. We then might need to a
+sequence of left rotations, right rotations, or colour flips to maintain the properties of the tree. We keep
+recursively performing these back up to the root until all issues are fixed.
+(a) Inserting 40 we have a single red node.
+40
+When the root turns red we always turn it back to black.
+40
+The black height is 0 and below is the equivalent 2-3 Search Tree.
+10
+
+---PAGE_BREAK---
+
+40
+(b) Inserting 20 it becomes the left child of 40. No other action is needed.
+2040
+The black height is 0 and below is the equivalent 2-3 Search Tree.
+20 40
+(c) Inserting 5 it becomes the left child of 20.
+52040
+Examining 40 we see it has a red left child 20, and 20’s left child is also red. We perform a right
+rotation.
+5 4020
+Examining 20, we see that is has 2 red children, and thus the colours will be flipped.
+5 4020
+The root will be turned back to black.
+5 4020
+The black height is 1 and below is the equivalent 2-3 Search Tree.
+11
+
+---PAGE_BREAK---
+
+5 4020
+(d) Inserting 1 it becomes the left child of 5. No other action is needed.
+15 4020
+The black height is 1 and below is the equivalent 2-3 Search Tree.
+15 4020
+(e) Inserting 32 it becomes the left child of 40. No other action is needed.
+1 325 4020
+The black height is 1 and below is the equivalent 2-3 Search Tree.
+15 32 4020
+(f) Inserting 64 it becomes the right child of 40.
+1 32 645 4020
+Since 40 now has 2 red children the colours flip and 40 becomes red now.
+12
+
+---PAGE_BREAK---
+
+1 32 645 4020
+Now examining 20 we see that its only red child is a right child, we perform a left rotation.
+15 3220 6440
+The black height is 1 and below is the equivalent 2-3 Search Tree.
+15 32 6420 40
+(g) Inserting 13 it becomes the right child of 5.
+1 135 3220 6440
+Since 5 now has 2 red children the colours flip and 5 becomes red now.
+1 135 3220 6440
+Recursing up and examining 40 we see it has a red left child 20, and 20’s left child is also red. We
+13
+
+---PAGE_BREAK---
+
+perform a right rotation.
+1 13 32 645 4020
+Examining 20 now we see that it has 2 red children so the colours flip.
+1 13 32 645 4020
+Since 20 is the root it will turn to black.
+1 13 32 645 4020
+The black height is 2 and below is the equivalent 2-3 Search Tree.
+1 13 32 645 4020
+(h) Inserting 5, following the insertion path we notice the key already exists. The tree is unaltered.
+1 13 32 645 4020
+The black height is 2 and below is the equivalent 2-3 Search Tree.
+14
+
+---PAGE_BREAK---
+
+1 13 32 645 4020
+(i) Inserting 38 we see it becomes the right child of 32.
+3832 13 1 645 4020
+Since 32’s only red child is a right child, we perform a left rotation.
+3238 13 1 645 4020
+The black height is 2 and below is the equivalent 2-3 Search Tree.
+1 13 32 38 645 4020
+(j) Inserting 36 it becomes the right child of 32.
+15
+
+---PAGE_BREAK---
+
+363238 13 1 645 4020
+Since 32 only red child is a right child, we perform a left rotation.
+323638 13 1 645 4020
+Examining 38 we see that we see it has a red left child 36, and 36’s left child is also red. We perform
+a right rotation.
+32 3836 13 1 645 4020
+Since 36 has 2 red children the colour flip and we pass the red upwards.
+32 3836 13 1 645 4020
+The black height is 2 and below is the equivalent 2-3 Search Tree.
+16
+
+---PAGE_BREAK---
+
+1 13 32 38 645 36 4020
+The overall black height of the tree increases only when a red node is propagated up to the root, temporar-
+ily making the root red. However, since we immediately change the root back to black (without further
+modifying the colours of other nodes), the black height increases by 1. Keep in mind that the black height
+corresponds to the height of the equivalent 2-3 Search Tree. The colour changes in the Red-Black Tree
+mirror the process of passing up nodes in a 2-3 Search Tree. Eventually, the root of the 2-3 Search Tree
+temporarily becomes a 4-node, which then splits and promotes a node, increasing the tree’s height by
+one level.
+Problem 7.You are given a set of distinct keysx 1,x2, ...,x n.
+(a) Design an algorithm that creates a binary search tree of minimal height containing those keys inO(nlog(n))
+time.
+(b) Prove that your algorithm produces a BST of height at most log(n).
+(c) Prove that the fastest algorithm for this problem in the comparison-based model has time complexity
+Θ(nlog(n)).
+Solution
+(a) First we sort the keys, this takesO(nlog(n)). We take the median element of the sequence and
+insert it into a BST, then recursively do the same thing with the resulting left and right sublists. In
+the below code, we assume we have aNodeclass which contains a key, a left child, and a right child.
+We must sort the list before callingOPTIMAL_BST(x[1..n]).
+1:functionOPTIMAL_BST(x[1..n])
+2:ifxisemptythen return null
+3:mid=⌊n/2⌋
+4:root=Node(x[mid])
+5:root.left=OPTIMAL_BST(x[1..mid-1])
+6:root.right=OPTIMAL_BST(x[mid+1..n])
+7:returnroot
+(b) To prove that the height of the constructed tree is at most log(n), we write a recurrence for the
+height.
+H(n) =1+H¡n−1
+2¤
+≤1+Hn
+2
+Using telescoping,
+H(n)≤1+h
+1+Hn
+4i
+,
+≤2+h
+1+Hn
+8i
+,
+≤...,
+≤k+Hn
+2k
+.
+17
+
+---PAGE_BREAK---
+
+We know thatH(1) =0, so settingk=log(n), we obtain
+H(n)≤log(n) +H(1) =log(n)
+as required.
+(c) If we could construct any BST fromnkeys in faster thanO(nlog(n))time, we could then do an in-
+order traversal of the resulting BST to obtain the keys in sorted order. This means we could sort
+faster thanO(nlog(n)), butΩ(nlog(n))is a lower bound for comparison-based sorting, so such an
+algorithm is impossible.
+Supplementary Problems
+Problem 8.In the lecture recordings we claimed that AVL trees are good because the balance property guaran-
+tees that the tree always has heightO(log(n)). Let’s prove this.
+(a) Write a recurrence relation forn(h), theminimumnumber of nodes in an AVL tree of heighth.[Hint: It
+should be related to the Fibonacci numbers]
+(b) Find an exact solution to this recurrence relationship in terms of the Fibonacci numbers1.[Hint: Compare
+the sequence with the Fibonacci sequence, find a pattern, and then prove that your pattern is right using
+induction]
+(c) Prove using induction that the Fibonacci numbers satisfyF(h)≥1.5h−1for allh≥0
+(d) Using (a), (b), and (c), prove that a valid AVL tree withnelements has height at mostO(log(n))
+Solution
+Consider an AVL tree of heighthwhose root node has the two subtreesLandR. Suppose thatLandR
+have the same height. We could remove the nodes from the lowest level of one of the two subtrees, making
+them differ in height by one and it would still be a valid AVL tree with the same height. Therefore an AVL
+tree with the fewest possible nodes must haveLandRdiffering in height by one, hence they must have
+heightsh−1 andh−2. Lastly, note thatLandRmust also be AVL trees with the fewest possible nodes.
+Therefore the minimum number of nodes in an AVL tree satisfies the following recurrence relationship:
+n(h) =
+
+1 ifh=0,
+2 ifh=1,
+1+n(h−1) +n(h−2)ifh>0.
+This looks suspiciously similar to the Fibonacci sequence, so lets compare them:
+h 0 1 2 3 4 5 6 7 8
+F(h) 1 1 2 3 5 8 13 21 34
+n(h) 1 2 4 7 12 20 33 54 88
+This table strongly suggests the pattern
+n(h) =F(h+2)−1
+Let’s prove this by induction. We haven(0) =F(2)−1=1 andn(1) =F(3)−1=2 as required. Now suppose
+n(h) =F(h+2)−1 for allh≤kfor some value ofk. We need to show thatn(k+1) =F(k+3)−1. From
+the recurrence, we have
+n(k+1) =1+n(k) +n(k−1).
+1For this problem, index the Fibonacci numbers from zero with the base caseF(0) =F(1) =1.
+18
+
+---PAGE_BREAK---
+
+Invoking the inductive hypothesis, we can write
+n(k+1) =1+F(k+2)−1+F(k+1)−1,
+=F(k+2) +F(k+1)−1
+By the definition of Fibonacci numbers,F(k+2) +F(k+1) =F(k+3), hence we have
+n(k+1) =F(k+2) +F(k+1)−1,
+=F(k+3)−1,
+as required. Hence by strong induction onk, we haven(h) =F(h+2)−1 for allh.
+Next, we prove that the Fibonacci numbers have the desired bound. In the base case, we have
+F(0) =1≥1.5−1,F(1) =1≥1.50.
+Now, suppose thatF(h−1)≥1.5h−2andF(h)≥1.5h−1. We need to prove thatF(h+1)≥1.5h. From the
+definition of Fibonacci numbers, we have
+F(h+1) =F(h) +F(h−1),
+using the inductive hypothesis, we can write the bound
+F(h+1)≥1.5h−1+1.5h−2,
+=1.5×1.5h−2+1.5h−2,
+= (1.5+1)×1.5h−2,
+≥2.25×1.5h−2,
+= (1.5)2×1.5h−2,
+=1.5h.
+Therefore by induction onh, we haveF(h)≥1.5h−1for allh.
+Finally, combining the above, we haven(h) =F(h+2)−1≥1.5h+1−1. Rearranging, we find 1.5h+1≤
+n(h) +1, and hence
+h+1≤log1.5(n(h) +1) =⇒h=O(log(n)),
+as required.
+19

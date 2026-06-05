@@ -1,0 +1,704 @@
+[
+  {
+    "name": "Algorithms and\nData Structures\na b c\nd e",
+    "definition": "FIT2004\nAlgorithms and\nData Structures\na b c\nd e\nf g5 8\n21\n416\n4\n89\n10da\nfb\nec\ns0\n2\n4\n6 975\n7 10\n3\n2\n18\n5\n4 7\n69\nLast updated March 21, 2026\nThe original version of the course notes were developed by Daniel Anderson. Over the course of the years,\nadditions, removals and modifications were done by members of",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Analysis of Algorithms",
+    "definition": "original version of the course notes were developed by Daniel Anderson. Over the course of the years,\nadditions, removals and modifications were done by members of FIT2004\u2019s teaching teams including:\nNathan Companez, Rafael Dowsley, Pierre Le Bodic.\n\n---PAGE_BREAK---\n\n\n\n---PAGE_BREAK---\n\nContents\n1 Analysis of Algorithms 1\n1.1 Program Verification . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1\n1.1.1 Arguing Correctness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2\n1.1.2 Arguing Termination . . . . . . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "The solution to the recurrence relation",
+    "definition": "nclude that the time complexity of binary search isO(log(n)).\n1.2.1 Common Recurrence Relations\nWhen analysing the time and space complexity of our algorithms, we will frequently encounter\nsome very similar recurrence relationships whose solutions we should be able to recall.\nLogarithmic Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\nT\u0000n\n2\u0001\n+aifn>1,\nbifn=1,\nis given by\nT(n) =alog2(n) +b.\nThis is the complexity of binary search that we proved above.\n\n---PAGE_BREAK---\n\n6 1.3. Asymptotic Notation\nLinear Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\nT(n\u22121) +aifn>0,\nbifn=0,",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Linear Complexity\nThe solution to the recurrence relation",
+    "definition": "rrence relationships whose solutions we should be able to recall.\nLogarithmic Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\nT\u0000n\n2\u0001\n+aifn>1,\nbifn=1,\nis given by\nT(n) =alog2(n) +b.\nThis is the complexity of binary search that we proved above.\n\n---PAGE_BREAK---\n\n6 1.3. Asymptotic Notation\nLinear Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\nT(n\u22121) +aifn>0,\nbifn=0,\nis given by\nT(n) =a n+b,\nSuperlinear Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\n2T\u0000n\n2\u0001\n+a nifn>1,\nbifn=1,\nis given by\nT(n) =a nlog(n) +b n.\nThis is the complexity of many divide and conquer sor",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Superlinear Complexity\nThe solution to the recurrence relation",
+    "definition": "ence relation\nT(n) =\u00a8\nT\u0000n\n2\u0001\n+aifn>1,\nbifn=1,\nis given by\nT(n) =alog2(n) +b.\nThis is the complexity of binary search that we proved above.\n\n---PAGE_BREAK---\n\n6 1.3. Asymptotic Notation\nLinear Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\nT(n\u22121) +aifn>0,\nbifn=0,\nis given by\nT(n) =a n+b,\nSuperlinear Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\n2T\u0000n\n2\u0001\n+a nifn>1,\nbifn=1,\nis given by\nT(n) =a nlog(n) +b n.\nThis is the complexity of many divide and conquer sorting algorithms, such as Mergesort.\nQuadratic Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\nT(n\u22121) +c",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "The solution to the recurrence relation",
+    "definition": "nclude that the time complexity of binary search isO(log(n)).\n1.2.1 Common Recurrence Relations\nWhen analysing the time and space complexity of our algorithms, we will frequently encounter\nsome very similar recurrence relationships whose solutions we should be able to recall.\nLogarithmic Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\nT\u0000n\n2\u0001\n+aifn>1,\nbifn=1,\nis given by\nT(n) =alog2(n) +b.\nThis is the complexity of binary search that we proved above.\n\n---PAGE_BREAK---\n\n6 1.3. Asymptotic Notation\nLinear Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\nT(n\u22121) +aifn>0,\nbifn=0,",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Exponential Complexity\nThe solution to the recurrence relation",
+    "definition": "This is the complexity of many divide and conquer sorting algorithms, such as Mergesort.\nQuadratic Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\nT(n\u22121) +c nifn>0,\nbifn=0,\nis given by\nT(n) =c\u0081n(n+1)\n2\u008b\n+b.\nThis recurrence shows up for example, as the worst-case complexity of Quicksort.\nExponential Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\n2\u00d7T(n\u22121) +aifn>0,\nb, ifn=0,\nis given by\nT(n) = (a+b)\u00d72n\u2212a.\n1.3 Asymptotic Notation\nFollowing the framework advanced by Turing award winner Donald Knuth and that is the stan-\ndard in computer science, when analysing the complexity",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Big-O notation",
+    "definition": "urselves only with the order of magnitude of the running time for large values ofn. We express\ntime and space complexities in terms ofasymptotic notation, with which you should be fa-\nmiliar. We use the following notation throughout the course.\n\n---PAGE_BREAK---\n\nChapter 1. Analysis of Algorithms 7\nBig-O notation\nBig-O is the notation that we will use most frequently. Informally, big-O notation denotes an\nupper boundon the size of a function. That is,f(n) =O(g(n))meansf(n)is no bigger than\nthan order of magnitude ofg(n). Formally, we say thatf(n) =O(g(n))asn\u2192\u221eif there are\nconstantscandn 0such",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Complexity of randomised algorithms",
+    "definition": "definition instead: an algorithm is calledin placeif it does not store or\ncopy the input into any additional data structures, but modifies the input directly to produce\nthe output. More concretely, an algorithm is in place if it never stores more thanO(1)elements\nof the input outside of the input.\nComplexity of randomised algorithms\nThe use of randomisation is a powerful tool for algorithm designers. When the time taken by an\nalgorithm is influenced by random decisions, we typically analyse its time complexity in terms\nof itsexpected complexity, or we give analyses that holdwith high probabil",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Initial state of the invariants",
+    "definition": "ts.\nInvariant: Selection sort\nFor any value ofiin the main loop of selection sort, at the beginning of the iteration,\nthe following invariants hold:\n1.array[1..i\u22121]is sorted,\n2. For anyxinarray[1..i\u22121]andyinarray[i..n], x\u2264y.\nUsing these invariants, arguing the correctness of selection sort is easy.\nInitial state of the invariants\nInitially, wheni =1, the sorted part of the arrayarray[1..0]is empty, so the invariants trivially\nhold. Note that we will often use the notationarray[1..0](or similarlyarray[n+1..n]) to mean\nan empty array for convenience.\nMaintenance of the invariants\n\n---PAGE_BREAK-",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Maintenance of the invariants",
+    "definition": "g the correctness of selection sort is easy.\nInitial state of the invariants\nInitially, wheni =1, the sorted part of the arrayarray[1..0]is empty, so the invariants trivially\nhold. Note that we will often use the notationarray[1..0](or similarlyarray[n+1..n]) to mean\nan empty array for convenience.\nMaintenance of the invariants\n\n---PAGE_BREAK---\n\nChapter 1. Analysis of Algorithms 11\nAt each iteration of the main loop, we seek the minimumarray[j]fori\u2264j\u2264n. Since at the\nbeginning of iterationi, it is true thatarray[1..i\u22121]\u2264array[i..n], the value ofarray[min]is\nno smaller than anyx\u2208array[1..i\u22121],",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Termination",
+    "definition": "---\n\n\n\n---PAGE_BREAK---\n\nContents\n1 Analysis of Algorithms 1\n1.1 Program Verification . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1\n1.1.1 Arguing Correctness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2\n1.1.2 Arguing Termination . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n1.2 Complexity Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4\n1.2.1 Common Recurrence Relations . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Best case Average Case Worst Case",
+    "definition": "2).\nProof\nThe number of iterations performed isn- i for each i from 1 ton, therefore we perform\nnX\ni=1(n\u2212i) =n2\u2212nX\ni=1i\n=n2\u2212n(n+1)\n2\n=n2\u2212n\n2\n=O(n2)\ntotal operations.\nWe also only require one extra variable and some loop counters, so the amount of extra space\nrequired for selection sort is constant.\nBest case Average Case Worst Case\nTime O(n2) O(n2) O(n2)\nAuxiliary Space O(1) O(1) O(1)\n\n---PAGE_BREAK---\n\n12 1.5. Analysis of Basic Sorting Algorithms\n1.5.2 Insertion Sort\nInsertion sort is a very similar algorithm to selection sort, based on a similar butweakerin-\nvariant. The idea behind insertio",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Maintenance of the invariant",
+    "definition": "g the correctness of selection sort is easy.\nInitial state of the invariants\nInitially, wheni =1, the sorted part of the arrayarray[1..0]is empty, so the invariants trivially\nhold. Note that we will often use the notationarray[1..0](or similarlyarray[n+1..n]) to mean\nan empty array for convenience.\nMaintenance of the invariants\n\n---PAGE_BREAK---\n\nChapter 1. Analysis of Algorithms 11\nAt each iteration of the main loop, we seek the minimumarray[j]fori\u2264j\u2264n. Since at the\nbeginning of iterationi, it is true thatarray[1..i\u22121]\u2264array[i..n], the value ofarray[min]is\nno smaller than anyx\u2208array[1..i\u22121],",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Termination",
+    "definition": "---\n\n\n\n---PAGE_BREAK---\n\nContents\n1 Analysis of Algorithms 1\n1.1 Program Verification . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1\n1.1.1 Arguing Correctness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2\n1.1.2 Arguing Termination . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n1.2 Complexity Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4\n1.2.1 Common Recurrence Relations . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Time and space complexity of insertion sort",
+    "definition": "ither the\nloop conditionj>0 must eventually be false, or it will be the case thatarray[j]\u2264key. Since\nthe loop invariant was maintained wheni=n, it is true thatarray[1..n\u22121]is sorted at the\nbeginning of the last iteration. The final iteration insertsarray[n]into the correct position, so\nwe are done.\nTime and space complexity of insertion sort\nUnlike selection sort, insertion sort behaves differently depending on the contents of the array.\nSuppose we provide insertion sort with an already-sorted list. The inner loop will never iterate\nsince it will always be true thatarray[j\u22121]\u2264array[j]. Therefo",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Best case Average Case Worst Case",
+    "definition": "2).\nProof\nThe number of iterations performed isn- i for each i from 1 ton, therefore we perform\nnX\ni=1(n\u2212i) =n2\u2212nX\ni=1i\n=n2\u2212n(n+1)\n2\n=n2\u2212n\n2\n=O(n2)\ntotal operations.\nWe also only require one extra variable and some loop counters, so the amount of extra space\nrequired for selection sort is constant.\nBest case Average Case Worst Case\nTime O(n2) O(n2) O(n2)\nAuxiliary Space O(1) O(1) O(1)\n\n---PAGE_BREAK---\n\n12 1.5. Analysis of Basic Sorting Algorithms\n1.5.2 Insertion Sort\nInsertion sort is a very similar algorithm to selection sort, based on a similar butweakerin-\nvariant. The idea behind insertio",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Online Algorithms",
+    "definition": "stable-sorting the resulting list according to the main criterion.\nIn our example, sorting first according to the tie-breaker, i.e. alphabetically, we obtain\nAmir, Ana, Ava, Ben, Bo.\nThen stable-sorting by length will preserve the relative order of the namesAna,Ava, andBen:\nBo, Ana, Ava, Ben, Amir.\nOnline Algorithms\nAn algorithm (sorting or otherwise) is calledonlineif it can process its input sequentially with-\nout knowing it all in advance, as opposed to anofflinealgorithm which must know the entire\ninput in advance. Insertion sort is an example of an online sorting algorithm. If you only kn",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Divide and Conquer",
+    "definition": ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9\n1.5.2 Insertion Sort . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12\n1.5.3 Algorithms\u2019 Properties . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13\n2 Divide and Conquer 15\n2.1 Karatsuba\u2019s Multiplication Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15\n2.2 Merge Sort (Revision) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18\n2.3 Counting Inversions . . . . . . . . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "The trick is to note that",
+    "definition": "the termx L\u00b7yLthat is multiplied by no power of 10 (equivalently, multiplied by 100=1)\nis also still directly computed by the 2nd recursive call. But we need a trivial way to compute\n(xM\u00b7yL+x L\u00b7yM)given the results of the three recursive calls. Letz= (x M\u00b7yL+x L\u00b7yM)denote\nthe term we need to find.\nThe trick is to note that\n(xM+x L)\u00b7(y M+y L) =x M\u00b7yM+x M\u00b7yL+x L\u00b7yM+x L\u00b7yL\n=z+x M\u00b7yM+x L\u00b7yL.\nTherefore\nz= (x M+x L)\u00b7(y M+y L)\u2212x M\u00b7yM\u2212x L\u00b7yL\nand to obtain the desired termzwe just need to subtract the results of the 1st and 2nd recursive\ncalls from the result of the 3rd recursive call!\nWhere does this",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Therefore",
+    "definition": "sequently argue that the invariants are maintained throughout the\nalgorithm. When we first begin, we initialiselo=1,hi=n+1, so:\n1. Ifkey\u2208array, since the array is sorted,lo = 1implies thatarray[lo]is the minimum\nelement, and hencearray[lo]\u2264key.\n2. Initially,hi=n+1, so part 2 is satisfied vacuously.\nTherefore the invariant is true at the beginning of the binary search algorithm. As we perform\niterations of the main loop of the binary search, what happens to this invariant? At each step,\nwe computemid=\u230a(lo+hi)\u230b/2 and comparearray[mid]tokey. The conditional statement\nin the loop then enforces the",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Time and space complexity of merge sort",
+    "definition": "rt can be expressed like this. The recursive merge sort pseudocode is shown in\nAlgorithm 6.\nAlgorithm 6Merge sort\n1:functionMERGE_SORT(array[lo..hi])\n2:ifhi>lothen\n3:mid=\u230a(lo+hi)/2\u230b\n4: MERGE_SORT(array[lo..mid])\n5: MERGE_SORT(array[mid+1..hi])\n6:array[lo..hi]=MERGE(array[lo..mid], array[mid+1..hi])\nTime and space complexity of merge sort\nMerge sort repeatedly splits the input sequence in half until it can no longer do so any more.\nThe number of times that this can occur is log2(n), so the depth of the recurrence isO(log(n)).\nMergingnelements takesO(n)time, so doing this at each level of recurs",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Best case Average Case Worst Case",
+    "definition": "2).\nProof\nThe number of iterations performed isn- i for each i from 1 ton, therefore we perform\nnX\ni=1(n\u2212i) =n2\u2212nX\ni=1i\n=n2\u2212n(n+1)\n2\n=n2\u2212n\n2\n=O(n2)\ntotal operations.\nWe also only require one extra variable and some loop counters, so the amount of extra space\nrequired for selection sort is constant.\nBest case Average Case Worst Case\nTime O(n2) O(n2) O(n2)\nAuxiliary Space O(1) O(1) O(1)\n\n---PAGE_BREAK---\n\n12 1.5. Analysis of Basic Sorting Algorithms\n1.5.2 Insertion Sort\nInsertion sort is a very similar algorithm to selection sort, based on a similar butweakerin-\nvariant. The idea behind insertio",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Enhancements of merge sort",
+    "definition": "ase\nperformances for merge sort are equal. Although theMERGE_SORTroutine itself uses no extra\nspace, theMERGEroutine usesO(n)extra space, hence the auxiliary space complexity of merge\nsort isO(n).\nBest case Average Case Worst Case\nTime O(nlog(n)) O(nlog(n)) O(nlog(n))\nAuxiliary Space O(n) O(n) O(n)\nEnhancements of merge sort\nMerge sort can also be implementedbottom-up, in which we eliminate the recursion all-together\nand simply iteratively merge together the sub-arrays of size 1, 2, 4, 8, ...n. This still requiresO(n)\nauxiliary memory, but eliminates the use of the program stack (for recursion",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Fast Sorting Algorithms",
+    "definition": ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15\n2.2 Merge Sort (Revision) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18\n2.3 Counting Inversions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20\n3 Fast Sorting Algorithms 23\n3.1 Heapsort (Revision) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n3.2 Quicksort . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26\n3.3 Complexity Lower Bounds for S",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Time and space complexity of heapsort",
+    "definition": "placing it at the back of the array.\nAlgorithm 9Heapsort\n1:functionHEAPSORT(array[1..n])\n2: HEAPIFY(array[1..n])\n3:fori=nto1do\n4:array[i]=EXTRACT_MAX(array[1..i])\nThat\u2019s it! Of course you\u2019ll need to recall how to perform theHEAPIFYandEXTRACT_MAXopera-\ntions. They are provided below for convenience.\nTime and space complexity of heapsort\nSince heapsort performs oneHEAPIFYwhich takesO(n)time, andninvocations ofEXTRACT_MAX\ntaking up toO(log(n))time each, the total time spent by heapsort isO(nlog(n)). Note that the\nbehaviour of heapsort is independent of the structure of the input array, so its ave",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Best case Average Case Worst Case",
+    "definition": "2).\nProof\nThe number of iterations performed isn- i for each i from 1 ton, therefore we perform\nnX\ni=1(n\u2212i) =n2\u2212nX\ni=1i\n=n2\u2212n(n+1)\n2\n=n2\u2212n\n2\n=O(n2)\ntotal operations.\nWe also only require one extra variable and some loop counters, so the amount of extra space\nrequired for selection sort is constant.\nBest case Average Case Worst Case\nTime O(n2) O(n2) O(n2)\nAuxiliary Space O(1) O(1) O(1)\n\n---PAGE_BREAK---\n\n12 1.5. Analysis of Basic Sorting Algorithms\n1.5.2 Insertion Sort\nInsertion sort is a very similar algorithm to selection sort, based on a similar butweakerin-\nvariant. The idea behind insertio",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "The partitioning problem",
+    "definition": "s to correctly (and efficiently) imple-\nmenting Quicksort are:\n\u2022 the partitioning algorithm (how does the algorithm move elements lesser/greater than\nthe pivot to the left/right efficiently?)\n\u2022 how does the algorithm select the pivot element?\n\n---PAGE_BREAK---\n\nChapter 3. Fast Sorting Algorithms 27\nThe partitioning problem\nThe partitioning problem is central to Quicksort. The choice of partitioning algorithm affects\nwhether the algorithm is in-place and whether it is stable, and can also influence the worst-case\ntime complexity.\nNaive 3-way partition algorithm\nThe naive 3-way partitioning algo",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Hoare partition algorithm",
+    "definition": "pivot\nNaive 3-way partitioning takesO(n)time and is stable, which are both nice properties. How-\never, naive 3-way partitioning is not in-place since it stores allnelements in new arrays, using\nO(n)space. Creating extra arrays means that the algorithm will be slower in practice than al-\nternatives.\nHoare partition algorithm\nThe Hoare partition algorithm is the original partitioning algorithm described by C.A.R. Hoare,\nthe inventor of Quicksort. Hoare\u2019s partitioning scheme maintains two indices that begin at the\nstart and end of the subarray, which move towards each other while swapping element",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Dutch National Flag partition algorithm",
+    "definition": "o our first step is to swap the pivot to the first location so that we can\nhandle more general pivot selection rules later.\nThe Hoare partitioning scheme is in-place and can be shown to be very efficient in practice. Its\nmain disadvantage compared to the naive scheme is that it is no longer stable.\nDutch National Flag partition algorithm\nOne disadvantage of the Hoare scheme described above is that it can perform very badly when\nthere are many elements that are equal to the pivot. All elements equal to the pivot will end\nup in the left side of the partition, which will be very imbalanced if man",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Implementing Quicksort",
+    "definition": "case\n10:swap(array[mid],array[hi])\n11:hi-=1\n12:returnlo,mid\nNote that we return the final position of theloandmidpointers so that we can quickly iden-\ntify the locations of the three sections after the partitioning. Like Hoare, also notice that this\npartitioning process is unfortunately not stable.\nImplementing Quicksort\nWe now have the tools to describe Quicksort. Assume for now that we select the first element in\nthe range[lo..hi]to be our pivot. We will explore more complicated pivot selection rules later.\nUsing our partitioning functions and the fact that they return the resulting location",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Time and space complexity of Quicksort",
+    "definition": "ion of the pivot,\na pseudocode for Quicksort is described in Algorithm 18.\n\n---PAGE_BREAK---\n\n30 3.2. Quicksort\nAlgorithm 18Quicksort\n1:functionQUICKSORT(array[lo..hi])\n2:ifhi>lothen\n3:pivot=array[lo]\n4:mid=PARTITION(array[lo..hi],pivot)\n5: QUICKSORT(array[lo..mid\u22121])\n6: QUICKSORT(array[mid+1..hi])\nTime and space complexity of Quicksort\nThe running time of Quicksort is entirely dependent on the quality of the pivot that is selected\nat each stage. Ideally, the resulting partition will be balanced (contain roughly equal amounts\nof elements on each side) which will minimise the depth of recursion",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Best-case partition",
+    "definition": "ace complexity of Quicksort\nThe running time of Quicksort is entirely dependent on the quality of the pivot that is selected\nat each stage. Ideally, the resulting partition will be balanced (contain roughly equal amounts\nof elements on each side) which will minimise the depth of recursion required.\nBest-case partition\nIn the ideal case, the pivot turns out to be the median of the array. Recall that the median is the\nelement such that half of the array is less than it and half of the array is greater than it. This will\nresult in us only having log2(n)levels of recursion since the size of the ar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Worst-case partition",
+    "definition": "ss than it and half of the array is greater than it. This will\nresult in us only having log2(n)levels of recursion since the size of the array would be halved at\neach level. At each level, the partitioning takesO(n)total time, and hence the total runtime in\nthe best case for Quicksort isO(nlog(n)).\nWorst-case partition\nIn the worst case, the pivot element might be the smallest or largest element of the array. Sup-\npose we select the smallest element of the array as our pivot, then the size of the subproblems\nsolved recursively will be 0 andn\u22121. The size 0 problem requires no effort, but we wil",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Average case partition",
+    "definition": "The size 0 problem requires no effort, but we will have\nonly reduced the size of our remaining subproblem by one. We will therefore have to endure\nO(n)levels of recursion, on each of which we will performO(n)work to do the partition. In\ntotal, this yields a worst-case run time ofO(n2)for Quicksort.\nAverage case partition\nOn average, the partitions obtained by an arbitrary pivot will be neither a perfect median nor\nthe smallest or largest element. This means that on average, the splits should be \u201cokay.\u201d Our\nintuition should tell us that in the average case, Quicksort will take aO(nlog(n))runnin",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Multiply this equation bynto obtain",
+    "definition": "over all possible\n\n---PAGE_BREAK---\n\n32 3.2. Quicksort\npartitions, and hence\nE[T(n)] =n+1+1\nnnX\nk=1(E[T(k\u22121)] + E[T(n\u2212k)]),\nwhere the expectation is taken over all possible inputs. Observe that each termT(k\u22121)\nappears a total of twice for eachkin the sum, so we have\nE[T(n)] =n+1+2\nnnX\nk=1E[T(k\u22121)].\nMultiply this equation bynto obtain\nnE[T(n)] =n2+n+2nX\nk=1E[T(k\u22121)].\nNow substituten\u22121 fornand subtract the resulting equation from the above to find\nnE[T(n)]\u2212(n\u22121) E[T(n\u22121)] =n2+n\u2212(n\u22121)2\u2212(n\u22121) +2 E[T(n\u22121)].\nClean up with some algebra and we will get\nnE[T(n)] = (n+1) E[T(n\u22121)] +2n.\nDivide by(n+1)and",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Clean up with some algebra and we will get",
+    "definition": ")\nappears a total of twice for eachkin the sum, so we have\nE[T(n)] =n+1+2\nnnX\nk=1E[T(k\u22121)].\nMultiply this equation bynto obtain\nnE[T(n)] =n2+n+2nX\nk=1E[T(k\u22121)].\nNow substituten\u22121 fornand subtract the resulting equation from the above to find\nnE[T(n)]\u2212(n\u22121) E[T(n\u22121)] =n2+n\u2212(n\u22121)2\u2212(n\u22121) +2 E[T(n\u22121)].\nClean up with some algebra and we will get\nnE[T(n)] = (n+1) E[T(n\u22121)] +2n.\nDivide by(n+1)andnto find the recurrence\nE[T(n)]\nn+1=E[T(n\u22121)]\nn+2\nn+1.\nTelescoping the right hand side, we obtain\nE[T(n)]\nn+1=E[T(n\u22121)]\nn+2\nn+1.\n=E[T(n\u22122)]\nn\u22121+2\nn+2\nn+1\n=...\n=nX\nk=12\nk+1\nwhere we have stopped at the base ca",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Space complexity",
+    "definition": ") =T\u0010n\n2\u0011\n+a\n=alog2\u0010n\n2\u0011\n+b+a\n=a(log2(n)\u2212log2(2)) +b+a\n=alog2(n)\u2212a+b+a\n=alog2(n) +b\nas desired. Hence by induction onn, it is true that\nT(n) =alog2(n) +b.\nGiven this, we can conclude that the time complexity of binary search isO(log(n)).\n1.2.1 Common Recurrence Relations\nWhen analysing the time and space complexity of our algorithms, we will frequently encounter\nsome very similar recurrence relationships whose solutions we should be able to recall.\nLogarithmic Complexity\nThe solution to the recurrence relation\nT(n) =\u00a8\nT\u0000n\n2\u0001\n+aifn>1,\nbifn=1,\nis given by\nT(n) =alog2(n) +b.\nThis is the complexit",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Best case Average Case Worst Case",
+    "definition": "2).\nProof\nThe number of iterations performed isn- i for each i from 1 ton, therefore we perform\nnX\ni=1(n\u2212i) =n2\u2212nX\ni=1i\n=n2\u2212n(n+1)\n2\n=n2\u2212n\n2\n=O(n2)\ntotal operations.\nWe also only require one extra variable and some loop counters, so the amount of extra space\nrequired for selection sort is constant.\nBest case Average Case Worst Case\nTime O(n2) O(n2) O(n2)\nAuxiliary Space O(1) O(1) O(1)\n\n---PAGE_BREAK---\n\n12 1.5. Analysis of Basic Sorting Algorithms\n1.5.2 Insertion Sort\nInsertion sort is a very similar algorithm to selection sort, based on a similar butweakerin-\nvariant. The idea behind insertio",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Taking the logarithm of both sides yields",
+    "definition": "the height of the tree. There aren! total possible sorted orders for a sequence\nofnelements, each of which must appear as a leaf in the tree. Let\u2019s denote the height\nof the tree byhand observe that a binary tree of heighthcan not have more than 2h\nleaves. Putting this together, we have that\nn!\u22642h.\nTaking the logarithm of both sides yields\nh\u2265log2(n!).\nTo get a lower bound, let\u2019s use log laws to rewrite the quantity in question as\nlog2(n!) =log2(1\u00d72\u00d73\u00d7...\u00d7n) =log2(1) +log2(2) +log2(3) +...+log2(n).\nConsidering just the second half of the terms, since the log function is increasing, we\n\n---PAGE_",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Best case Average Case Worst Case",
+    "definition": "2).\nProof\nThe number of iterations performed isn- i for each i from 1 ton, therefore we perform\nnX\ni=1(n\u2212i) =n2\u2212nX\ni=1i\n=n2\u2212n(n+1)\n2\n=n2\u2212n\n2\n=O(n2)\ntotal operations.\nWe also only require one extra variable and some loop counters, so the amount of extra space\nrequired for selection sort is constant.\nBest case Average Case Worst Case\nTime O(n2) O(n2) O(n2)\nAuxiliary Space O(1) O(1) O(1)\n\n---PAGE_BREAK---\n\n12 1.5. Analysis of Basic Sorting Algorithms\n1.5.2 Insertion Sort\nInsertion sort is a very similar algorithm to selection sort, based on a similar butweakerin-\nvariant. The idea behind insertio",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Complexity of radix sort",
+    "definition": "find the best base for a given input.\nAn implementation of LSD radix sort is shown in Algorithm 20. Note that theRADIX_PASSfunc-\ntion is simply performing counting sort on a particular digit of the input. The function call\nGET_DIGIT(x,b,d) computes the value of thedthdigit in basebof the integerx.\nComplexity of radix sort\nLet\u2019s suppose that we are sortingnintegers that havekdigits in base-b. Radix sort will perform\nkpasses over the array, one for each digit, and perform a counting sort each time. Since we are\ninterpreting the integers in base-b, counting sort will sort over a universe of size",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Best case Average Case Worst Case",
+    "definition": "2).\nProof\nThe number of iterations performed isn- i for each i from 1 ton, therefore we perform\nnX\ni=1(n\u2212i) =n2\u2212nX\ni=1i\n=n2\u2212n(n+1)\n2\n=n2\u2212n\n2\n=O(n2)\ntotal operations.\nWe also only require one extra variable and some loop counters, so the amount of extra space\nrequired for selection sort is constant.\nBest case Average Case Worst Case\nTime O(n2) O(n2) O(n2)\nAuxiliary Space O(1) O(1) O(1)\n\n---PAGE_BREAK---\n\n12 1.5. Analysis of Basic Sorting Algorithms\n1.5.2 Insertion Sort\nInsertion sort is a very similar algorithm to selection sort, based on a similar butweakerin-\nvariant. The idea behind insertio",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Improving radix sort",
+    "definition": "t not in place since we use a tem-\nporary array for counting sort. Alternate implementations of radix sort can be written that are\nin place but not stable. In fact, it is even possible to write a stable, in-place radix sort, but it is\nextremely complicated and well beyond the scope of this course1.\nImproving radix sort\nSo how does radix sort compare to counting sort? Recall that counting sort can sort a sequence\nofnintegers of maximum valueO(n)in linear time. An important fact to notice is that for radix\nsort, the number of digits and the base are not independent, they are related. A larger ba",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Therefore we can write the complexity of radix sort more precisely as",
+    "definition": "that for radix\nsort, the number of digits and the base are not independent, they are related. A larger base will\nmean fewer digits to sort. Suppose that we wish to sort integers that arewbits wide, i.e. they\nhave maximum value 2w. Thenk, the number of digits, is related tob, the base by\nk=w\nlog(b).\nTherefore we can write the complexity of radix sort more precisely as\nO\u0081w\nlog(b)(n+b)\u008b\n.\n1See G Franceschini, S Muthukrishnan, M P \u02c7atra\u00b8 scu, Radix Sorting with No Extra Space,ESA 2007\n\n---PAGE_BREAK---\n\nChapter 3. Fast Sorting Algorithms 39\nComparing this to counting sort, let\u2019s say we choose a co",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Best case Average Case Worst Case",
+    "definition": "2).\nProof\nThe number of iterations performed isn- i for each i from 1 ton, therefore we perform\nnX\ni=1(n\u2212i) =n2\u2212nX\ni=1i\n=n2\u2212n(n+1)\n2\n=n2\u2212n\n2\n=O(n2)\ntotal operations.\nWe also only require one extra variable and some loop counters, so the amount of extra space\nrequired for selection sort is constant.\nBest case Average Case Worst Case\nTime O(n2) O(n2) O(n2)\nAuxiliary Space O(1) O(1) O(1)\n\n---PAGE_BREAK---\n\n12 1.5. Analysis of Basic Sorting Algorithms\n1.5.2 Insertion Sort\nInsertion sort is a very similar algorithm to selection sort, based on a similar butweakerin-\nvariant. The idea behind insertio",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Order Statistics and Selection",
+    "definition": ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35\n3.4.1 Counting Sort . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35\n3.4.2 Radix Sort . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36\n4 Order Statistics and Selection 41\n4.1 Order Statistics and the Selection Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41\n4.2 The Quickselect Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42\n4.3 Randomised Pivot Selection . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Quickselect will be",
+    "definition": "of generality that the array contains no duplicate elements and\ndenote byT(n)the time taken by Quickselect to select thekthorder statistic of an array\nof sizen. If the pivot selected is theithorder statistic of the array, then the time taken by\n\n---PAGE_BREAK---\n\n44 4.3. Randomised Pivot Selection\nQuickselect will be\nT(n,i) =n+1+\uf8f1\n\uf8f4\uf8f2\n\uf8f4\uf8f3T(n\u2212i)ifi<k,\n0 ifi=k,\nT(i\u22121)ifi>k.\nAveraging out over all possible pivot selections, we obtain an expected run time of\nE[T(n)] =n+1+1\nn\u0082k\u22121X\ni=1E[T(n\u2212i)] +nX\ni=k+1E[T(i\u22121)]\u008c\n.\nRearranging the indices of the sums, we find that this is the same as\nE[T(n)] =n+1+1",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Evaluating the sum using the fact thatnP",
+    "definition": "induction that E[T(n)]\u2264C n=O(n)for some constantC. First,\nwe have thatT(1) =2\u2264C nfor any choice ofC\u22652. Now suppose that E[T(n)]\u2264C ifor\nsome constantCfor alli<nfor some value ofn. We have that\nE[T(n)]\u2264n+1+2\nnn\u22121X\ni=n/2E[T(i)],\nwhich by our inductive hypothesis satisfies\nE[T(n)]\u2264n+1+2\nnn\u22121X\ni=n/2C i.\nEvaluating the sum using the fact thatnP\ni=1i=n(n+1)\n2, we find\nE[T(n)]\u2264n+1+2C\nn\u0012\nn(n\u22121)\n2\u2212n\n2(n\n2\u22121)\n2\u0013\n\u2264n+1+C(n\u22121)\u2212C\n2\u0010n\n2\u22121\u0011\n\u2264\u00813\n4C+1\u008b\nn+1\u2212C\n2.\nIf we chooseC=4 then we will have\nT(n)\u22644n\u22121\u22644n=C n\nas desired. Hence by induction onn, we have that E[T(n)] =O(n), completing the proof.\n\n---PAGE_BREAK--",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Improving Quicksort",
+    "definition": "by substi-\ntuting this inductive hypothesis\nT(N) =a N+T(0.2N) +T(0.7N)\n\u2264a N+0.2C N+0.7C N\n=a N+0.9C N.\nSince we chose the constantC\u226510a, we have that\nT(N)\u2264a N+0.9C N\u22640.1C N+0.9C N=C N,\nand hence by induction, for alln>0,\nT(n)\u2264C n=O(n).\n\n---PAGE_BREAK---\n\nChapter 4. Order Statistics and Selection 47\nImproving Quicksort\nFinally, we note that we can use this technique to improve Quicksort. If we use the median as\nQuicksort\u2019s pivot, which is sometimes referred to as Balanced Quicksort, we will get the mini-\nmum possible recursion depth, resulting in a guaranteed worst-caseO(nlog(n))performance!\nIn",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Graphs Basics",
+    "definition": ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42\n4.3 Randomised Pivot Selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43\n4.4 Median of Medians . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 45\n5 Graphs Basics 49\n5.1 Modelling with Graphs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49\n5.2 Representation and Storage of Graphs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 53\n5.3 Graph Traversal and Applications . . . . . . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Mark Fred\nBillBob Alice\nMaryIan JaneNick",
+    "definition": "AK---\n\n50 5.1. Modelling with Graphs\n\u2022 Are there any people in the network whom if removed would cause a pair of mutual friends\nto no longer be mutual friends? Such a vertex in a graph is called anarticulation pointor\ncut point.\nGraph and network algorithms can help us solve each of these problems.\nMark Fred\nBillBob Alice\nMaryIan JaneNick\nFigure 5.1: A graph representing a set of people who have connections with each other.\nGraphs can also beweighted.As another example, consider a road map of towns in the country,\nwhere each town is represented by a vertex, and roads between towns are represen",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Formal graph notation",
+    "definition": "ongest chain of prerequisites? I.e. assuming we could\nhandle as many courses at a time as we wanted, how many semesters would it take us to\ncomplete the degree? This is called thecritical path problem.\nOnce again, graph and network algorithms can help us solve all of these and many more prob-\nlems!\nFormal graph notation\nFormally, a graphGis defined by a pair of setsVandE, where:\n\u2022Vis the the set of vertices/nodes.\n\u2022Eis the set of edges/arcs, where an edgeeconnects two nodesuandv.\nThe number of vertices in a graph is usually either denoted by|V|, or asnorN. Sometimes\nwhen the distinction is obv",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Direction",
+    "definition": "This is called theshort-\nest path problem.\n\u2022 What is the overall shortest subset of roads that we could keep, removing all others while\nstill keeping every town connected? This is called theminimum spanning tree problem.\nEdges in a graph can also be directed, that is the relation only holds in one direction but not\nboth. For example, consider your courses that you are taking for your degree, which have pre-\n\n---PAGE_BREAK---\n\nChapter 5. Graphs Basics 51\nrequisites that must be completed first. We can model this with a graph, in which a course has\na directed edge to another course if the first",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Weights",
+    "definition": ". . . . . . . . . . . 67\n5.6 Incremental Graph Connectivity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67\n5.6.1 The Union-Find Disjoint-Set Data Structure . . . . . . . . . . . . . . . . . . . . . . 68\n6 Greedy Algorithms 73\n6.1 Shortest Path in Graphs with Non-negative Weights . . . . . . . . . . . . . . . . . . . . . . 73\n6.2 Minimum Spanning Trees . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 78\n6.2.1 Prim\u2019s Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 78\n6.2.2 Kruskal\u2019s Algorit",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Multigraphs and loops",
+    "definition": "sent for example, the distance between two towns in a road map, the band-\nwidth of a connection in an internet network, the amount of money that it would cost to con-\nnect two houses via fibre-optic cable, or anything else you can imagine. We will usually denote\nthe weight of the edge(u,v)byw(u,v).\nMultigraphs and loops\nDepending on the particular problem, it may be allowed or disallowed for a graph to contain\nmultiple edges between the same pair of vertices. A graph that does contain multiple edges\nbetween the same pair of vertices is usually referred to as amultigraph.\nSimilarly, for a parti",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Directed acyclic graph",
+    "definition": "Summary: Graphs Basics\nIn this chapter, we cover:\n\u2022 Modelling real-world problems with graphs and formal descriptions of graphs.\n\u2022 Representation and storage techniques for graphs.\n\u2022 Graph traversal algorithms with applications.\n\u2022 The concept of shortest paths.\n\u2022 The topological sorting problem of directed acyclic graphs (DAGs).\n\u2022 The incremental connectivity problem.\n\u2022 The union-find linked list data structure.\n5.1 Modelling with Graphs\nAt the most basic level, graphs tell us about relationships between pairs of objects. Graphs that\nmodel objects with particular attributes are often referred",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Considerations - Density of the graph",
+    "definition": "ected acyclic graph.\n5.2 Representation and Storage of Graphs\nThere are several options that we may choose from when it comes to actually storing a graph\nfor use in a computer program. The choice that we make will depend on the particular variety\nof graph and on the problem that we plan on solving.\nConsiderations - Density of the graph\nThe biggest factor that will influence our decision of how to store our graph will be itsdensity,\nwhich informally means does it have few edges or lots of edges. If we allow multiple edges\nbetween vertices, our graph can have an unbounded number of edges, so ass",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Some applications of depth-first search",
+    "definition": "ly once and examines every edge\nat most once (or twice for an undirected graph), its time complexity isO(|V|+|E|). Despite its\nsimplicity, the skeleton DFS algorithm forms the basis of a huge number of graph algorithms\nwith wide-ranging applications. We will now explore a few of these applications.\nSome applications of depth-first search\n\u2022 Finding the connected components of a graph \u2013 the connected components of a graph\nare the maximal connected subgraphs, that is, they are the subsets of vertices that are\nmutually connected, directly or indirectly.\n\u2022 Two-colouring a graph, or deciding that th",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Shortest paths have optimal sub-structure",
+    "definition": "path\nsince there may be multiple equally short paths between two vertices.\nBefore diving straight in to the algorithms, we\u2019ll first take a look at some useful properties that\nshortest paths have which will help us in understanding the algorithms and how they work.\n5.4.1 Properties of Shortest Paths\nShortest paths have optimal sub-structure\nThe first and most important observation that we can make about shortest paths is that they\ncontain massive amounts of sub-structure. Consider the graph in Figure 5.8. We can see that\n\n---PAGE_BREAK---\n\n62 5.4. Shortest Paths\nthe shortest path from 1\u21dd7 is th",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Disjoint set forests",
+    "definition": "each item in a set represents a vertex, and each union operation\nrepresents the addition of an edge which might connect two components. Checking whether\ntwo vertices are in the same connected component then reduces to checking whether they have\nthe same representative, i.e. whether FIND(u)=FIND(v).\nDisjoint set forests\nDisjoint set forests represent each set by a rooted tree, where each node represents one element\nand the root node of the tree is taken to be the representative element. For each node in the\nforest, all that we need to store is a pointer to its parent in its tree. If a node is a",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "The path compression technique",
+    "definition": "ome a subtree of the right tree. Figure source: CLRS\nAn implementation is depicted in Algorithm 34. So far, this is not very efficient, since a sequence\nof union operations may result in a long chain, which will make FINDoperations takeO(n)time\nper query. To improve this, we make two optimisations.\nThe path compression technique\nThe first technique that we can apply to speed up union-find ispath compression. The effect of\npath compression is very simple, whenever we perform the FINDoperation to locate the root\n\n---PAGE_BREAK---\n\n70 5.6. Incremental Graph Connectivity\nAlgorithm 34Union-find usi",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "The union-by-rank technique",
+    "definition": "total.\nAn implementation of FINDwith path compression is shown in Algorithm 35. By using recur-\nsion, path compression can be implemented cleverly in just one line!\nAlgorithm 35The FINDoperation using path compression\n1:functionFIND(x)\n2:ifparent[x]\u0338=xthenparent[x]=FIND(parent[x])\n3:returnparent[x]\nThe union-by-rank technique\nIn union by rank, we maintain arankfor each tree, which is an upper bound on the height of the\ntree. When merging two trees together, we choose to always make the tree with a smaller rank\na child of the tree with the larger rank. This results in more balanced trees since",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Combining path compression union by rank",
+    "definition": "rees since it encourages\nshorter tree to become the subtree of the larger one. It can be shown that with union by rank,\nthe worst-case cost of performingmoperations is alsoO(mlog(n)), i.e. at mostO(log(n))per\noperation in total.\nAn implementation of UNIONwith union by rank is shown in Algorithm 36.\nCombining path compression union by rank\nCombining both path compression and union-by-rank speeds up the data structure even more.\nIt can be shown that in the worst case, a sequence ofmoperations will costO(m\u03b1(n)), where\n\u03b1(n)is theinverse Ackermann function, an extremely slowly growing function. To",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Greedy Algorithms",
+    "definition": "ogical Sorting Using DFS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67\n5.6 Incremental Graph Connectivity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67\n5.6.1 The Union-Find Disjoint-Set Data Structure . . . . . . . . . . . . . . . . . . . . . . 68\n6 Greedy Algorithms 73\n6.1 Shortest Path in Graphs with Non-negative Weights . . . . . . . . . . . . . . . . . . . . . . 73\n6.2 Minimum Spanning Trees . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 78\n6.2.1 Prim\u2019s Algorithm . . . . . . . . . . . . . . . . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Dynamic Programming",
+    "definition": ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 78\n6.2.1 Prim\u2019s Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 78\n6.2.2 Kruskal\u2019s Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 80\n7 Dynamic Programming 83\n7.1 The Key Elements of Dynamic Programming . . . . . . . . . . . . . . . . . . . . . . . . . . . 83\n7.2 Top-down vs. Bottom-up Dynamic Programming . . . . . . . . . . . . . . . . . . . . . . . 87\n7.3 Reconstructing Optimal Solutions to Optimisation Problems . . . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Memoisation - Computing Fibonacci numbers",
+    "definition": "\u2022 The top-down approach vs. the bottom-up approach.\n\u2022 Reconstructing solutions to optimisation problems.\n\u2022 The unbounded knapsack problem.\n\u2022 The 0-1 knapsack problem.\n\u2022 Optimal matrix multiplication.\n\u2022 The edit distance problem.\n\u2022 The space-saving trick.\n7.1 The Key Elements of Dynamic Programming\nMemoisation - Computing Fibonacci numbers\nThe essence of dynamic programming is to solve a problem by breaking it into smaller subprob-\nlems and combining the solutions of those subproblems into a solution to the greater problem.\nIn contrast with the divide-and-conquer method which also employs the",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Dynamic programming solves problems that exhibit overlapping or repeated subprob-",
+    "definition": "the process of remembering the solutions to previously computed sub-\nproblems and storing them in a table for later lookup. If the same subproblem needs to\nbe computed multiple times, it need only be computed once, and then can be subse-\nquently looked up from the memo table at no additional cost.\nDynamic programming solves problems that exhibit overlapping or repeated subprob-\nlems by using memoisation to avoid doing redundant work.\nAlgorithm 43Memoised Fibonacci numbers\n1:functionFIBONACCI_MEMO(n)\n2:ifn\u22641then returnn//The base case\n3:ifmemo[n]=null then//Compute it for the first time\n4:memo",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Optimal substructure - The coin change problem",
+    "definition": "44.\nWe will explore the differences between the top-down and bottom-up approaches soon.\n\n---PAGE_BREAK---\n\n86 7.1. The Key Elements of Dynamic Programming\nAlgorithm 44Bottom-up Fibonacci numbers\n1:functionFIBONACCI(n)\n2:fib[0..n]=0\n3:fib[1]=1\n4:fori=2tondo\n5:fib[i]=fib[i\u22121]+fib[i\u22122]\n6:returnfib[n]\nOptimal substructure - The coin change problem\nA classic and very illustrative example of dynamic programming is the coin change problem.\nSuppose we have currency with denominationsc 1,c2, ...c nand we wish to make exactly $V.\nThere might be many ways to make this dollar amount. The coin change prob",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Identifying the subproblems",
+    "definition": "e exactly $V.\nThere might be many ways to make this dollar amount. The coin change problem is to find\nthe one that uses the fewest coins possible. For example, if the denominations are $1, $5, $6, $9\nthen the minimum amount of coins required to make $13 is three, using two $6 coins and one\n$1 coin.\nIdentifying the subproblems\nIn order for dynamic programming to be applicable, the problem must exhibitoptimal sub-\nstructure. This means that we can break the problem down into subproblems such that the\nsubproblems can be recombined to form a solution to the original problem. In contrast with\ndivid",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Deriving the recurrence",
+    "definition": "ins required to make exactly $v},\nfor all values ofvin 0\u2264v\u2264V. These subproblems exhibit optimal substructure since if the\noptimal solution for $Vincludes a coin of valuex, then the remaining coins must necessarily\nbe optimal for the value $(V\u2212x).\n\n---PAGE_BREAK---\n\nChapter 7. Dynamic Programming 87\nDeriving the recurrence\nNow that we have our subproblems, we write a recurrence relation that expresses the optimal\nsubstructure and encompasses all of the possible choices we could make, taking the best one. If\nwe use a coin of value $c iwhen trying to make $v, then we must recursively try to make",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Implementing a solution",
+    "definition": "]\u2264v(1+MinCoins[v - c[i]])otherwise\nWe include the base case MinCoins[0]=0 since the recurrence must terminate, and it takes\nzero coins to make zero dollars. We also write the infeasible case (returning\u221e) in case it is not\npossible to make some values, since there might not necessarily be a $1 coin.\nImplementing a solution\nWe can implement a top-down solution to coin change by implementing the recurrence relation\nabove as a recursive function. Your implementation might look like the pseudocode shown in\nAlgorithm 45. Note that we use memoisation to avoid computing a solution to a subproblem\ntwic",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Identifying the optimal subproblems",
+    "definition": "the first one, we can take as many of each kind of item as we want.\nThis is called theunboundedknapsack problem. In the second version, which we will cover\nnext, we can only take one of each kind.\nWe can solve the unbounded knapsack problem using dynamic programming. Let\u2019s walk through\nthe process.\nIdentifying the optimal subproblems\nThe unbounded knapsack problem is actually rather similar to the coin change problem. In\ncoin change, we were selecting coins such that made exactly $Vusing the fewest coins possible.\nNow we are selecting items that weigh at mostCkg that have the highest value pos",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Deriving a recurrence",
+    "definition": "aining(C\u2212x)kg of space with the most valuable items. This\nsubstructure is optimal since we always want to use the remaining(C\u2212x)kg optimally. This\nsuggests that our subproblems should be the following:\nMaxValue[c] ={The maximum value that we can fit in a capacity ofc}\nfor values ofcsuch that 0\u2264c\u2264C.\nDeriving a recurrence\nUsing the substructure that we derived above, we can write a recurrence for the unbounded\nknapsack problem like so:\nMaxValue[c] =(\n0 ifc<w ifor alli,\nmax\n1\u2264i\u2264n\nwi\u2264c(vi+MaxValue[c\u2212w i])otherwise.\nNotice that we do not need an infeasible case like we did for coin change since we",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Implementation of the unbounded knapsack problem",
+    "definition": "ed above, we can write a recurrence for the unbounded\nknapsack problem like so:\nMaxValue[c] =(\n0 ifc<w ifor alli,\nmax\n1\u2264i\u2264n\nwi\u2264c(vi+MaxValue[c\u2212w i])otherwise.\nNotice that we do not need an infeasible case like we did for coin change since we are not re-\nquiring that the knapsack be completely full.\nImplementation of the unbounded knapsack problem\nA bottom-up implementation of the unbounded knapsack dynamic program is shown in Al-\ngorithm 49. Note how extremely similar it ends up being to the bottom-up solution for coin\nchange.\n\n---PAGE_BREAK---\n\n92 7.5. The 0-1 Knapsack Problem\nAlgorithm 49Bot",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Identifying the optimal subproblems",
+    "definition": "the first one, we can take as many of each kind of item as we want.\nThis is called theunboundedknapsack problem. In the second version, which we will cover\nnext, we can only take one of each kind.\nWe can solve the unbounded knapsack problem using dynamic programming. Let\u2019s walk through\nthe process.\nIdentifying the optimal subproblems\nThe unbounded knapsack problem is actually rather similar to the coin change problem. In\ncoin change, we were selecting coins such that made exactly $Vusing the fewest coins possible.\nNow we are selecting items that weigh at mostCkg that have the highest value pos",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Deriving a recurrence",
+    "definition": "aining(C\u2212x)kg of space with the most valuable items. This\nsubstructure is optimal since we always want to use the remaining(C\u2212x)kg optimally. This\nsuggests that our subproblems should be the following:\nMaxValue[c] ={The maximum value that we can fit in a capacity ofc}\nfor values ofcsuch that 0\u2264c\u2264C.\nDeriving a recurrence\nUsing the substructure that we derived above, we can write a recurrence for the unbounded\nknapsack problem like so:\nMaxValue[c] =(\n0 ifc<w ifor alli,\nmax\n1\u2264i\u2264n\nwi\u2264c(vi+MaxValue[c\u2212w i])otherwise.\nNotice that we do not need an infeasible case like we did for coin change since we",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Deriving a recurrence",
+    "definition": "aining(C\u2212x)kg of space with the most valuable items. This\nsubstructure is optimal since we always want to use the remaining(C\u2212x)kg optimally. This\nsuggests that our subproblems should be the following:\nMaxValue[c] ={The maximum value that we can fit in a capacity ofc}\nfor values ofcsuch that 0\u2264c\u2264C.\nDeriving a recurrence\nUsing the substructure that we derived above, we can write a recurrence for the unbounded\nknapsack problem like so:\nMaxValue[c] =(\n0 ifc<w ifor alli,\nmax\n1\u2264i\u2264n\nwi\u2264c(vi+MaxValue[c\u2212w i])otherwise.\nNotice that we do not need an infeasible case like we did for coin change since we",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Implementation of edit distance",
+    "definition": "]to denote an indicator variable forS 1[i]\u0338=S 2[j]. In other\nwords, it equals one ifS 1[i]\u0338=S 2[j], or zero otherwise. The base cases should be easy to under-\nstand. If one of the two strings is empty, then an optimal alignment simply consists of inserting\nall of the characters of the other string.\nImplementation of edit distance\nA bottom-up implementation of the dynamic programming solution for the edit distance prob-\nlem is shown in Algorithm 51. We note that the order in which we must compute the subprob-\nlems corresponds to prefixes of increasing length since each subproblem depends only o",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Constructing an optimal alignment",
+    "definition": "51Bottom-up edit distance\n1:functionEDIT_DISTANCE(S1[1..n],S2[1..m])\n2:Dist[0..n][0..m]=0\n3:Dist[1..n][0]=1..n\n4:Dist[0][1..m]=1..m\n5:fori=1tondo\n6:forj=1tomdo\n7:ifS1[i]=S2[j]then\n8:Dist[i][j] =Dist[i-1][j-1]\n9:else\n10:Dist[i][j] =min(Dist[i-1][j-1],Dist[i-1][j],Dist[i][j-1])+1\n11:returnDist[n][m]\nConstructing an optimal alignment\nIn order to construct the alignment for the stringsS 1andS 2, we need to backtrack through the\ndynamic programming subproblems fromDist[n,m]toDist[0, 0], examining the choices that\nwere made along the way. The following function shown in Algorithm 52 takes the fille",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Identifying the optimal subproblems",
+    "definition": "the first one, we can take as many of each kind of item as we want.\nThis is called theunboundedknapsack problem. In the second version, which we will cover\nnext, we can only take one of each kind.\nWe can solve the unbounded knapsack problem using dynamic programming. Let\u2019s walk through\nthe process.\nIdentifying the optimal subproblems\nThe unbounded knapsack problem is actually rather similar to the coin change problem. In\ncoin change, we were selecting coins such that made exactly $Vusing the fewest coins possible.\nNow we are selecting items that weigh at mostCkg that have the highest value pos",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Result of multiplying",
+    "definition": "fnmatricesA 1,A2,A3,A4, ...A nto be multiplied (assume that they are of\nvalid dimensions to be multiplied.) Think about the final multiplication that happens in the\n\n---PAGE_BREAK---\n\n98 7.7. Matrix Multiplication\nsequence. This multiplication must be the product of two matrices\n(A1\u00d7A 2...\u00d7A k)|{z}\nResult of multiplying\nmatrices 1 tok\u00d7(A k+1\u00d7A k+2\u00d7...\u00d7A n)|{z }\nResult of multiplying\nmatricesk+1 ton,\nwhere(A 1\u00d7A 2...\u00d7A k)and(A k+1\u00d7A k+2\u00d7...\u00d7A n)were multiplied earlier. If this is the optimal\norder in which to multiply the matrices, then the two subproblems of multiplying(A 1\u00d7A 2...\u00d7A k)\nand(A k",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Result of multiplying",
+    "definition": "fnmatricesA 1,A2,A3,A4, ...A nto be multiplied (assume that they are of\nvalid dimensions to be multiplied.) Think about the final multiplication that happens in the\n\n---PAGE_BREAK---\n\n98 7.7. Matrix Multiplication\nsequence. This multiplication must be the product of two matrices\n(A1\u00d7A 2...\u00d7A k)|{z}\nResult of multiplying\nmatrices 1 tok\u00d7(A k+1\u00d7A k+2\u00d7...\u00d7A n)|{z }\nResult of multiplying\nmatricesk+1 ton,\nwhere(A 1\u00d7A 2...\u00d7A k)and(A k+1\u00d7A k+2\u00d7...\u00d7A n)were multiplied earlier. If this is the optimal\norder in which to multiply the matrices, then the two subproblems of multiplying(A 1\u00d7A 2...\u00d7A k)\nand(A k",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Deriving a recurrence",
+    "definition": "aining(C\u2212x)kg of space with the most valuable items. This\nsubstructure is optimal since we always want to use the remaining(C\u2212x)kg optimally. This\nsuggests that our subproblems should be the following:\nMaxValue[c] ={The maximum value that we can fit in a capacity ofc}\nfor values ofcsuch that 0\u2264c\u2264C.\nDeriving a recurrence\nUsing the substructure that we derived above, we can write a recurrence for the unbounded\nknapsack problem like so:\nMaxValue[c] =(\n0 ifc<w ifor alli,\nmax\n1\u2264i\u2264n\nwi\u2264c(vi+MaxValue[c\u2212w i])otherwise.\nNotice that we do not need an infeasible case like we did for coin change since we",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Implementation of optimal matrix multiplication",
+    "definition": "ut defining DP[i,j]forj<isince it does not\nmake sense to have reversed intervals. With this recurrence, the answer to the entire problem is\nDP[1,n], the optimal number of scalar multiplications required to multiply the entire sequence\nA1\u00d7...\u00d7A n.\n\n---PAGE_BREAK---\n\nChapter 7. Dynamic Programming 99\nImplementation of optimal matrix multiplication\nLet\u2019s write a bottom-up solution to optimal matrix multiplication. First, we must consider the\norder in which the subproblems depend on each-other. For each subproblem DP[i,j], we need\nto have already computed the values of DP[i,k]and DP[k+1,j]for alli",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Dynamic Programming Graph Algo-\nrithms",
+    "definition": "s reduces the space com-\nplexity of the edit distance and knapsack problems toO(min(n,m))andO(C)respectively. Of\ncourse, we have to remember that if we employ the space-saving trick, we can no longer back-\ntrack through the subproblems to construct the optimal solution.\n\n---PAGE_BREAK---\n\nChapter 8\nDynamic Programming Graph Algo-\nrithms\nIn this section, we will study dynamic programming graph algorithms. Dynamic programming\ncan, for instance, be used to solve the shortest path problem with negative weights.\nSummary: Dynamic Programming Graph Algorithms\nIn this chapter, we cover:\n\u2022 The Bellman-",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "The recursive formula for dynamic programming is then",
+    "definition": "rce nodes, letOPT[i,v]denote the minimum weight of as\u21ddvpath with at mosti\nedges. LetPbe an optimal path with at mostiedges that achieves total weightOPT[i,v]:\n\u2022 IfPhas at mosti\u22121 edges, thenOPT[i,v] =OPT[i\u22121,v].\n\u2022 IfPhas exactlyiedges and(u,v)is the last edge ofP, thenOPT[i,v] =OPT[i\u22121,u] +\nw(u,v).\nThe recursive formula for dynamic programming is then\nOPT[i,v] =min\u0081\nOPT[i\u22121,v], min\nu:(u,v)\u2208E(OPT[i\u22121,u] +w(u,v) )\u008b\n.\nTo obtain the shortest paths we just need to computeOPT[|V|\u22121,v]for all verticesv\u2208V.\nCommonly, a more space-efficient version of Bellman-Ford algorithm is implemented (in some\ncases",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Correctness of Bellman-Ford",
+    "definition": "erations, the inner loop runs for|E|iterations, and each relaxation takesO(1), so the\ntotal time taken isO(|V||E|).\nAlgorithm 54Bellman-Ford\n1:functionBELLMAN_FORD(G= (V,E),s)\n2:dist[1..n]=\u221e\n3:pred[1..n]=null\n4:dist[s]=0\n5:fork=1ton\u22121do\n6:for eachedgeeinEdo\n7: RELAX(e)\n8:returndist[1..n],pred[1..n]\nCorrectness of Bellman-Ford\nThe key to establishing the correctness of Bellman-Ford lies in a simple property about paths\nin graphs. We write a formal proof of correctness using induction.\nTheorem: Correctness of Bellman-Ford\nThe Bellman-Ford algorithm terminates with the correct distance estimates",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Dealing with negative cycles",
+    "definition": "orrect since\u03b4(s,v) =\u03b4(s,u) +w(u,v)=dist[u]+w(u,v).\nHence by induction on the number of edges in the shortest paths, all valid shortest paths\nconsisting of at mostkedges are correctly estimated afterkiterations. Therefore the\nBellman-Ford algorithm terminates correctly after at most|V|\u22121 iterations.\nDealing with negative cycles\nAn important problem that needs to be addressed is how to deal with the existence of negative\ncycles. As mentioned earlier, the presence of a negative cycle may cause the shortest path to\na particular vertex to become undefined since there may exist paths of arbitrarily",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Optimising Bellman-Ford",
+    "definition": "negative cycle and hence does not have a\nshortest path.\n3. The correct distance if the vertex has a well-defined shortest path.\nNote that thepredarray may contain cycles if there are negative cycles present, so do not at-\ntempt to reconstruct shortest paths to vertices whose distance is undefined!\nOptimising Bellman-Ford\nThere are some simple optimisations that can be made to Bellman-Ford that improve its run-\nning time:\n\n---PAGE_BREAK---\n\n104 8.2. The All-Pairs Shortest Path Problem\n1. During the iterations of the mainkloop, if no relaxations are successful, then the shortest\npaths have alre",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Correctness of Floyd-Warshall",
+    "definition": "ellman-Ford, Floyd-Warshall can handle negative weights just fine,\nand can also detect the presence of negative weight cycles. To detect negative weight cycles,\nsimply inspect the diagonal entries of the dist matrix. If a vertexvhasdist[v][v]<0, then it\nmust be contained in a negative weight cycle.\nCorrectness of Floyd-Warshall\nTheorem: Correctness of Floyd-Warshall\nFloyd-Warshall produces the correct distances for all pairs of vertices(u,v)such that\nthere exists a shortest path betweenuandv.\n\n---PAGE_BREAK---\n\n106 8.3. Transitive Closure\nProof\nWe will establish the following invariant: Afterk",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Network Flow",
+    "definition": ". . . . . . . . . . . . . . . . . . . . . . . . . . . . 104\n8.3 Transitive Closure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106\n8.4 The Critical Path Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107\n9 Network Flow 109\n9.1 The Ford-Fulkerson Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 111\n9.1.1 The Residual Network . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 112\n9.1.2 Augmenting Paths . . . . . . . . . . . . . . . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Network Flow Problems",
+    "definition": "rk Flow\nIn this chapter, we cover:\n\u2022 Network flow and the maximum flow problem.\n\u2022 The Ford-Fulkerson algorithm for maximum flow.\n\u2022 The minimum cut problem.\n\u2022 The min-cut max-flow theorem.\n\u2022 The bipartite matching problem and its solution using max flow.\n\u2022 Circulations with demands and lower bounds.\nNetwork Flow Problems\nConsider a road network consisting of towns connected by roads, along each of which a com-\npany can send up to a certain number of trucks per day. Our trucking company wants to know\nthe maximum number of trucks that they can send per day fromstotif they distribute them\noptimall",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Mathematical formulation as a linear program",
+    "definition": "hich the flow is produced, and the \u201csink\u201d ,\nthe location at which the flow is consumed. The problem that we will consider is themaximum\nnetwork flowproblem, or max-flow for short, where we are interesting in maximising the total\namount of flow that can be sent from the source node to the sink node.\nMathematical formulation as a linear program\nThe intuitive definition and examples above are more than enough to understand the maximum\nflow problem and the algorithms that we\u2019ll cover to solve it, but for completeness, here is the\nformal definition.\n\n---PAGE_BREAK---\n\nChapter 9. Network Flow 111\nPr",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "The method",
+    "definition": "in a DAG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 108\n59 Ford-Fulkerson method . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114\n60 Ford-Fulkerson implemented using depth-first search . . . . . . . . . . . . . . . . . . . . 115\n61 The method to solve the circulation with demands problem . . . . . . . . . . . . . . . . 125\n62 Prefix trie: Insertion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 153\n63 Prefix trie: Lookup . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Time Complexity",
+    "definition": "iscorrect, and determining\nthe amount ofresources(time and space) used by the algorithm.\nSummary: Analysis of Algorithms : Part I\nIn this chapter, we cover:\n\u2022 What it means to analyse an algorithm.\n\u2022 Proving correctness of an algorithm.\n\u2022 An analysis of binary search as an example.\n\u2022 Analysing the time complexity of an algorithm.\n\u2022 Recurrence relations, asymptotic notation, and complexity.\n\u2022 Analysing basic sorting algorithms using these invariants.\n\u2022 Strong and weak loop invariants.\n\u2022 Best, average and worst-case performance of simple sorting algorithms.\n1.1 Program Verification\nProgram veri",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Proof",
+    "definition": "ve three\nthings:\n1. Initialisation: We must prove that the invariants hold at the beginning.\n2. Maintenance: We must prove that the invariants remain true throughout the algorithm.\n3. Termination: We must prove that the invariants at termination imply correctness of the\nalgorithm.\nWe will argue the proof in two parts. First we will show binary search is correct if the key that\nwe are searching for is in the array. Then we will prove that it is correct when the key is not in\nthe array.\n1Here we are considering that the keys are unique, but it is also possible to analyse the correctness of binar",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Search Trees",
+    "definition": "ow Theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 117\n9.3 Bipartite Matching . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 118\n9.4 Circulations with Demands and Lower Bounds . . . . . . . . . . . . . . . . . . . . . . . . . 121\n10 Search Trees 129\n10.1 Binary Search Trees . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129\n10.2 AVL Trees . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 130\n10.3 2-3 Trees . . . . . . . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Rebalancing",
+    "definition": "balanced implies\nthat lookup, insertion and deletion can all be performed in worst-caseO(log(n))time.\nAn example of a balanced tree according to the AVL criteria:\n3\n2 5\n1 4 6\nAn example of an imbalanced tree according to the AVL criteria:\n3\n2 5\n4 6\n7\n\n---PAGE_BREAK---\n\nChapter 10. Search Trees 131\nRebalancing\nAVL Trees maintain balance by performingrotationswhenever an insertion or deletion opera-\ntion violates the balance property. Rotations move some of the elements of the tree around in\norder to restore balance. We define thebalance factorof a node to be the difference between\nthe heights",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Prefix Tries and Suffix Trees",
+    "definition": ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 134\n10.4 Red-Black Trees . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140\n10.5 Comparing AVL and Red-Black Trees . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 149\n11 Prefix Tries and Suffix Trees 151\n11.1 The Prefix Trie/Retrieval Tree Data Structure . . . . . . . . . . . . . . . . . . . . . . . . . . 151\n\n---PAGE_BREAK---\n\n11.1.1 Applications of Tries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 152\n11.2 Suffix Trees . . . . .",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "String Terminology",
+    "definition": "the suffix\ntree, as well as a related data structure, the prefix trie/retrieval tree data structure which allows\nfor fast storage and lookup of strings.\nSummary: Prefix Tries and Suffix Trees\nIn this chapter, we cover:\n\u2022 Retrieval Trees/Prefix Tries.\n\u2022 Suffix trees.\n\u2022 Applications of suffix trees.\nString Terminology\nRecall that astring S[1..n]is a sequence of characters, i.e. some textual data.\n1. AsubstringofSis a stringS[i..j]where 1\u2264i\u2264j\u2264n.\n2. AprefixofSis a substringS[1..j]where 1\u2264j\u2264n.\n3. AsuffixofSis a substringS[i..n]where 1\u2264i\u2264n.\nA useful observation to make is that a substring ofSis alw",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Sorting a list of strings",
+    "definition": "g a prefix trie takesO(|\u03a3|T)time, and lookup takesO(n)time, which are optimal if|\u03a3|is\nconstant.\nAlgorithm 62Prefix trie: Insertion\n1:functionINSERT(S[1..n])\n2:node=root\n3:for eachcharactercinS[1..n]do\n4:ifnodehas an edge for charactercthen\n5:node=node.get_child(c)\n6:else\n7:node=node.create_child(c)\nSorting a list of strings\nWe can use a prefix trie to quickly sort a list of strings coming from a fixed size alphabet. Simply\ninsert all of the strings into a prefix trie, and then traverse the trie in lexicographical order. Us-\ning the array-based implementation, the complexity of this algorithm i",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Compact Tries",
+    "definition": "with \u2018$\u2019then//We are at the end of a string\n8:print(cur_string)//Can omit printing the \u2018$\u2019 character\n9:else\n10:for eachchild charactercof node in alphabetical orderdo\n11:cur_string.append(c)\n12: TRAVERSE(node.get_child(c),cur_string)\n13:cur_string.pop_back()//Remove the last character of cur_string\nCompact Tries\nOne major drawback to tries that we have observed is that they can potentially waste a lot of\nmemory, particularly if they contain long non-branching paths (paths where each node only\nhas one child). In cases like these, we can make prefix tries more efficient by combining the\nedges al",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "The naive approach",
+    "definition": "osition in the original string.\nFor example, the substring \u201cna\u201d in \u201cbanana$\u201d would simply be represented as[3, 4], meaning\nthat it is the substring spanning the positions 3 to 4 in the string \u201cbana na$\u201d .\n\n---PAGE_BREAK---\n\nChapter 11. Prefix Tries and Suffix Trees 157\n11.2.1 Building a Suffix Tree\nThe naive approach\nThe simplest way to build a suffix tree is to build the suffix trie inO(n2)and then compress it\ninto a suffix tree. This is simple to implement but is unfortunately useless in practice due to the\npoor time complexity.\nUkkonen\u2019s algorithm (Not examinable in Semester One, 2026)\nA ve",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "Pattern matching",
+    "definition": "ranching path into a single edge. TheRadix Trieand thePATRICIA Trieare\nparticular kinds of compact prefix tries. Figure 11.2 shows an example of a compact trie.\n11.2 Suffix Trees\nA suffix tree is a compact trie containing all of the suffixes of a string. We motivate suffix trees\nas a solution to thepattern matchingproblem.\n\n---PAGE_BREAK---\n\nChapter 11. Prefix Tries and Suffix Trees 155\nFigure 11.2: A compact trie containingbe,ant,alloy,ate,are,aloe,an,allot,all. No\nterminating character $ has been added in this example.\nProblem Statement: Pattern matching\nGiven a text stringT[1..n]and a patte",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  },
+  {
+    "name": "The longest repeated substring problem",
+    "definition": "(m)time, we can also use\nthe suffix tree for pattern matching in exactly the same way. The implementation is a little more\ninvolved since traversing the suffix tree along the edges requires more work (to check that each\ncharacter along the edge is a match), but the idea and complexity are the same.\nThe longest repeated substring problem\nProblem Statement: Longest repeated substring\nGiven a stringS[1..n], find the longest substring ofSthat occurs at least two times.\nTo solve this problem, we recall that within a prefix trie and equivalently a suffix tree, internal\nnodes correspond precisely to",
+    "weekRef": null,
+    "relatedAlgorithmIds": []
+  }
+]

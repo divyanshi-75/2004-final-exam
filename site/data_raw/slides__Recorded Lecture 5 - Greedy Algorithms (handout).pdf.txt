@@ -1,0 +1,2447 @@
+Faculty of Information Technology, 
+ Monash University 
+
+---PAGE_BREAK---
+
+FIT2004: Algorithms and Data 
+Structures 
+Week 5: Greedy (Graph) Algorithms 
+
+---PAGE_BREAK---
+
+Overview 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms o Last Lecture 
+o Introduction to Graphs 
+o Graph Traversal Algorithms 
+o Today’s Lecture 
+o Dijkstra’s Algorithm 
+o Prim’s Algorithm 
+o Kruskal’s Algorithm 
+Divide and 
+conquer 
+(W 1-3) 
+Greedy 
+algorithms 
+(W 4-5) 
+Dynamic 
+programming 
+(W 6-7) 
+Network flow 
+(W 8-9) 
+Data 
+structures 
+(W 10-11) 
+
+---PAGE_BREAK---
+
+Greedy Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oGreedy paradigm for algorithms: make a locally optimal  choice at each stage 
+and commit to it. 
+oOften it is easy to come up with ideas to solve a problem using a greedy 
+strategy, but in many cases the proposed greedy algorithm does not find the 
+overall optimal solution for the problem. 
+oCorrectness proofs are very important . 
+oToday we will take a look at three very important greedy algorithms: 
+oDijkstra’s algorithm solves the shortest path problem in graphs with non-negative weights. 
+oPrim’s and Kruskal’s algorithms present two different ways to find a minimum spanning tree of a 
+graph (an important problem for which there are actually multiple distinct greedy strategies that 
+work fine). 
+
+
+---PAGE_BREAK---
+
+Outline 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 1. Dijkstra’s Algorithm 
+2. Prim’s Algorithm 
+3. Kruskal’s Algorithm 
+
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 
+oAlgorithm for solving the single source, all targets shortest path problem on 
+graphs with non-negative weights . Closely related to BFS. 
+oIt keeps track of a set S of nodes whose distance to the source has already 
+been determined. 
+oInitially S only contains the source node, and it grows by one element at a 
+time until containing all nodes that are reachable from the source node. 
+oAt each iteration, from all nodes that are one edge away from S, add to S the 
+node u that has the smallest distance to the source .
+oBy doing so, the overall effect is that the nodes will be added to S in 
+increasing order of distance to the source (as we will see soon).  
+
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms CB
+ED
+A10
+52 31
+9
+24 6
+Edsger W. Dijkstra 
+Turing Award 1972 
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms CB
+A10
+5010?
+5?
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms CB
+ED
+A10
+53 9
+20
+510?
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms CB
+ED
+A10
+53 9
+20
+514? 8?
+7?
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 Inf Inf Inf InfA B C D E
+- - - - -A B C D E
+0 Inf Inf Inf InfQ is a priority queue, where 
+priority is based on distance 
+Pred and Dist are the usual 
+ID-indexed arrays u:
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 Inf Inf Inf InfB C D E
+Inf Inf Inf InfQ is a priority queue, where 
+priority is based on distance 
+Pred and Dist are the usual 
+ID-indexed arrays u:A
+A B C D E
+- - - - -0
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 Inf Inf Inf InfB C D E
+Inf Inf Inf Infu:A
+A B C D E
+- - - - -For each neighbour v of u, relax 
+along that edge 
+•If dist[u] + w(u,v) < dist[v] 
+•Update dist[v] 
+•Set pred[v] = u 0
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 Inf Inf Inf InfA B C D E
+- - - - -For each neighbour v of u, relax 
+along that edge 
+•If dist[u] + w(u,v) < dist[v] 
+•Update dist[v] 
+•Set pred[v] = u 
+•0 + 5 < Inf u:A
+B C D E
+Inf Inf Inf Inf0
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 Inf 5 Inf InfA B C D E
+- - A - -C B D E
+5 Inf Inf InfFor each neighbour v of u, relax 
+along that edge 
+•If dist[u] + w(u,v) < dist[v] 
+•Update dist[v] 
+•Set pred[v] = u 
+•0 + 5 < Inf 
+•Set dist[C] = 5 
+•Set pred[C] = A 
+•Note that this changes the 
+order of Q u:A
+0
+5
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 10 5 Inf InfC B D E
+5 10 Inf Infu:A
+Doing the same for B 
+•0 + 10 < Inf 
+•Dist[B] = 10 
+A B C D E
+- - A - -0
+510
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 10 5 Inf InfC B D E
+5 10 Inf Infu:A
+Doing the same for B 
+•0 + 10 < Inf 
+•Dist[B] = 10 
+•Pred[B] = A 
+A B C D E
+- A A - -0
+510
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 10 5 Inf InfC B D E
+5 10 Inf Infu:A
+•Finished with A, so pop from Q 
+•Notice that this will always be 
+the vertex with the smallest 
+distance estimate. A B C D E
+- A A - -0
+510
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 10 5 Inf InfB D E
+10 Inf Infu:C
+•Finished with A, so pop from Q 
+•Notice that this will always be 
+the vertex with the smallest 
+distance estimate. 
+•The distance of this vertex is 
+now finalised A B C D E
+- A A - -0
+510
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 10 5 Inf InfB D E
+10 Inf Infu:C
+•Relax B from C 
+•Dist[C] + w(C, B) = 5 + 3 < 10 
+A B C D E
+- A A - -0
+510
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 8 5 Inf InfB D E
+8 Inf Infu:C
+•Relax B from C 
+•Dist[C] + w(C, B) = 5 + 3 < 10 
+•Dist[B] = 8 
+•Pred[B] = C A B C D E
+- C A - -0
+58
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 8 5 Inf InfB D E
+8 Inf Infu:C
+•Relax E from C 
+•Dist[C] + w(C, E) = 5 + 2 < Inf 
+A B C D E
+- C A - -0
+58
+
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 8 5 Inf 7u:C
+•Relax E from C 
+•Dist[C] + w(C, E) = 5 + 2 < Inf 
+•Dist[E] = 7 
+•Pred[E] = C A B C D E
+- C A - CE B D
+7 8 Inf0
+58
+7
+
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 8 5 Inf 7u:C
+•Relax D from C 
+•Dist[D] + w(C, D) = 5 + 9 < Inf 
+A B C D E
+- C A - CE B D
+7 8 Inf0
+58
+7
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 8 5 14 7u:C
+•Relax D from C 
+•Dist[D] + w(C, D) = 5 + 9 < Inf 
+•Dist[D] = 14 
+•Pred[D] = C A B C D E
+- C A C CE B D
+7 8 1414
+0
+58
+7
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 8 5 14 7E B D
+7 8 14u:C
+•Done with C 
+•Pop another vertex from Q and 
+finalise it 
+A B C D E
+- C A C C14
+0
+58
+7
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+0 8 5 14 7u:E
+A B C D E
+- C A C CB D
+8 1414
+0
+58
+7
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:u:E
+•Relax D from E 
+•Dist[E] + w(E, D) = 7 + 6 < 14 = 
+Dist[D] 
+A B C D E
+- C A C CB D
+8 14
+A B C D E
+0 8 5 14 714
+0
+58
+7
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:u:E
+•Relax D from E 
+•Dist[E] + w(E, D) = 7 + 6 < 14 = 
+Dist[D] 
+•Dist[D] = 13 
+•Pred[D] = D 
+•Done with E 
+•Pop B A B C D E
+- C A E CB D
+8 13
+A B C D E
+0 8 5 13 713
+0
+58
+7
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:u:B
+•Relax D from B 
+•Dist[B] + w(B, D) = 8 + 1 = 9 <  13 = 
+Dist[D] 
+A B C D E
+- C A E CD
+13
+A B C D E
+0 8 5 13 713
+0
+58
+7
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:u:B
+•Relax D from B 
+•Dist[B] + w(B, D) = 8 + 1 = 9 <  13 = 
+Dist[D] 
+•Dist[D] = 9 
+•Pred[D] = B 
+•Done with B 
+•Pop D A B C D E
+- C A B CD
+9
+A B C D E
+0 8 5 9 79
+0
+58
+7
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:u:D
+•Relax E from D 
+•Dist[D] + w(D, E) = 9 + 4 = 13 > 7 
+•No update 
+•Done! A B C D E
+- C A B C
+A B C D E
+0 8 5 9 79
+0
+58
+7
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Pred: 
+Dist: CB
+ED
+A10
+52 31
+9
+24 6
+Q:
+A B C D E
+- C A B C
+A B C D E
+0 8 5 9 7CB
+ED
+A
+531
+2
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 
+
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Time Complexity: 
+oWhile loop executes θ(V) times 
+oFind  the vertex with smallest distance and delete  it: depends on priority queue 
+implementation (Q.extract_min) 
+oEach edge visited once → θ(E) 
+oUpdating the priority queue: depends on implementation (Q.update) 
+oRelaxation is θ(1) since we can find distances and compare them in θ(1)
+oTotal cost: θ(E*Q.update+ V*Q.extract_min) 
+
+
+---PAGE_BREAK---
+
+Dijkstra’s Algorithm using min-heap 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Required additional data structure: 
+o Create an array called Vertices . 
+o Vertices [i] will record the location  of i-th vertex in the min-heap 
+Updating the distance of a vertex v in min-heap in θ(log V )
+o Find the location in the queue (heap) in θ(1) using Vertices 
+o Now do the normal heap-up operation in θ(log V) 
+oFor each swap performed between two vertices x and y during the upHeap 
+oUpdate Vertices [x] and Vertices [y] to record their updated locations  in the 
+min-heap 
+
+
+---PAGE_BREAK---
+
+Time Complexity of Dijkstra’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oWhile loop executes θ(V) times 
+oExtract the vertex with smallest distance using min_heap: θ(log V) 
+oEach edge visited once → θ(E) 
+oUpdating the priority queue using min_heap: θ(log V) 
+oRelaxation is θ(1) since we can find distances and compare them in θ(1)
+oTotal cost: θ(E*Q.update+ V*Q.extract_min) 
+oTotal cost: θ(E log V + V log V) 
+oWhich term dominates? 
+oIf the graph is connected, then E ≥ V-1
+oE dominates V 
+oTotal cost: θ(E log V) 
+
+
+---PAGE_BREAK---
+
+Proof of Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Claim:  For every vertex v which has been removed from the queue, dist[v] is correct. 
+oNotation: 
+oV is the set of vertices 
+oQ is the set of vertices in the queue 
+oS = V / Q = the set of vertices who have been removed from the queue 
+Base Case 
+odist[s] is initialised to 0, which is the shortest distance from s to s (since there are no 
+negative weights). 
+
+
+---PAGE_BREAK---
+
+Proof of Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms ba
+yu
+sClaim:  For every vertex v which has been removed from the queue, dist[v] is correct. 
+Inductive Step: 
+oAssume that the claim holds for all vertices which have been removed from the queue, in 
+other words it holds for all vertices in the set S. 
+oLet u be the next vertex which is removed from the queue. 
+oWe will show that dist[u] is correct. 
+dStill in queue Removed from queue 
+
+---PAGE_BREAK---
+
+Proof of Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms xa
+yu
+sClaim:  For every vertex v which has been removed from the queue, dist[v] is correct. 
+Inductive Step: 
+oSuppose (for contradiction) there is a shortest path P , s ⟿u with len(P) < dist[u]. 
+oLet x be the furthest vertex on P which is in S (i.e. has been finalised). 
+oBy the inductive hypothesis, dist[x] is correct (since it is in S). 
+dCurrent path 
+Assumed shorter path (P) 
+
+---PAGE_BREAK---
+
+Proof of Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Claim:  For every vertex v which has been removed from the queue, dist[v] is correct. 
+Inductive Step: 
+oBy the inductive hypothesis, dist[x] is correct (since it is in S). 
+oLet y be the next vertex on P after x. 
+oBy assumption len(P) < dist[u]. 
+oEdge weights are non-negative. 
+olen(s ⟿y) ≤ len(P) < dist[u]. 
+xa
+yu
+sd
+x ys
+x yu
+sa u
+s
+ 
+  Current path 
+Assumed shorter path (P) 
+
+---PAGE_BREAK---
+
+Proof of Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Claim:  For every vertex v which has been removed from the queue, dist[v] is correct. 
+Inductive Step: 
+olen(s ⟿y) ≤ len(P) < dist[u] 
+oSince we said that P (via x and y) is a shortest path …
+odist[y] = len(s ⟿y) < dist[u]. 
+oSo dist[y] < dist[u] …
+oIf y ≠ u, why didn’t y get removed before u??? 
+oIf y = u, how can dist[y] < dist[u]??? 
+xa
+yu
+sdx ys
+x yu
+sa u
+s
+ 
+  
+Current path 
+Assumed shorter path (P) 
+
+---PAGE_BREAK---
+
+Proof of Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Claim:  For every vertex v which has been removed from the queue, dist[v] is correct. 
+Inductive Step: 
+oHaving obtained a contradiction, we can negate our assumption, namely: 
+o“Suppose (for contradiction) there is a shorter path P , s ⟿u with len(P) < dist[u].” 
+oSo there is no such path and dist[u] is correct. 
+oSo by induction, the distance of every vertex is correct when Dijkstra’s algorithm 
+terminates. 
+xa
+yu
+sdCurrent path 
+Assumed shorter path (P) 
+
+---PAGE_BREAK---
+
+Outline 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 1. Dijkstra’s Algorithm 
+2. Prim’s Algorithm 
+3. Kruskal’s Algorithm 
+
+
+---PAGE_BREAK---
+
+What is a Spanning Tree 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Tree: 
+A tree is a connected undirected graph with no cycles in it. 
+Spanning Tree: 
+oA spanning tree of a general undirected weighted graph G is a tree that spans G 
+(i.e., a tree that includes every vertex of G) and is a subgraph of G (i.e., every 
+edge in the spanning tree belongs to G). 
+CB
+ED
+A10
+531
+9
+2
+An undirected graph  Tree CB
+ED 10
+31
+3A
+Spanning 3
+
+---PAGE_BREAK---
+
+Spanning Tree Examples 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms CB
+ED
+A10
+531
+9
+2
+CB
+ED
+A
+531
+2CB
+ED
+A
+53 9
+23
+Graph  Spanning Tree 1 
+Spanning Tree 2 CB
+ED 10
+31
+3A
+Spanning Tree 3 
+
+---PAGE_BREAK---
+
+What is a Spanning Tree 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Is it true that a spanning tree of a connected graph G is a maximal set of edges of G 
+that contains no cycles? 
+oYes
+Is it true that a spanning tree of a connected graph G is a minimal set of edges that 
+connect all vertices ?
+oYes
+
+
+---PAGE_BREAK---
+
+Minimum Spanning Tree (MST) 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oWeight of a spanning tree is the sum of the weights of the edges in the tree. 
+oA minimum spanning tree of a weighted general graph G is a tree that spans G, 
+whose weight is minimum over all possible spanning trees for this graph. 
+oThere may be more than one minimum spanning tree for a graph G (e.g., two or 
+more spanning trees with the same minimum weight). 
+What is the weight of the MST in this graph? CB
+ED
+A10
+531
+9
+23
+How many MSTs are in this graph? 
+
+
+---PAGE_BREAK---
+
+Spanning Trees and MSTs 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms CB
+ED
+A
+531
+2CB
+ED
+A
+53 9
+2Spanning Tree 2: Weight 17 
+Spanning Tree 3: Weight 19 CB
+ED 10
+31
+3A
+Spanning Tree 4: Weight 11 CB
+ED
+A
+51
+23
+Spanning Tree 1: Weight 11 Minimum Spanning Tree 
+Minimum Spanning 
+Tree 
+
+---PAGE_BREAK---
+
+MST Algorithms 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oLet T  denote the MST we are constructing, initialised to be empty. 
+oAn edge e is said to be safe if {T U e} is a subset of some  MST
+General Strategy: 
+ T = null 
+ while  T can be grown safely :
+  find an edge e =<x,y> along which T is safe to grow 
+  T = {T} union {<x,y>}
+ return  T
+oWe will study two greedy  algorithms that follow this strategy. 
+
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Overview 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oStart by picking any vertex v to be the source of T. 
+oWhile T does not contain all vertices in the graph: 
+oFind shortest edge e that goes from T to a different connected component. 
+oAdd e to the tree T. 
+CB
+ED
+A6
+538
+9
+29
+CB
+ED
+AT
+Connected components 
+
+---PAGE_BREAK---
+
+MST Algorithms: Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Prim’s Algorithm (small modification of Dijkstra’s Algorithm) 
+oWe start with no edges in T, so there are V connected components in T (each with a single 
+node) and select one node as the source. 
+oAt each iteration, we add to T the shortest edge that links the connected component 
+containing the source to a different connected component .
+oIn each iteration, the number of connected components decreases by 1 and the number 
+of nodes in the connected component containing the source increases by 1. 
+oCycles are avoided as no edges linking two nodes that are already in the same connected 
+component are ever added to T. 
+oTime complexity: θ(E log V) 
+
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms CB
+ED
+A10
+531
+9
+26
+Robert C. Prim 
+
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: CB
+ED
+A10
+531
+9
+26
+Q:
+A B C D E
+0 Inf Inf Inf infA B C D E
+- - - - -A B C D E
+0 Inf Inf Inf InfPrim's deals with distance 
+estimates to reach T instead of  
+distance estimates to the source 
+Q is a priority queue, where 
+priority is based on distance 
+parent and Dist are the usual 
+ID-indexed arrays u:
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 Inf Inf Inf infB C D E
+Inf Inf Inf InfPrim's deals with distance 
+estimates to reach T instead of  
+distance estimates to the source 
+Q is a priority queue, where 
+priority is based on distance 
+parent and Dist are the usual 
+ID-indexed arrays u:A
+A B C D E
+- - - - -CB
+ED
+A10
+531
+9
+26
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 Inf Inf Inf infB C D E
+Inf Inf Inf InfFor each neighbour v of u, try to 
+update distance estimate 
+5 < inf 
+Dist[C] = 5 
+parent[C] = A u:A
+A B C D E
+- - - - -CB
+ED
+A10
+531
+9
+26
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 Inf Inf Inf infB C D E
+Inf Inf Inf InfFor each neighbour v of u, try to 
+update distance estimate 
+This time we just care about the 
+edge, not the distance to u + 
+the edge u:A
+A B C D E
+- - - - -CB
+ED
+A10
+531
+9
+26
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 Inf Inf Inf infB C D E
+Inf Inf Inf InfFor each neighbour v of u, try to 
+update distance 
+W(A,C) = 5 
+Dist[C] = inf 
+5 < inf, so update 
+Dist[C] = 5 
+parent[C] = A u:A
+A B C D E
+- - - - -CB
+ED
+A10
+531
+9
+26
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 Inf 5 Inf infA B C D E
+- - A - -C B D E
+5 Inf Inf Inf
+Note that this changes the 
+order of Q u:A1
+CB
+ED
+A10
+531
+9
+26
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 Inf 5 Inf infC B D E
+5 10 Inf Infu:A
+Doing the same for B 
+W(A,B) = 10 
+Dist[B] = inf 
+10 < inf A B C D E
+- - A - -CB
+ED
+A10
+531
+9
+26
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 10 5 Inf infC B D E
+5 10 Inf Infu:A
+Doing the same for B 
+W(A,B) = 10 
+Dist[B] = inf 
+10 < inf, so update 
+•Dist[B] = 10 
+•parent[B] = A A B C D E
+- A A - -CB
+ED
+A10
+531
+9
+26
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: 1
+Q:
+A B C D E
+0 10 5 Inf infC B D E
+5 10 Inf Infu:A
+•Finished with A, so pop from Q 
+•Notice that this will always be 
+the vertex with the smallest 
+distance estimate on Q A B C D E
+- A A - -CB
+ED
+A10
+531
+9
+26
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: 1
+Q:
+A B C D E
+0 10 5 Inf infB D E
+10 Inf Infu:C
+•Finished with A, so pop from Q 
+•Notice that this will always be 
+the vertex with the smallest 
+distance estimate on Q 
+•This vertex is now in the MST A B C D E
+- A A - -CB
+ED
+A10
+531
+9
+26
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 10 5 Inf infB D E
+10 Inf Infu:C
+•The edge we add is the edge 
+between u and parent[u] 
+•So in this case, A->C 
+A B C D E
+- A A - -CB
+ED
+A10
+539
+261
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 10 5 Inf infB D E
+10 Inf Infu:C
+•The edge we add is the edge 
+between u and parent[u] 
+•So in this case, A->C 
+A B C D E
+- A A - -CB
+ED
+A10
+539
+261
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: 2
+Q:
+A B C D E
+0 10 5 Inf infB D E
+10 Inf Infu:C
+•Update B from C 
+•w(C, B) = 3 
+•Dist[B] = 10 
+•3 < 10 so update dist[B] and 
+parent[B] A B C D E
+- A A - -CB
+ED
+A10
+539
+261
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 3 5 Inf infB D E
+3 Inf Infu:C
+A B C D E
+- C A - -CB
+ED
+A10
+539 6
+21
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 3 5 Inf infB D E
+3 Inf Infu:C
+•Update E from C 
+A B C D E
+- C A - -2CB
+ED
+A10
+539 61
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms parent: 
+Dist: Q:
+A B C D E
+0 3 5 Inf 2u:C
+A B C D E
+- C A - CE B D
+2 3 inf2CB
+ED
+A10
+539 61
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms u:C
+•Update D from C 
+parent: 
+Dist: Q:
+A B C D E
+0 3 5 Inf 2A B C D E
+- C A - CE B D
+2 3 inf2CB
+ED
+A10
+539 61
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 1
+u:C
+•Done with C 
+•Pop another vertex from Q and 
+add it to the MST 
+parent: 
+Dist: Q:
+A B C D E
+0 3 5 9 2A B C D E
+- C A C CE B D
+2 3 91
+2CB
+ED
+A10
+539 6
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms u:E
+parent: 
+Dist: Q:
+A B C D E
+0 3 5 9 2A B C D E
+- C A C CB D
+3 92CB
+ED
+A10
+539 61
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms u:E
+parent: 
+Dist: Q:
+A B C D E
+0 3 5 6 2A B C D E
+- C A E CB D
+3 62CB
+ED
+A10
+539 61
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms u:B
+parent: 
+Dist: Q:
+A B C D E
+0 3 5 6 2A B C D E
+- C A E CD
+62CB
+ED
+A10
+539 61
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms u:B
+parent: 
+Dist: Q:
+A B C D E
+0 3 5 6 2A B C D E
+- C A E CD
+62CB
+ED
+A10
+539 61
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms u:B
+parent: 
+Dist: Q:
+A B C D E
+0 3 5 1 2A B C D E
+- C A B CD
+12CB
+ED
+A10
+539 61
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms u:B
+parent: 
+Dist: Q:
+A B C D E
+0 3 5 1 2A B C D E
+- C A B CD
+12CB
+ED
+A10
+539 61
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms u:D
+parent: 
+Dist: Q:
+A B C D E
+0 3 5 1 2A B C D E
+- C A B C2CB
+ED
+A10
+539 61
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms u:D
+parent: 
+Dist: Q:
+A B C D E
+0 3 5 1 2A B C D E
+- C A B C2CB
+ED
+A
+531
+
+---PAGE_BREAK---
+
+Prim’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 
+
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Complexity 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms It is very similar to Dijkstra’s Algorithm and its complexity is the same as Dijkstra’s 
+Algorithm 
+oθ(V log V + E log V) if min-heap is used 
+Since the input graph G is connected, E ≥ V-1. Hence, the complexity can be 
+simplified to θ(E log V). 
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Prim’s algorithm, the current set of selected edges in T is a subset of some  
+minimum spanning tree of G 
+Base Case: 
+oThe invariant is true initially when T is empty 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oAssume T is a subset of some MST M
+T
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Prim’s algorithm, the current set of selected edges in T is a subset of some  
+minimum spanning tree of G 
+Base Case: 
+oThe invariant is true initially when T is empty 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oAssume T is a subset of some MST M
+TGreen edges = M 
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Prim’s algorithm, the current set of selected edges in T is a subset of some  
+minimum spanning tree of G 
+Base Case: 
+oThe invariant is true initially when T is empty 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oAssume T is a subset of some MST M
+oLet e = (u,v) be the lightest edge that connects some v in T to some u not in T (i.e. this is the edge 
+Prim’s algorithm will choose in this iteration) 
+oIf e is in M, then T ∪ {e} is a subset of M, which is an MST, so the invariant holds 
+T
+euv
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Prim’s algorithm, the current set of selected edges in T is a subset of some  
+minimum spanning tree of G 
+Base Case: 
+oThe invariant is true initially when T is empty 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oAssume T is a subset of some MST M
+oLet e = (u,v) be the lightest edge that connects some v in T to some u not in T (i.e. this is the edge 
+Prim’s algorithm will choose in this iteration) 
+oIf e is in M, then T ∪ {e} is a subset of M, which is an MST, so the invariant holds 
+TGreen edges = M 
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Prim’s algorithm, the current set of selected edges in T is a subset of some  
+minimum spanning tree of G 
+Base Case: 
+oThe invariant is true initially when T is empty 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oAssume T is a subset of some MST M
+oLet e = (u,v) be the lightest edge that connects some v in T to some u not in T (i.e. this is the edge 
+Prim’s algorithm will choose in this iteration) 
+oIf e is in M, then T ∪ {e} is a subset of M, which is an MST, so the invariant holds 
+oThe interesting case is where e is not in M. In this case 
+we have to show that there is some other MST 
+which contains T ∪ {e}
+ T
+euv
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Prim’s algorithm, the current set of selected edges in T is a subset of some  
+minimum spanning tree of G 
+Base Case: 
+oThe invariant is true initially when T is empty 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oAssume T is a subset of some MST M
+oLet e = (u,v) be the lightest edge that connects some v in T to some u not in T (i.e. this is the edge 
+Prim’s algorithm will choose in this iteration) 
+oIf e is in M, then T ∪ {e} is a subset of M, which is an MST, so the invariant holds 
+oThe interesting case is where e is not in M. In this case 
+we have to show that there is some other MST 
+which contains T ∪ {e}
+ T
+Green edges = M euv
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oSince M is a tree, there is exactly one path from u to v in M (shown in blue) 
+ou and v are not connected in T (since v is not in T). Consider the first edge on the blue path which is 
+not contained in T (call this edge x).
+TGreen edges = M 
+uv
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oSince M is a tree, there is exactly one path from u to v in M (shown in blue) 
+ou and v are not connected in T (since v is not in T). Consider the first edge on the blue path which is 
+not contained in T (call this edge x). 
+oOne vertex of this edge is in T, the other is not. 
+oRemoving this edge would disconnect M
+TGreen edges = M 
+uv
+x
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oSince M is a tree, there is exactly one path from u to v in M (shown in blue) 
+ou and v are not connected in T (since v is not in T). Consider the first edge on the blue path which is 
+not contained in T (call this edge x). 
+oOne vertex of this edge is in T, the other is not. 
+oRemoving this edge would disconnect M
+TGreen edges = M 
+uv
+x
+
+---PAGE_BREAK---
+
+Prim’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oSince M is a tree, there is exactly one path from u to v in M (shown in blue) 
+ou and v are not connected in T (since v is not in T). Consider the first edge on the blue path which is 
+not contained in T (call this edge x). 
+oOne vertex of this edge is in T, the other is not. 
+oRemoving this edge would disconnect M
+TGreen edges = M 
+uvoAdding the edge  e=(u,v)  would form a new  
+spanning tree, M’
+oSince Prim's algorithm always selects the  
+lightest edge incident to T, we know that  w(e)  
+≤ w(x) 
+oSo the weight of M’ is no greater than the  
+weight of M, therefore choosing e is correct 
+e
+x
+
+---PAGE_BREAK---
+
+Outline 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 1. Dijkstra’s Algorithm 
+2. Prim’s Algorithm 
+3. Kruskal’s Algorithm 
+
+
+---PAGE_BREAK---
+
+MST Algorithms: Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Kruskal’s Algorithm 
+oWe start with no edges in T, so there are V connected components in T (each with a single 
+node). 
+oWe process edges in ascending order of edge weights, and add an edge e to T if this 
+addition does not create a cycle. 
+oEach time that one edge e is added to T, e is the smallest edge that links two distinct 
+connected components of T. 
+oCycles are avoided as no edges linking two nodes that are already in the same connected 
+component are ever added to T. At any point of the execution T is a forest (i.e., a set of 
+trees)
+oTime complexity: θ(E log V). 
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms CB
+ED
+AKruskals(G(V, E)) 
+ Sort the edges in ascending order of weights 
+ Let T be a graph with V as its vertices, and no edges 
+ For each edge (u, v) in ascending order 
+ If adding (u, v) does not create a cycle in T 
+ Add (u, v) to T 
+ Return T 
+ 10
+531
+9
+24
+Joseph Kruskal 
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms CB
+ED
+A
+Sorted Edges: 
+Finalized (in MST): Kruskals(G(V, E)) 
+ Sort the edges in ascending order of weights 
+ Let T be a graph with V as its vertices, and no edges 
+ For each edge (u, v) in ascending order 
+ If adding (u, v) does not create a cycle in T 
+ Add (u, v) to T 
+ Return T 
+How to determine if the edge will create 
+a cycle??? 
+B↔D, 110
+531
+9
+24
+C↔D, 9C↔B, 3C↔E, 2E↔D, 4A↔C, 5A↔B, 10Connected Components 
+B↔DC↔EC↔BA↔C
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms At some point in the algorithm, we want to 
+check if an edge can be added. 
+Can we add the red edge? 
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms At some point in the algorithm, we want to 
+check if an edge can be added. 
+Can we add the red edge? 
+An edge can be added if it does not create a 
+cycle. 
+OR
+An edge can be added if it is not between two 
+nodes which belong to the same connected 
+component. 
+Importantly, adding an edge between two 
+distinct connected components “merges” those 
+connected components into one. 
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms An edge can be added if it is not between two 
+nodes which belong to the same connected 
+component. 
+Importantly, adding an edge between two 
+distinct connected components “merges” those 
+connected components into one. 
+Remember that in Kruskal’s algorithm, each time that one edge e is added to T, e is 
+the smallest edge that links two distinct connected components of T. 
+Intuitively, Kruskal’s algorithm runs for V-1 iterations, and in each iteration it merges 
+the two distinct connected components that have the smallest distance between 
+themselves.  
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 13
+408
+6
+57 2
+9
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 13
+408
+6
+57 2
+9
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 10
+408
+6
+57 2
+9
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 10
+408
+6
+57 2
+9
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 10
+406
+6
+57 2
+9
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 10
+406
+6
+57 2
+9
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 10
+406
+6
+47 2
+9
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 10
+406
+6
+47 2
+9
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 10
+006
+6
+07 2
+9
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 10
+006
+6
+07 2
+9
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms How can we quickly find the set 
+of a vertex, and also union  two 
+sets? 
+
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oDefine two operations: find(u) and union(u,v) 
+oFind(u): Given a vertex u, return its set ID 
+oUnion(u,v): Given two vertices u and v, if they have different set IDs, union the 
+two sets they belong to (and update all the set IDs of the vertices in one of the 
+sets) 
+oWe need both find(u)  and union(u,v)  to be fast. 
+oWhat would be the time complexity of find(u) and union(u,v) if we store the set ID of 
+each vertex in an array? 
+oFind  would be θ(1), but union  would be θ(V) in the worst case, thus not good enough …
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oWe want to union faster 
+oLinked lists are fast to union (i.e. append one linked list to another) 
+0
+3
+14
+2ID: 0 ID: 4 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oWe want to union faster 
+oLinked lists are fast to union (i.e. append one linked list to another) 
+0
+3
+14
+2ID: 0 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oWe want to union faster 
+oLinked lists are fast to union (i.e. append one linked list to another) 
+oHow do we find, with linked lists? 
+0
+3
+14
+2ID: 0 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oLinked lists are fast to union (i.e. append one linked list 
+to another) 
+oHow do we find, with linked lists? 
+oHeads know their set ID 
+oTraverse to the head to find the ID of an element in 
+the list 
+oThis is O(size of the linked list) 
+0
+3
+14
+2ID: 0 Find(4) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oLinked lists are fast to union (i.e. append one linked list 
+to another) 
+oHow do we find, with linked lists? 
+oHeads know their set ID 
+oTraverse to the head to find the ID of an element in 
+the list 
+oThis is O(size of the linked list) 
+0
+3
+14
+2ID: 0 Find(4) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oLinked lists are fast to union (i.e. append one linked list 
+to another) 
+oHow do we find, with linked lists? 
+oHeads know their set ID 
+oTraverse to the head to find the ID of an element in 
+the list 
+oThis is O(size of the linked list) 
+0
+3
+14
+2ID: 0 Find(4) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oLinked lists are fast to union (i.e. append one linked list 
+to another) 
+oHow do we find, with linked lists? 
+oHeads know their set ID 
+oTraverse to the head to find the ID of an element in 
+the list 
+oThis is O(size of the linked list) 
+0
+3
+14
+2ID: 0 Find(4) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oLinked lists are fast to union (i.e. append one linked list 
+to another) 
+oHow do we find, with linked lists? 
+oHeads know their set ID 
+oTraverse to the head to find the ID of an element in 
+the list 
+oThis is O(size of the linked list) 
+0
+3
+14
+2ID: 0 Find(4) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oAlternatively, every node could know its ID 
+oNow find is O(1) 
+oBut Union is now slower, we have to update all the IDs 
+0
+3
+14
+2ID: 0 ID: 4 
+ID: 0 
+ID: 0 ID: 4 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oAlternatively, every node could know its ID 
+oNow find is O(1) 
+oBut Union is now slower, we have to update all the IDs 
+ID: 0 
+ID: 0 ID: 4 0
+3
+14
+2ID: 0 ID: 4 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oAlternatively, every node could know its ID 
+oNow find is O(1) 
+oBut Union is now slower, we have to update all the IDs 
+ID: 0 
+ID: 0 ID: 0 0
+3
+14
+2ID: 0 ID: 4 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oAlternatively, every node could know its ID 
+oNow find is O(1) 
+oBut Union is now slower, we have to update all the IDs 
+ID: 0 
+ID: 0 ID: 0 0
+3
+14
+2ID: 0 ID: 0 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oWhere are we? 
+oWe want find and union to be fast 
+oLinked lists are an improvement over arrays , since they stop us looking at items 
+which are not relevant to the union we are currently doing 
+oLinked lists allows O(1) union 
+oWe can’t make find O(1) because to do that, we have to store the ID at every 
+node which makes union slow (we have to change all the IDs) 
+oSolution: Change from linked list to linked tree 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0 1 2 3 4 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 1 2 3 4 5Operations: 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0 1 2 3 4 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 1 2 3 4 5Operations: 
+Union(0,1) 
+  Find(0) = 0 
+  Find(1) = 1 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12 3 4 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 3 4 5Operations: 
+Union(0,1) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12 3 4 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 3 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12 3 4 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 3 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+  Find(2) = 2 
+  Find(3) = 3 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3)=2 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3)=2 
+Union(0,1) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3)=2 
+Union(0,1) 
+  Find(0) = 0 
+  Find(1) = 0 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3)=2 
+Union(0,1) 
+Union(1,3) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+12
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 2 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3)=2 
+Union(0,1) 
+Union(1,3) 
+  Find(1) = 0 
+  Find(3) = 2 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+1 2
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 0 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3)=2 
+Union(0,1) 
+Union(1,3) 
+  Find(1) = 0 
+  Find(3) = 2 
+
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+1 2
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 0 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3)=2 
+Union(0,1) 
+Union(1,3) 
+  Find(1) = 0 
+  Find(3) = 2 
+Find: traverse parent pointers until you find a vertex 
+who is its own parent (i.e. a root). That vertex ID is 
+the set ID 
+Union(u,v): If find(u) != find(v), set parent[find(u)] = 
+find(v) (or vice versa) 
+What is the complexity of union and find? 
+Union is O(find). Find could in theory be θ(V), but if 
+we can keep the heights of the trees low, then it will 
+be at most θ(max height) 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+1 2
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent 0 0 0 2 4 5Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3)=2 
+Union(0,1) 
+Union(1,3) 
+  Find(1) = 0 
+  Find(3) = 2 
+Optimisation: When we union, we have a choice of 
+the new root. 
+What should we choose? 
+The set with more nodes! 
+
+---PAGE_BREAK---
+
+Union-Find Data Structure 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 0
+1 2
+34 5
+Vertex ID 0 1 2 3 4 5
+Parent -4 0 0 2 -1 -1Operations: 
+Union(0,1) 
+Union(2,3) 
+Find(3)=2 
+Union(0,1) 
+Union(1,3) 
+  Find(1) = 0 
+  Find(3) = 2 
+Optimisation: When we union, we have a choice of 
+the new root. 
+What should we choose? 
+The set with more nodes! 
+Union by size: When doing a union, add the sizes and 
+update the parent value of the root appropriately 
+Parent array values are 
+now either parents OR 
+negative sizes -1 -1 -4
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Complexity 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Time Complexity: 
+oSorting edges: θ(E log E) 
+o E log E  <= E log V2 = 2 E log V so θ(E log V) 
+oInitialization of union find: θ(V)
+oFor loop executes θ(E) times 
+o SET_ID() takes θ(x) where x is height of the tree 
+o UNION_SET() takes θ(1) + 2 finds, so it takes θ(x) where x is the height of 
+the deeper  of the two trees to be unioned (which could be at most V) 
+oTotal cost: O(EV) 
+But this is not tight. A closer 
+look reveals that the total 
+cost of all UNION_SETS is θ
+(V log V). 
+
+
+---PAGE_BREAK---
+
+Complexity of UNION_SETS 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Complexity 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Time Complexity: 
+oSorting edges: θ(E log E) 
+o E log E = E log V2 = 2 E log V so θ(E log V) 
+oInitialization of union find: θ(V)
+oFor loop executes θ(E) times 
+o The two finds take the same effort as the union, log(v) 
+oUNION takes θ(V log V) in total 
+oTotal cost: θ(E log V + V log V) = θ(E log V) 
+
+
+---PAGE_BREAK---
+
+Complexity of UNION_SETS 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oWe can improve the disjoint sets data structure significantly with 2 other 
+optimisations: 
+oUnion by rank 
+oPath compression 
+oThese are discussed in the notes, but are not examinable. 
+oThe complexity can be improved from V log V to V α(V), where α denotes the 
+inverse Ackermann function, an extremely slow growing function. 
+oNote: α(any number which can be represented using the matter in the 
+universe) < 5, so V α(V) is effectively O(V). 
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms 
+oThe proof of correctness for Kruskal's algorithm can be done following the same approach as Prim's  
+one. Please try to write it down by ourself and check the details on the course notes. 
+
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Kruskal’s algorithm, the current set of selected edges in T is a subset of some 
+minimum spanning tree of G. 
+Base Case: 
+oThe invariant is true initially when T is empty. 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration. 
+oAssume T is a subset of some MST M.
+
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Kruskal’s algorithm, the current set of selected edges in T is a subset of some 
+minimum spanning tree of G. 
+Base Case: 
+oThe invariant is true initially when T is empty. 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration. 
+oAssume T is a subset of some MST M.
+Green edges = M 
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Kruskal’s algorithm, the current set of selected edges in T is a subset of some 
+minimum spanning tree of G. 
+Base Case: 
+oThe invariant is true initially when T is empty. 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration. 
+oAssume T is a subset of some MST M.
+oLet e = (u,v) be the lightest edge that connects two vertices in different connected components of T 
+(i.e this is the edge Kruskal’s will choose in this iteration). 
+oIf e is in M, then T ∪ {e} is a subset of M, which is an MST, so the invariant holds. 
+euv
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Kruskal’s algorithm, the current set of selected edges in T is a subset of some 
+minimum spanning tree of G. 
+Base Case: 
+oThe invariant is true initially when T is empty. 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration. 
+oAssume T is a subset of some MST M.
+oLet e = (u,v) be the lightest edge that connects two vertices in different connected components of T 
+(i.e this is the edge Kruskal’s will choose in this iteration). 
+oIf e is in M, then T ∪ {e} is a subset of M, which is an MST, so the invariant holds. 
+ Green edges = M 
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Kruskal’s algorithm, the current set of selected edges in T is a subset of some 
+minimum spanning tree of G. 
+Base Case: 
+oThe invariant is true initially when T is empty. 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration. 
+oAssume T is a subset of some MST M.
+oLet e = (u,v) be the lightest edge that connects two vertices in different connected components of T 
+(i.e this is the edge Kruskal’s will choose in this iteration). 
+oIf e is in M, then T ∪ {e} is a subset of M, which is an MST, so the invariant holds. 
+oThe interesting case is where e is not in M. In this case 
+we have to show that there is some other MST 
+which contains T ∪ {e}.
+euv
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms #INV: Every iteration of Kruskal’s algorithm, the current set of selected edges in T is a subset of some 
+minimum spanning tree of G 
+Base Case: 
+oThe invariant is true initially when T is empty 
+Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration 
+oAssume T is a subset of some MST M
+oLet e = (u,v) be the lightest edge that connects two vertices in different connected components of T 
+(i.e this is the edge Kruskal’s will choose in this iteration). 
+oIf e is in M, then T ∪ {e} is a subset of M, which is an MST, so the invariant holds 
+oThe interesting case is where e is not in M. In this case 
+we have to show that there is some other MST 
+which contains T ∪ {e}.
+Green edges = M euv
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration. 
+oSince M is a tree, there is exactly one path from u to v in M (shown in blue). 
+ou and v are not connected in T (since we are adding (u,v) , and we never create a cycle). 
+oConsider the first edge on the blue path which is not contained in T (call this edge x).
+Green edges = M 
+uv
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration. 
+oSince M is a tree, there is exactly one path from u to v in M (shown in blue). 
+ou and v are not connected in T (since we are adding (u,v) , and we never create a cycle). 
+oConsider the first edge on the blue path which is not contained in T (call this edge x).
+oAt least one edge on the blue path is not currently in T (otherwise u and v would be connected in T)
+oRemoving this edge would disconnect M.
+Green edges = M 
+uv
+x
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration. 
+oSince M is a tree, there is exactly one path from u to v in M (shown in blue). 
+ou and v are not connected in T (since we are adding (u,v) , and we never create a cycle). 
+oConsider the first edge on the blue path which is not contained in T (call this edge x).
+oAt least one edge on the blue path is not currently in T (otherwise u and v would be connected in T)
+oRemoving this edge would disconnect M.
+Green edges = M 
+uv
+x
+
+---PAGE_BREAK---
+
+Kruskal’s Algorithm: Correctness 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Inductive step: 
+oWe want to show that, if T is a subset of some MST at the start of some iteration, it is still a 
+subset of some MST at the start of the next iteration. 
+oSince M is a tree, there is exactly one path from u to v in M (shown in blue). 
+ou and v are not connected in T (since we are adding (u,v) , and we never create a cycle). 
+oConsider the first edge on the blue path which is not contained in T (call this edge x).
+oAt least one edge on the blue path is not currently in T (otherwise u and v would be connected in T)
+oRemoving this edge would disconnect M.
+Green edges = M 
+uvoAdding the edge (u,v)  would form a new  
+spanning tree, M’.
+oSince the algorithm always selects the  lightest  
+edge incident to T, we know that w(e) ≤ w(x) .
+oSo the weight of M’ is no greater than the  
+weight of M, therefore choosing e is correct. 
+e
+x
+
+---PAGE_BREAK---
+
+Reading 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms oCourse Notes: Chapter 6 
+oYou can also check algorithms’ textbooks for contents related to this lecture, e.g.: 
+oCLRS: Chapter 23, Section 24.3 
+oKT: Chapter 4 
+
+
+---PAGE_BREAK---
+
+Concluding Remarks 
+FIT2004: Seminar 5 - Greedy (Graph) Algorithms Take home message 
+oDijkstra’s algorithm is a greedy algorithm for determining shortest paths on 
+graphs with non-negative weights. 
+oPrim’s and Kruskal’s algorithms are both greedy algorithms that correctly 
+determine minimum spanning trees. While Prim’s algorithm keeps growing 
+the same connected component at each iteration; Kruskal’s algorithm 
+merges the two closest connected components. 
+Things to do (this list is not exhaustive) 
+oMake sure you understand: 
+oThe algorithms, and how to implement Union-Find data structure for Kruskal’s algorithm. 
+oHow proofs of correctness for greedy algorithms work. 
+Coming Up Next 
+oDynamic Programming 

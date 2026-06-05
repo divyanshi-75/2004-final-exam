@@ -1,0 +1,402 @@
+Week 6 Applied Sheet
+(Solutions)
+Useful advice:The following solutions pertain to the theoretical problems given in the applied classes. You are
+strongly advised to attempt the problems thoroughly before looking at these solutions. Simply reading the solu-
+tions without thinking about the problems will rob you of the practice required to be able to solve complicated
+problems on your own. You will perform poorly on the exam if you simply attempt to memorise solutions to
+these problems. Thinking about a problem, even if you do not solve it, will greatly increase your understanding
+of the underlying concepts. Solutions are typically not provided for Python implementation questions. In some
+cases, pseudocode may be provided where it illustrates a particular useful concept.
+Problems
+Problem 1.Consider a buggy implementation of Dijkstra’s algorithm in which the distance estimate to a vertex
+is only updated the first time the vertex is discovered, and not in any subsequent relaxations. Give a graph on
+which this bug will cause the algorithm to not produce the correct answer.
+Solution
+To break such a bug, we need a vertex whose initial distance estimate is very high, but should be subse-
+quently lowered by a better path found later. The following graph will cause this problem.
+sa
+bc d
+11000
+211
+The distance estimate tocwill get locked at 1001, even though it should be updated to 3, and hence the
+distances tocanddwill be wrong.
+Problem 2.Can Prim’s and Kruskal’s algorithms be applied on a graph with negative weights to compute a
+minimum spanning tree? Why or why not?
+Solution
+Yes, these algorithms can be used to compute a minimum spanning tree on a graph with negative weights.
+These algorithm greedily select edges with the smallest weights and are not affected by whether the
+weights are positive or negative. This is different from Dijkstra’s algorithm which accumulates the edge
+weights to obtain a distance where a negative weight may result in the total distance being reduced. Also,
+the proofs of correctness for Prim’s and Kruskal’s algorithm do not assume non-negative weights (whereas
+the correctness of Dijkstra’s algorithm relies on the edge weights being non-negative).
+Another way to look at this is to add a constant weight to each edge in the graph to make each edge
+weight a non-negative value. Prim’s and Kruskal’s algorithms can be applied on this modified graph and
+the resulting MST will contain the same edges as the MST in the original graph.
+Problem 3.Consider the problem of planning a cross-country road trip. You have a map of Australia consisting
+of the locations of towns, each of which has a petrol station, with the corresponding petrol prices (which may be
+1
+
+---PAGE_BREAK---
+
+different at each town). You are currently at a particular townsand would like to travel to townt. Your car has a
+fuel capacity ofClitres, and for each road on the map, you know the amount of petrol it will take to travel along
+it. Your tank can only contain non-negative integer amounts of petrol, and all roads cost an integer amount of
+petrol to travel along. You cannot travel along a road if you do not have enough petrol to make it all the way.
+You may refuel at any petrol station whether your tank is empty or not (but only to integer values), and you are
+not required to fill your tank. Assuming that your tank is initially empty, describe an algorithm for determining
+the cheapest way to travel to cityt.[Hint: You should model the problem as a shortest path problem and use
+Dijkstra’s algorithm.]
+Solution
+Our first thought might be to weight the edges of the graph by how much petrol they use and then run
+Dijkstra’s algorithm, but this will miss quite a few things. Remember that we need to take into account:
+• The cost of petrol at various towns.
+• We can fuel up partially at any town, and leave the town with any amount of petrol.
+• We might not be able to make it across a road without running out.
+In order to account for these things, we create a new graph that encapsulates more information than
+just our location on the vertices. Suppose that there arentowns. Let’s make astate-graphthat contains
+(C+1)nvertices, one for each possible combination of town and amount of petrol that we could possible
+have. That is, each town has(C+1)different vertices, one for when we are in that town with no petrol,
+one for when we are there with 1 litre, 2 litres and so on. Let’s use the notation〈u,c〉to denote the vertex
+corresponding to townuwhere we haveclitres of petrol currently in the tank.
+If a road from townuto townvtakesxlitres of petrol to travel, then for each of the vertices〈u,c〉corre-
+sponding to townuwithc≥x, we create an edge to the corresponding vertex〈v,c−x〉of townv. For
+example, ifx=5, then we create an edge from〈u, 10〉to〈v, 5〉, and from〈u, 9〉to〈v, 4〉, from〈u, 8〉to〈v, 3〉,
+and so on. Importantly, these edges have weight zero, since we are going to use edge weights to model
+the cost of purchasing fuel.
+To account for buying new fuel, suppose we are currently in the townuwhose petrol price isp. Then we
+should add an edge from every vertex〈u,c〉withc<Cto the vertex〈u,c+1〉with weightp. Note that
+we could have added edges from〈u,c〉to〈u,c+2〉with weight 2pand so on, but this would just make
+the graph unnecessarily denser and hence make the algorithm slower for no reason, so it is best to simply
+add edges that add 1 litre of petrol at a time.
+We can then run Dijkstra from the vertex〈s, 0〉to find the shortest path to〈t, 0〉, which will be the cheapest
+way to make it fromstot.
+Notice, the graph we have constructed is denoted as astate-graph, a concept explored in Problem 6 of
+Week 5 Applied. The same techniques of modelling a vertex with a state and edges as possible transitions
+from a state have been applied here. This concept follows the algorithmic paradigm described in Problem
+4 of Week 5 Applied, where the input to the problem is transformed to a representation that can be solved
+simply and conveniently using a known unmodified algorithm, which has been the case here with the
+final Dijkstra’s call.
+Problem 4.Consider a variant of the shortest path problem where instead of finding paths that minimise the
+total weight of all edges, we instead wish to minimise the weight of the largest edge appearing on the path. Let’s
+refer to such a path as abottleneck path.
+(a) Give an example of a graph in which a shortest path between some pair of vertices is not a bottleneck (and
+where the graph also contain a bottleneck path which is not a shortest path).
+(b) Prove that all of the paths in a minimum spanning treeMof a graphGare bottleneck paths inG.
+(c) Prove that not all bottleneck paths ofGare paths in a minimum spanning treeMofG.
+2
+
+---PAGE_BREAK---
+
+Solution
+(a) Consider the following graph
+ab c
+d
+e f111
+1
+10
+1010
+The shortest path fromatodhas total length 13, but it is not a bottleneck path since it uses an edge
+of weight 11, while it is possible to travel fromatodusing only weight 10 edges. The bottleneck
+path has total length 30 and hence is not a shortest path.
+(b) Consider a weighted, connected, undirected graphG, some minimum spanning treeMofG, and a
+pair of verticess,t∈V. SinceMis a tree, there is a unique pathpbetweensandtin it. Suppose for
+contradiction thatpis not a bottleneck path, i.e. there exists anothers−tpathp′inGsuch that the
+maximum edge weight used inp′is strictly less than the maximum edge weight inp. Let’s remove
+the heaviest edgeeonpfromM, leaving us with two disconnected subtrees. Sincep′connectss
+andtinG, at least one of its edges must jump between these two subtrees, and since every edge
+on this path is lighter thane, we can add any such edge back toM, reconnecting it, and yielding a
+lighter spanning tree than we had initially. This is a contradiction sinceMwas initially a minimum
+spanning tree, and hencepmust be a bottleneck path.
+(c) Consider the following graph
+a bc
+d101
+101
+The patha→b→dis a bottleneck path, but it is not a part of any minimum spanning tree since
+the minimum spanning tree of this graph has weight 12, which is less than 20.
+Problem 5.Consider the following algorithm quite similar to Kruskal’s algorithm for producing a minimum
+spanning tree of a connected graph:
+1:functionMINIMUM_SPANNING_TREE(G=(V , E))
+2:sort(E,descending, key((u,v))=w(u,v))//Sort edges in order from heaviest to lightest
+3:T=E
+4:for eachedgeein nonincreasing orderdo
+5:ifT -{e}is connectedthen
+6:T=T -{e}
+7:returnT
+Instead of adding edges in order of weight (lightest first) and keeping the graph acyclic, we remove edges in order
+of weight (heaviest first) while keeping the graph from becoming disconnected.
+3
+
+---PAGE_BREAK---
+
+(a) Identify a useful invariant maintained by this algorithm.
+(b) Prove that this invariant is maintained by the algorithm.
+(c) Deduce that this algorithm correctly produces a minimum spanning tree.
+Solution
+(a) At each iteration,Tis a superset of some minimum spanning tree ofG.
+(b) We follow a proof very similar to that of Kruskal’s algorithm. Initially,Tcontains every edge, so it is
+definitely a superset of some minimum spanning tree’s edges.
+Suppose that at some iteration,Tis a superset of some minimum spanning treeM. Call the next
+heaviest edge whose removal does not disconnect the graphe. We need to argue thatT−{e}is a
+superset of a minimum spanning tree. Ife/∈M, thenT−{e}is a superset ofMand we are done.
+Otherwisee∈M. Suppose we removeefromM, leaving us with two disconnected subtrees. Since
+removingefromTdoes not disconnectT, it must be contained in some cycle inT. This cycle must
+contain an edgee′̸=ethat connects the two subtrees made by removingefromM. Sinceewas
+the heaviest edge whose removal does not disconnect the graph, ande′would also not disconnect
+the graph since it is contained in a common cycle withe, we have thatw(e′)≤w(e). Therefore if
+we join together the two subtrees formed by removingeby addinge′, we obtain a spanning tree
+M′whose weight is
+w(M′) =w(M)−w(e) +w(e′)≤w(M),
+but sinceMis a minimum spanning treew(M′)≥w(M)and hencew(M′) =w(M)from which we
+can deduce thatM′is also a minimum spanning tree. Sincee′∈Tande/∈M′, it is true thatM′is
+a subset ofT−{e}and henceT−{e}is a superset of some minimum spanning tree. Therefore the
+invariant is maintained.
+(c) This algorithm will produce a graph that is connected since it will never remove an edge that causes
+a disconnection. Suppose it produces a graph containing a cycle, then it contains an edge whose
+removal would not disconnect the graph, but such an edge would be removed by Line 6. Therefore
+this algorithm produces a connected graph with no cycles, i.e. a spanning tree. By the invariant
+shown in (b), the spanning tree produced must be a superset of some minimum spanning tree, but
+since all spanning trees contain the same number of edges, it must itself be a minimum spanning
+tree. Therefore this algorithm correctly produces a minimum spanning tree.
+Problem 6.Recall from the lecture recordings that breadth-first search can be used to find single-source short-
+est paths on unweighted graphs, or equivalently, graphs where all edges have weight one. Consider the similar
+problem where instead of only having weight one, edges are now allowed to have weight zero or one. We call this
+thezero-oneshortest path problem. Write pseudocode for an algorithm for solving this problem. Your solution
+should run inO(V+E)time (this means that you cannot use Dijkstra’s algorithm!)[Hint: Combine ideas from
+breadth-first search and Dijkstra’s algorithm]
+Solution
+Recall that in a breadth-first search, vertices are visited in order by their distance from the source vertex.
+Suppose that the vertex at the front of the queue has distanced. Any unvisited adjacent vertices will be
+inserted into the back of the queue at distanced+1. This implies that the queue maintained by BFS
+always contains vertices whose distances differ by at most one. In essence, the queue contains vertices
+on the current level at the front, and vertices on the next level at the back.
+We wish to modify BFS to allow it to handle edges with zero weight. Notice that if we wish to traverse an
+edge of zero weight, then the target vertex will have the same distance as the current distance. Therefore
+we would simply like to insert this vertex not at the back, but at the front of the queue! To support this,
+we could use a data structure called a “deque” . A deque is short fordouble-ended queue, which simply
+4
+
+---PAGE_BREAK---
+
+means a queue that can be inserted and removed from at both ends. A deque can be implemented quite
+easily using a standard dynamic array. Alternatively, if you do not wish to use a deque, you can simply
+maintain two queues, one for the vertices at the current distanced, and one for the vertices at the next
+distanced+1.
+Another interpretation of this algorithm is as a modification of Dijkstra’s. Dijkstra’s algorithm would solve
+this problem, but inO((V+E)log(V))complexity, which is a log factor too high due to the use of a heap-
+based priority queue. However, as per the observation above, the queue for this algorithm will only ever
+contain vertices at distancedand distanced+1, hence we only need a priority queue that supports
+having at most two keys at once. Having a double-ended queue and appending the higher keys onto the
+end and the smaller keys onto the front satisfies this requirement.
+Finally, note that unlike ordinary BFS, we also have to check the distances when visiting neighbours now
+since we cannot guarantee that the first time we discover a vertex that we necessarily have the smallest
+distance (since we may discover it via a weight one edge when some other node can reach it via a weight
+zero edge). This is similar to how Dijkstra’s algorithm relaxes outgoing edges. A pseudocode implemen-
+tation in presented below.
+1:functionZERO_ONE_BFS(G=(V , E), s)
+2:Set dist[1..n] =∞
+3:Set pred[1..n] =null
+4:Set deque=Deque()
+5:deque.push((s, 0))
+6:dist[s] =0
+7:whiledeque isnotemptydo
+8:(u, d)=deque.pop()
+9:ifd=dist[u]then//Ignore entries in the queue for out-of-date distances (like Dijkstra’s)
+10:for eachvertex v adjacent to udo
+11:ifdist[u] +w(u,v)<dist[v]then
+12:dist[v] =dist[u] +w(u,v)
+13:pred[v] =u
+14:ifw(u,v) =0thendeque.push_front((v, dist[v]))//Add to the front of the queue
+15:elsedeque.push_back((v, dist[v]))//Add to the back of the queue
+There are other ways to solve this problem. One very different solution is to perform a depth-first search
+on the graph and find all of the components that are connected by zero-weight edges. Since vertices in
+these components can reach each other with zero distance, they will all have the same distances in the
+answer, hence these components can be contracted into single vertices, and then we can perform an
+ordinary breadth-first search on this contracted graph.
+Problem 7.You are the manager of a super computer and receive a set of requests for allocating time frames
+in that computer. Thei-th request specifies the starting times iand the finishing timef i. A subset of requests
+is compatible if there is no time overlap between any requests in that subset. Develop an algorithm to choose a
+compatible subset of maximal size (i.e., you want to accept as many requests as feasible, but you cannot select
+incompatible requests).[Hint: Develop a greedy algorithm.]
+Solution
+The solution to this problem is a greedy algorithm that works as follows. First, the requests are sorted
+according to their finishing time. The intuition is that at any point, from the remaining compatible re-
+quests, you want to select the one with the smallest finishing time, so that the super computer becomes
+available again as soon as possible.
+The algorithm loops through the sorted list of requests proceeding as follows: if the request is compatible
+5
+
+---PAGE_BREAK---
+
+with the previously chosen requests, then it is selected; otherwise it is discarded.
+The idea of the proof of correctness that this algorithm obtains an optimal solution (i.e., a maximal com-
+patible subset) is to demonstrate that the solution output by this algorithm “stays ahead” of any other
+solution. Leti 1,i2, . . . ,i mbe the subset of requests output by the algorithm (in time order, remember that
+this subset is compatible so there is no overlap). Suppose, for contradiction, that there is a bigger com-
+patible subset and letj 1,j2, . . . ,j nbe its requests (also in time order) withn>m. Prove by induction that
+fik≤f jkfork=1, 2, . . . ,m. But thenj m+1 is compatible withi 1,i2, . . . ,i m, and should have been selected by
+the algorithm, which is a contradiction. Therefore the algorithm obtains a compatible subset of maximal
+size.
+Note that sorting by starting time and proceeding greedily (by processing the requests in increasing order
+of starting time and adding the compatible ones) would not work, as the request that starts first can also
+be the last one to finish.
+The idea of ordering the requests according to the time that they take and proceeding greedily would also
+not work. Consider, for instance, the case where the first request starts at 1 and finishes at 10, the second
+starts at 9 and finishes at 12, and third request starts at 11 and finishes at 20. The first and third requests
+are compatible, but if you select the second request, then you cannot select any other request.
+Supplementary Problems
+Problem 8.For the union-find data structure, there are multiple heuristics to handle how we union two disjoint-
+set trees. One such heuristic is "union-by-size", where the disjoint-set with less elements is appended to the dis-
+joint set with more elements. We want to prove that the worst-case cost of all the union operations isO(Vlog(V))
+for a disjoint set ofVelements, when using this heuristic.
+(a) First prove the following lemma: For any disjoint-set tree constructed via "union-by-size" heuristic, size(r)≥
+2height(r), whererrepresents the root node of some disjoint-set tree, size(r)represents the number of nodes
+in the disjoint set tree, and height(r)represents the height of the tree.
+(b) Using the lemma from part (a), prove that a union takesO(log(V)).
+(c) Hence, prove that all the unions takeO(Vlog(V)).
+Solution
+(a) We will prove the lemma inductively.
+Base Case:
+When we initialise the union-find data structure, every tree is just a singular node. We have that the
+size(r) =1 and the height(r) =0. The proposed lemma clearly holds, hence the base case is true.
+Inductive step:
+Assume that afterkunions the statement is true for all disjoint-set trees in the data structure. In
+the(k+1)-th union, say we are merging two disjointed-set trees, rooted atsandr. Without loss of
+generality let’s assume that size(r)≥size(s)which means the tree rooted atsis put beneathr.
+After performing the(k+1)-th merge we denote the old size and height as as size(r), height(r)and
+the new size and height as size′(r), height′(r).
+Case 1: height(r)>height(s)
+After performing the(k+1)-th merge we have
+size′(r)≥size(r)
+6
+
+---PAGE_BREAK---
+
+We then invoke our hypothesis where size(r)≥2height(r). Therefore
+size′(r)≥2height(r)
+Since height(r)>height(s)and the disjoint-set tree rooted atsis put beneathr, we must have
+height(r) =height′(r). Therefore we have that
+size′(r)≥2height′(r)
+This proves the lemma for this case.
+Case 2: height(r)≤height(s)
+After performing the(k+1)-th merge we have
+size′(r) =size(r) +size(s)
+From our assumption of size(r)≥size(s), we have that
+size′(r)≥2×size(s)
+We then invoke our hypothesis where size(s)≥2height(s). Therefore we have that
+size′(r)≥2×2height(s)
+≥2height(s)+1
+As we are putting the disjoint-set tree rooted atsbeneathr, and height(r)≤height(s), we must
+then have height′(r) =height(s) +1. Therefore we have
+size′(r)≥2height′(r)
+This proves the lemma for this case. Therefore, by induction, it is true that size(r)≥2height(r).
+(b) The cost of any union is simplyO(height(r) +height(s)). It follows from the lemma above that
+size(r)≥2height(r),
+log2(size(r))≥height(r).
+Since size(r)for a disjoint set ofVelements is bounded byV. We have that
+log2(V)≥height(r).
+Similarly, we can show that
+log2(V)≥height(s).
+Thus any union is worst caseO(log(V)).
+(c) A union operation is only ever performed if two nodes are in different disjoint-sets. Thus, in the
+worst-case lifespan of the union-find data structure ofVelements, onlyV−1 unions can be per-
+formed. Using the above it follows that the worst-case cost of all the unions isO(Vlog(V)).
+Problem 9.Suppose that we wish to solve the single-source shortest path problem for graphs with non-negative
+bounded integer edge weights, i.e. there is a constantcsuch that for all edges(u,v)it holds that 0≤w(u,v)≤c.
+Explain how we can modify Dijkstra’s algorithm to run inO(V+E)time in this case.[Hint: Improve the priority
+queue]
+7
+
+---PAGE_BREAK---
+
+Solution
+The part of Dijkstra’s algorithm that adds the log factor is the priority queue, so let’s try to improve that.
+Given that the edge weights are bounded above byc, and a shortest path can contain at mostV−1 edges,
+the largest distance estimate that we can ever have is less thanc V. Also observe that since we remove
+vertices from the priority queue in distance order, the minimum element in the priority queue never
+decreases. We can use these two facts to make a faster priority queue for Dijkstra’s.
+Let’s just store an array of sizec V, where at each entry, we store a linked list of vertices who have that
+distance estimate. Adding an element to this priority queue takesO(1)since we can simply append to
+the corresponding linked list. Updating a distance estimate can also be achieved inO(1)since we can
+append to linked lists in O(1) (using the approach to implementing Dijkstra described in the notes). Since
+the minimum distance for entries obtained from priority queue never decreases, we can simply move
+through the priority queue, starting at distance zero and moving onto the next distance when there are
+no vertices left to process at the current distance. We never move back to a previous distance.
+All updates to the priority queue takeO(1). Finding the minimum element in the priority queue could
+take up toO(V), but note that since we never go backwards, the total time complexity ofallfind minimum
+operations will beO(V), since scanning all of the distances takesO(c V) =O(V)ascis a constant. The
+total time complexity of Dijkstra’s using this priority queue will therefore beO(V+E).
+Problem 10.Consider the following supposed invariant for Kruskal’s algorithm: At each iteration, each con-
+nected component in the current spanning forest is a minimum spanning tree of the vertices in that component.
+(a) Prove or disprove whether Kruskal’s algorithm maintains this invariant.
+(b) Can this invariant be used to prove that Kruskal’s algorithm is correct?
+Solution
+(a) Kruskal’s algorithm does maintain this invariant, as it is a strictly weaker version of the invariant
+we usually show for Kruskal. Recall that Kruskal’s maintains that the current set of selected edges
+is always a subset of some minimum spanning tree. LetGbe a weighted, connected, undirected
+graph and letTbe a subset of some minimum spanningMtree ofG. Consider a connected com-
+ponent ofT. Suppose for contradiction that this component is not a minimum spanning tree on
+its vertices. Then we could replace the edges of this component inMwith the edges of a minimum
+spanning tree on these vertices and reduce the weight ofM, meaning thatMwas not a minimum
+spanning tree. This is a contradiction, and hence all of the connected components ofTmust be
+minimum spanning trees on their respective vertices.
+(b) Despite the fact that Kruskal’s maintains this invariant, it is not strong enough to prove the algo-
+rithm’s correctness. Consider the following graph for example.
+a bc d
+1 1
+1010
+The edges(a,b)and(c,d)are both minimum spanning trees of their connected components, but
+no matter how we connect them, we will not obtain a minimum spanning tree for the entire graph.
+Therefore this invariant alone is too weak to show that Kruskal’s is correct.
+8
+
+---PAGE_BREAK---
+
+Note:Clearly the situation above could never actually arise during the execution of Kruskal’s algo-
+rithm (because Kruskal’s is correct, which we have proven elsewhere). It is, however, a valid coun-
+terexample to the suggested invariant.
+Problem 11.Consider the following state of a union-find data structure:
+01 2
+3 4 5 6 7
+89
+(a) Perform the followingunion()calls sequentially using theunion-by-rankandpath compressionheuris-
+tics, visualising the outcome.
+(i)union(4, 0)
+(ii)union(8, 3)
+(iii)union(9, 0)
+(b) Compare the difference between the final state of the forest and the state of the forest if you were to use
+theunion-by-sizeheuristic alone.
+Solution
+(a) (i)union(4, 0)
+01
+2
+34 5
+6 7 89
+(ii)union(8, 3)
+Unlike in the preparation sheet, although element 8 and 3 are part of the same component,
+during the twofind()calls within theunion()call, thepath compressiontechnique will
+cause both the parents of 8 and 3 to become 1, allowing for faster future queries.
+9
+
+---PAGE_BREAK---
+
+01
+2 3 4 5
+6 789
+(iii)union(9, 0)
+In addition to the appended element 9, when the root element for 0 was found,path compres-
+sionwould set its parent directly to this root element as a side-effect.
+01
+2 3 4 5
+6 78 9
+(b) The state of the union-find data structure and the remainingunion()calls is identical to the con-
+text in Preparation Sheet 6 Problem 3, where the provided solution in part (h) onwards illustrates
+the outcomes usingunion-by-size.
+The final merged tree, usingunion-by-rankandpath compression, has a height of 2, which is one
+less than the final height of the tree usingunion-by-size. Whilst this may seem small, on the large
+scale, theunion-by-rankheuristic is a better choice thanunion-by-sizeas it is more pragmatic to
+keep the height of the trees smaller. This series of unions illustrate the benefit ofunion-by-rank,
+aspath compressionhad no effect in theunion(4, 0)call, attributing the direct height difference
+to theunion-by-rankheuristic alone. Theunion(8, 3)andunion(9, 0)calls showcase the
+benefits ofpath compressionand how it helps make the tree shallow and wide, allowing for almost
+O(1)query times.
+10

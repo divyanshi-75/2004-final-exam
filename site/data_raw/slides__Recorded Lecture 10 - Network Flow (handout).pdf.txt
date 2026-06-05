@@ -1,0 +1,1006 @@
+FIT2004 - Algorithms and Data Structures
+Seminar 10 - Network Flow
+Rafael Dowsley
+
+---PAGE_BREAK---
+
+Maximum Flow Problem
+
+---PAGE_BREAK---
+
+Flow networks
+sa
+bc
+dt3
+53 3
+3
+5 5
+A flow network is a connected directed graph where:
+▶There is a single source vertex, often denoted by s, which only has
+outgoing edges.
+▶There is a single sink/target vertex, often denoted by t, which only has
+incoming edges.
+▶Each edge has a given non-negative capacity (usually integers) giving the
+maximum amount/rate of flow that the edge can carry.
+1/51
+
+---PAGE_BREAK---
+
+What are flow networks used for?
+sa
+bc
+dt3
+53 3
+3
+5 5
+Flow networks can model many real-world problems, such as:
+▶Water flowing through an assembly of pipes.
+▶Electric current flowing through electrical circuits.
+▶Information flowing through communication networks.
+Can be applied to solve a large range of other combinatorial
+problems unrelated to physical flows.
+2/51
+
+---PAGE_BREAK---
+
+Flow
+sa
+bc
+dt3/3
+5/53/30/3
+3/32/5
+5/5
+For an edge e, its flow f(e) is an assignment of how much material
+is flowing through it in the flow network given its capacity c(e).
+All vertices (except source and sink) conserve their flow:
+▶LetEin(v) denote the set of all incoming edges to a vertex v, and similarly
+Eout(v) denote its set of outgoing edges.
+▶The total amount flowing into any vertex (through incoming edges) is equal
+to the total amount flowing out of that vertex (through outgoing edges).
+3/51
+
+---PAGE_BREAK---
+
+Properties of a flow network
+A flow network must satisfy the following properties:
+Capacity constraint
+For every edge e, its flow is bounded by its capacity: 0 ≤f(e)≤c(e).
+Flow conservation
+For every vertex v∈V\ {s,t}, it holds that
+X
+ein∈Ein(v)f(ein) =X
+eout∈Eout(v)f(eout)
+We only consider integer capacities.
+4/51
+
+---PAGE_BREAK---
+
+Flow of the network
+sa
+bc
+dt sa
+bc
+dt3/3
+5/53/33/30/3
+2/55/5
+3/30/3
+2/55/512/12
+11/140/10 1/4 7/7
+4/911/1615/20
+8/134/4
+11/1615/20
+8/134/4
+Given that the flow network satisfies the capacity constraint and
+flow conservation properties, the flow of the network is the total flow
+out of the source vertex.
+▶Equivalently, this is the same as the total flow into the sink vertex.
+▶What is the flow value in the left flow network? 5
+▶What is the flow value in the right flow network? 19
+5/51
+
+---PAGE_BREAK---
+
+Maximum-flow problem
+sa
+bc
+dt sa
+bc
+dt3/3
+5/53/33/30/3
+2/55/512/12
+11/140/10 1/4 7/7
+4/911/1615/20
+8/134/4
+Maximum-flow problem
+Given a flow network, determine the maximum value of the flow that
+can be sent from the source sto the sink twithout violating the
+capacity constraint and flow conservation properties.
+6/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+Ford-Fulkerson is a method for solving max-flow problems.
+Lester Ford Jr.
+ Delbert Fulkerson
+7/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson intuition
+sa
+bc
+dt0/3
+0/50/30/3
+0/30/5
+0/5
+How can we increase the flow in the above network?
+8/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson intuition
+sa
+bc
+dt0/3
+0/50/30/3
+0/30/5
+0/5
+How can we increase the flow in the above network?
+1. Choose a path from the source to the sink.
+2. Increase the flow along it as much as possible.
+Seems easy enough!
+9/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson intuition
+sa
+bc
+dt3/3
+5/53/30/3
+3/32/5
+5/5
+Can we increase the flow in the above network?
+10/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson intuition
+sa
+bc
+dt3/3
+5/53/30/3
+3/32/5
+5/5
+Can we increase the flow in the above network?
+We can! But there is no path from the source to the sink with spare
+capacity. . .
+11/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson intuition
+sab
+bc
+dt3/3
+5/53/3
+2/5
+5/50/3
+3/3
+3/3
+0/3
+There is no path from stotwith spare capacity.
+Redirect the 3 units on the edge c→bto go to edge c→t.
+Problem: The flow through bis not conserved anymore.
+12/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson intuition
+sa
+bc
+dt3/3
+5/53/3
+5/53/3
+0/35/5
+There is no path from stotwith spare capacity.
+Redirect the 3 units on the edge c→bto go to edge c→t.
+Problem: The flow through bis not conserved anymore.
+Solution: Send 3 more units along s→b.
+13/51
+
+---PAGE_BREAK---
+
+What actually happened here?
+sa
+bc
+dt3/3
+5/53/3
+5/53/3
+0/35/5
+We increased the total flow by 3.
+We sent 3 additional units along s→b,c→t.
+We removed 3 units of flow from c→b.
+Our path was s→b→c→t, but we had a backwards edge. . .
+14/51
+
+---PAGE_BREAK---
+
+Residual network
+sa
+bc
+dtFlow network
+sa
+bc
+dtResidual network
+3/3
+4/53/31/3
+2/32/5
+4/50
+102
+3113
+431
+242
+Residual network has the same vertices as the original network.
+For every directed edge u→vin flow network, we add two edges in
+the residual network:
+▶Forward edge/residual edge: an edge in the same direction as u→vwith
+the residual/remaining capacity in the flow network.
+▶Backward edge/reversible flow edge: an edge in the direction v→uwith
+weight equal to the current flow of u→vin the flow network.
+15/51
+
+---PAGE_BREAK---
+
+Augmenting path
+sa
+bc
+dtFlow networks
+b
+s
+ba
+dc
+t
+c
+tResidual network
+3/3
+4/53/31/3
+2/32/5
+4/50
+0
+32
+2
+32
+2
+11
+13
+431
+24
+Augmenting path is any simple path (a path without repeating
+vertices) from the source sto the target talong edges with positive
+weight in the residual network.
+▶We can omit edges with weight 0 from the residual network.
+Residual capacity is the minimum edge weight in the residual along
+this augmenting path (e.g., 2 in the example).
+16/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+sa
+bc
+dtFlow of the network = 0
+sa
+bc
+dtPath capacity
+0/3
+0/50/30/3
+0/30/5
+0/53
+533
+5530
+000
+000
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+17/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+sa
+bc
+dtFlow of the network = 0sa
+sab
+bc
+cd
+dt
+tPath capacity = 3
+0/3
+0/50/30/3
+0/30/5
+0/53
+35
+53
+333
+3
+55
+50
+000
+000
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+18/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+sa
+bc
+dtFlow of the network = 0
+Flow of the network = 3
+sa
+bc
+dtPath capacity = 30/3
+0/50/30/3
+0/3
+0/50/5
+3/3
+3/53/30/3
+3/3
+3/50/53
+533
+3
+550
+000
+000
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+19/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+sa
+bc
+dtFlow of the network = 3
+sa
+bc
+dtResidual needs to be updated!
+3/3
+3/53/30/3
+3/3
+3/50/5?
+??3
+?
+5??
+??
+??
+23
+523
+33
+33
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+20/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+sa
+bc
+dtFlow of the network = 3s
+b
+s
+bac
+c
+dt
+tPath capacity = 3
+3/3
+3/53/30/3
+3/3
+3/50/5
+23
+35
+523
+333
+3
+3
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+21/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson methods
+b
+s
+bac
+c
+dtFlow of the network = 3
+tFlow of the network = 6
+s
+ba c
+dtPath capacity = 3
+3/3
+3/53/30/3
+3/33/3
+0/3
+3/50/5
+3/5
+23
+523
+33 3
+3
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+22/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+s
+ba c
+dtFlow of the network = 6
+s
+ba c
+dtResidual needs to be updated!
+3/3
+3/53/33/3
+0/3
+3/53/5
+2?
+?
+?
+3
+223
+33? ?
+?
+3
+33
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+23/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+s
+ba c
+dtFlow of the network = 6s
+b
+s
+ba cd
+dt
+tPath capacity = 2
+3/3
+3/53/33/3
+0/3
+3/53/52
+232
+22
+23
+333
+33
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+24/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson methods
+b dt
+s
+b dta cFlow of the network = 6
+Flow of the network = 8
+s
+ba c
+dtPath capacity = 2
+3/3
+3/33/3
+0/33/5
+3/53/5
+5/5
+5/55/5
+23
+223
+333
+33
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+25/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+s
+b dta cFlow of the network = 8
+s
+ba c
+dtResidual needs to be updated!
+3/3
+3/33/3
+0/35/5
+5/55/5?
+??
+3?
+??
+5
+553
+33
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+26/51
+
+---PAGE_BREAK---
+
+Ford-Fulkerson method
+s
+b dta cFlow of the network = 8
+s
+ba c
+dtNo further augmenting paths!
+3/3
+3/33/3
+0/35/5
+5/55/535
+553
+33
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+27/51
+
+---PAGE_BREAK---
+
+Implementation details
+Edge “type” in the residual does not matter as we can send flow
+along any of them.
+▶Forward edges can have flow sent along them because they have spare
+capacity.
+▶Backward edges can have flow sent along them because reducing a flow in
+one direction is the same as increasing the flow in the opposite direction.
+If a pair of vertices in the flow network have edges in both directions,
+then in the residual network there are only 2 edges (not 4).
+28/51
+
+---PAGE_BREAK---
+
+Implementation details
+x
+yFlow network
+x
+yResidual network
+a/b c/d (b−a) +c (d−c) +a
+The amount of flow we can send from xtoyconsists of:
+▶The spare capacity ( b−a).
+▶The existing flow from ytoxwhich can be reversed ( cunits).
+29/51
+
+---PAGE_BREAK---
+
+Time complexity
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+Cost of finding an augmenting path: O(|V|+|E|) using BFS/DFS.
+Augmenting flow along a path: length of path ≤ |V| −1, so O(|V|).
+Updating the residual: two edges per edge of the augmenting path, so O(|V|).
+Total work in one iteration of the loop: O(|V|+|E|) =O(|E|) as the graph is
+connected.
+30/51
+
+---PAGE_BREAK---
+
+Time complexity
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+Total work in one iteration of the loop: O(|E|).
+How many iterations?
+31/51
+
+---PAGE_BREAK---
+
+Time complexity
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+Total work in one iteration of the loop: O(|E|).
+How many iterations?
+▶Assuming integer capacities, Ford-Fulkerson flows are always
+integer-valued, so flow grows by at least 1 in each iteration.
+▶If maximum flow in the network is F, then at most Fiterations.
+Total work: O(|E| ·F).
+32/51
+
+---PAGE_BREAK---
+
+Time complexity
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+Total work: O(|E| ·F).
+▶This looks polynomial.
+▶But it isn’t because Fis a number, so its value is exponential in the space
+required to store it.
+It can be proven that the complexity is O(|V| · |E|2) when using BFS to find
+augmenting paths, which is polynomial.
+▶These two bounds are incomparable.
+33/51
+
+---PAGE_BREAK---
+
+Correctness
+Ford-Fulkerson method
+1:function max flow (G= (V,E),s,t)
+2: set initial flow fto 0 on all edges
+3: while there exists an augmenting path pin the residual network Gfdo
+4: augment the flow falong the augmenting path pas much as possible
+5: return f
+Does the algorithm terminate?
+▶Yes, assuming all capacities are integers.
+▶The flow always increases by at least 1 per iteration and there cannot be
+any augmenting path if all source’s outgoing edges (similarly, if all sink’s
+incoming edges) are saturated.
+In order to show that the algorithm terminates exactly once it finds a flow whose
+value is the maximum possible value among all feasible flows, we will need to
+study the Min-cut Max-flow Theorem.
+34/51
+
+---PAGE_BREAK---
+
+Min-cut Max-flow Theorem
+
+---PAGE_BREAK---
+
+Cutsa
+bc
+dt
+sa
+bc
+dt12/12
+11/140/10 1/4 7/7
+4/911/1615/20
+8/134/4
+12/12
+11/140/10 1/4 7/7
+4/911/16
+8/1315/20
+4/4
+A cut ( S,T) of a flow network partitions the vertices into two
+disjoint sets SandTsuch that s∈Sandt∈T.
+The cut-set of a cut ( S,T) is the set of edges that “cross” the cut,
+i.e., each edge connects one vertex in Swith another in T.
+▶Outgoing edges of the cut: from a vertex in Sto a vertex in T.
+▶Incoming edges of the cut: from a vertex in Tto a vertex in S.
+35/51
+
+---PAGE_BREAK---
+
+Flow and capacity of a cut
+sa
+bc
+dt12/12
+11/140/10 1/4 7/7
+4/911/16
+8/1315/20
+4/4
+Capacity of a cut ( S,T) is the total capacity of its outgoing edges.
+Flow of a cut ( S,T) is equal to total flow of outgoing edges −total
+flow of incoming edges.
+Note that the flow of a cut is always ≤to the capacity of the cut.
+▶Flow of an edge ≤capacity of an edge.
+▶Capacity of a cut does not subtract capacities for incoming edges.
+36/51
+
+---PAGE_BREAK---
+
+Flow and capacity of a cut
+sa
+bc
+dt12/12
+11/140/10 1/4 7/7
+4/911/16
+8/1315/20
+4/4
+Capacity of a cut ( S,T) is the total capacity of its outgoing edges.
+▶What is the capacity of this cut?
+▶26
+Flow of a cut ( S,T) is equal to total flow of outgoing edges −total
+flow of incoming edges.
+▶What is the flow of this cut?
+▶19
+37/51
+
+---PAGE_BREAK---
+
+Another cut
+sa
+bc
+dt12/12
+11/140/10 1/4 7/7
+4/911/16
+8/1315/20
+4/4
+Capacity of a cut ( S,T) is the total capacity of its outgoing edges.
+▶What is the capacity of this cut?
+▶29
+Flow of a cut ( S,T) is equal to total flow of outgoing edges −total
+flow of incoming edges.
+▶What is the flow of this cut?
+▶19
+38/51
+
+---PAGE_BREAK---
+
+Yet another cut
+sa
+bc
+dt12/12
+11/140/10 1/4 7/7
+4/911/16
+8/1315/20
+4/4
+Capacity of a cut ( S,T) is the total capacity of its outgoing edges.
+▶What is the capacity of this cut?
+▶31
+Flow of a cut ( S,T) is equal to total flow of outgoing edges −total
+flow of incoming edges.
+▶What is the flow of this cut?
+▶19
+39/51
+
+---PAGE_BREAK---
+
+Are the flows of every cut the same?
+sa
+bc
+dt12/12
+11/140/10 1/4 7/7
+4/911/16
+8/1315/20
+4/4
+It seems that the flow of every cut is the same, let’s prove this!
+LetFout(v) denote the total flow going out of vertex vandFin(v)
+denote the total flow coming into vertex v.
+Flow conservation property: Fout(v)−Fin(v) = 0 for every vertex
+v∈V\ {s,t}.
+Flow of the network = Fout(s).
+40/51
+
+---PAGE_BREAK---
+
+Flow of every cut is the same
+sa
+bc
+dt12/12
+11/140/10 1/4 7/7
+4/911/16
+8/1315/20
+4/4
+Fout(s) = Fout(s) +X
+v∈S\s(Fout(v)−Fin(v))
+=X
+v∈S(Fout(v)−Fin(v))
+=X
+v∈S(Fout(v) +Fout(v)−Fin(v)−Fin(v))
+1st equation: by flow conservation , 2nd equation: as source has no incoming edges and
+soFin(s) = 0 , 3rd equation: just separates the flow through red and green arrows.
+41/51
+
+---PAGE_BREAK---
+
+Flow of every cut is the same
+sa
+bc
+dt12/12
+11/140/10 1/4 7/7
+4/911/16
+8/1315/20
+4/4
+Fout(s) =X
+v∈S(Fout(v) +Fout(v)−Fin(v)−Fin(v))
+=X
+v∈S(Fout(v)−Fin(v)) +X
+v∈S(Fout(v)−Fin(v))
+=X
+v∈S(Fout(v)−Fin(v))
+The last equation follows from the fact that each red edge appears once as an incoming
+edge and once as an outgoing edge.
+42/51
+
+---PAGE_BREAK---
+
+Flow of every cut is the same
+sa
+bc
+dt12/12
+11/140/10 1/4 7/7
+4/911/16
+8/1315/20
+4/4
+Fout(s) =X
+v∈S(Fout(v)−Fin(v))
+We conclude that the flow of any cut is equal to the flow of the network.
+43/51
+
+---PAGE_BREAK---
+
+Min-cut
+Min-cut of a flow network is the cut with the minimum
+capacity.
+Flow of the network = flow of any cut ≤capacity of that cut.
+Maximum possible flow of the network ≤capacity of min-cut.
+What if we can find a pair of flow and cut such that the flow of the
+network = capacity of the cut?
+▶The flow value cannot be increased any further as it would violate the
+capacity of that cut, so it is the maximum flow.
+▶The cut is a min-cut of the flow network.
+44/51
+
+---PAGE_BREAK---
+
+Min-cut Max-flow Theorem
+Min-cut Max-flow Theorem
+Maximum possible flow of a network = capacity of the min-cut.
+We will show that the Ford-Fulkerson method always terminates and
+outputs a flow with value equal to the capacity of the min-cut.
+45/51
+
+---PAGE_BREAK---
+
+Proof of correctnesssa
+b
+sa
+bdtc
+dtcFlow networks
+ba
+s
+bac
+dt
+c
+dtResidual network
+3/3
+3/43/4
+0/35/6
+5/55/631
+11
+15
+553
+33
+Suppose the Ford-Fulkerson method has terminated (i.e., there does
+not exist any augmenting path in the residual network).
+We define a cut ( S,T) such that:
+▶Scontains every vertex vthat is reachable from sin the residual network.
+▶Tcontains every other vertex. Note tcannot be in Sbecause it is not
+reachable from s(there is no further augmenting paths).
+46/51
+
+---PAGE_BREAK---
+
+Proof of correctness
+sa
+b dtcFlow network
+s
+ba c
+dtResidual network
+3/3
+3/43/4
+0/35/6
+5/55/631
+11
+15
+553
+33
+The flow of this cut equals to the capacity of this cut:
+▶For each outgoing edge, e.g., a→c, its flow is equal to the capacity of the
+edge. Otherwise, edge a→cwould be in the residual network and cwould
+be reachable from s(but we know this is not the case as c̸∈S).
+▶For each incoming edge, e.g., c→b, its flow is zero. Otherwise, there
+would be an edge b→cin the residual network implying cis reachable
+from s(but we know this is not the case as c̸∈S).
+47/51
+
+---PAGE_BREAK---
+
+Min-cut max-flow connection used in practice
+Original application: US Air Force wanted to identify targets for air
+strikes to effectively cut off Soviet supply chains in Eastern Europe in
+case of a conflict during the Cold War.
+48/51
+
+---PAGE_BREAK---
+
+Min-cut max-flow connection used in practice
+Manage traffic flow and preventing bottlenecks on roads.
+Identifying parts that can lead to catastrophic failures in the power
+grid.
+Businesses use it to analyse critical parts of their supply chain and
+operational networks.
+Social networks use it to analyse and optimise flow of information.
+It can help identifying potential vulnerabilities in complex systems
+and planning to increase their resilience.
+49/51
+
+---PAGE_BREAK---
+
+Reading
+Course Notes: Chapter 9
+You can also check algorithms’ textbooks for contents related to this
+lecture, e.g.:
+▶CLRS: Sections 26.1 and 26.2
+▶KT: Sections 7.1, 7.2 and 7.3
+50/51
+
+---PAGE_BREAK---
+
+Concluding remarks
+Take home message: maximum flow of a network is equal to the
+capacity of its min-cut and both can be found using Ford-Fulkerson.
+Things to do: make sure you understand Ford-Fulkerson
+algorithm, why it is correct, and how to use it to find
+max-flows and min-cuts.
+Coming up next: Circulation with demands, applications of network
+flow to combinatorial problems.
+51/51

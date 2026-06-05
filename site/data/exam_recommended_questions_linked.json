@@ -1,0 +1,1071 @@
+[
+  {
+    "week": 1,
+    "problemLabel": "Problem 2",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied01-solutions.pdf__Problem2"
+    ]
+  },
+  {
+    "week": 1,
+    "problemLabel": "Problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied01-solutions.pdf__Problem3"
+    ]
+  },
+  {
+    "week": 1,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied01-solutions.pdf__Problem5"
+    ]
+  },
+  {
+    "week": 1,
+    "problemLabel": "Problem 6",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied01-solutions.pdf__Problem6"
+    ]
+  },
+  {
+    "week": 1,
+    "problemLabel": "Problem 8",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied01-solutions.pdf__Problem8"
+    ]
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 2",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied02-solutions.pdf__Problem2"
+    ]
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied02-solutions.pdf__Problem3"
+    ]
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 4",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied02-solutions.pdf__Problem4"
+    ]
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 5",
+    "section": "2 or 3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied02-solutions.pdf__Problem5"
+    ]
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 6",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied02-solutions.pdf__Problem6"
+    ]
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 8",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied02-solutions.pdf__Problem8"
+    ]
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 9",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied02-solutions.pdf__Problem9"
+    ]
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 13",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied02-solutions.pdf__Problem13"
+    ]
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 16a",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 16b",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 16d",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 1",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem1"
+    ]
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 2",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem2"
+    ]
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": true,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem3"
+    ]
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 4",
+    "section": "2 or 3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem4"
+    ]
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem5"
+    ]
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem6"
+    ]
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 7",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem7"
+    ]
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 8",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem8"
+    ]
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 9",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem9"
+    ]
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 10",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem10"
+    ]
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 11",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied03-solutions.pdf__Problem11"
+    ]
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 2",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied04-solutions.pdf__Problem2"
+    ]
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied04-solutions.pdf__Problem3"
+    ]
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 4",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied04-solutions.pdf__Problem4"
+    ]
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied04-solutions.pdf__Problem5"
+    ]
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied04-solutions.pdf__Problem5"
+    ]
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied04-solutions.pdf__Problem6"
+    ]
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 7",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied04-solutions.pdf__Problem7"
+    ]
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 9.2",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 3a",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 3b",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": true,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied05-solutions.pdf__Problem5"
+    ]
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied05-solutions.pdf__Problem6"
+    ]
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 7",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied05-solutions.pdf__Problem7"
+    ]
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 10",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied05-solutions.pdf__Problem10"
+    ]
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 11",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied05-solutions.pdf__Problem11"
+    ]
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 12",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied05-solutions.pdf__Problem12"
+    ]
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 13",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied05-solutions.pdf__Problem13"
+    ]
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 1",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied06-problems.pdf__Problem1",
+      "applied-questions__applied06-solutions.pdf__Problem1"
+    ]
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 2",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied06-problems.pdf__Problem2",
+      "applied-questions__applied06-solutions.pdf__Problem2"
+    ]
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 3",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied06-problems.pdf__Problem3",
+      "applied-questions__applied06-solutions.pdf__Problem3"
+    ]
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 4",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied06-problems.pdf__Problem4",
+      "applied-questions__applied06-solutions.pdf__Problem4"
+    ]
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 5a",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 5b",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied06-problems.pdf__Problem6",
+      "applied-questions__applied06-solutions.pdf__Problem6"
+    ]
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 7",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied06-problems.pdf__Problem7",
+      "applied-questions__applied06-solutions.pdf__Problem7"
+    ]
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 8",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied06-problems.pdf__Problem8",
+      "applied-questions__applied06-solutions.pdf__Problem8"
+    ]
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 9",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied06-problems.pdf__Problem9",
+      "applied-questions__applied06-solutions.pdf__Problem9"
+    ]
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 10",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": true,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied06-problems.pdf__Problem10",
+      "applied-questions__applied06-solutions.pdf__Problem10"
+    ]
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 1",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied07-solutions.pdf__Problem1"
+    ]
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 2",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied07-solutions.pdf__Problem2"
+    ]
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied07-solutions.pdf__Problem3"
+    ]
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 4",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied07-solutions.pdf__Problem4"
+    ]
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied07-solutions.pdf__Problem5"
+    ]
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied07-solutions.pdf__Problem6"
+    ]
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 7",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied07-solutions.pdf__Problem7"
+    ]
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 8",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied07-solutions.pdf__Problem8"
+    ]
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 9a",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 9b",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 7,
+    "problemLabel": "There are probably more good practice question in here too",
+    "section": null,
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 1",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied08-solutions.pdf__Problem1"
+    ]
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied08-solutions.pdf__Problem3"
+    ]
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 4",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied08-solutions.pdf__Problem4"
+    ]
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied08-solutions.pdf__Problem5"
+    ]
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied08-solutions.pdf__Problem6"
+    ]
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 7c",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 9",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied08-solutions.pdf__Problem9"
+    ]
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 10",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied08-solutions.pdf__Problem10"
+    ]
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 11b",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": true,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 11c",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 1",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied09-solutions.pdf__Problem1"
+    ]
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 2",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied09-solutions.pdf__Problem2"
+    ]
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 3",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied09-solutions.pdf__Problem3"
+    ]
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 4",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied09-solutions.pdf__Problem4"
+    ]
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied09-solutions.pdf__Problem5"
+    ]
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied09-solutions.pdf__Problem6"
+    ]
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 8",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied09-solutions.pdf__Problem8"
+    ]
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 9",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied09-solutions.pdf__Problem9"
+    ]
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 10",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied09-solutions.pdf__Problem10"
+    ]
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 11",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": true,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied09-solutions.pdf__Problem11"
+    ]
+  },
+  {
+    "week": 10,
+    "problemLabel": "problem 2",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied10-solutions.pdf__Problem2"
+    ]
+  },
+  {
+    "week": 10,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied10-solutions.pdf__Problem3"
+    ]
+  },
+  {
+    "week": 10,
+    "problemLabel": "problem 7",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied10-solutions.pdf__Problem7"
+    ]
+  },
+  {
+    "week": 11,
+    "problemLabel": "problem 1",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied11-solutions.pdf__Problem1"
+    ]
+  },
+  {
+    "week": 11,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied11-solutions.pdf__Problem3"
+    ]
+  },
+  {
+    "week": 11,
+    "problemLabel": "problem 4",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied11-solutions.pdf__Problem4"
+    ]
+  },
+  {
+    "week": 11,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied11-solutions.pdf__Problem5"
+    ]
+  },
+  {
+    "week": 11,
+    "problemLabel": "section 6",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 11,
+    "problemLabel": "problem 7",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": [
+      "applied-questions__applied11-solutions.pdf__Problem7"
+    ]
+  },
+  {
+    "week": 12,
+    "problemLabel": "problem 2",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 12,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 12,
+    "problemLabel": "problem 4",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 12,
+    "problemLabel": "problem 5",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  },
+  {
+    "week": 12,
+    "problemLabel": "section 6",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf",
+    "questionIds": []
+  }
+]

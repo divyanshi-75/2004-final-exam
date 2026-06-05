@@ -1,0 +1,802 @@
+[
+  {
+    "week": 1,
+    "problemLabel": "Problem 2",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 1,
+    "problemLabel": "Problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 1,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 1,
+    "problemLabel": "Problem 6",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 1,
+    "problemLabel": "Problem 8",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 2",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 4",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 5",
+    "section": "2 or 3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 6",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 8",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 9",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 13",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 16a",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 16b",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 2,
+    "problemLabel": "problem 16d",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 1",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 2",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": true,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 4",
+    "section": "2 or 3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 7",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 8",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 9",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 10",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 3,
+    "problemLabel": "problem 11",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 2",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 4",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 7",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 4,
+    "problemLabel": "problem 9.2",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 3a",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 3b",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": true,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 7",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 10",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 11",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 12",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 5,
+    "problemLabel": "problem 13",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 1",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 2",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 3",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 4",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 5a",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 5b",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 7",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 8",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 9",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 6,
+    "problemLabel": "problem 10",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": true,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 1",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 2",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 4",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 7",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 8",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 9a",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "problem 9b",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 7,
+    "problemLabel": "There are probably more good practice question in here too",
+    "section": null,
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 1",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 4",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 7c",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 9",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 10",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 11b",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": true,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 8,
+    "problemLabel": "problem 11c",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 1",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 2",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 3",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 4",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 6",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 8",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 9",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 10",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 9,
+    "problemLabel": "problem 11",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": true,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 10,
+    "problemLabel": "problem 2",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 10,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 10,
+    "problemLabel": "problem 7",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 11,
+    "problemLabel": "problem 1",
+    "section": "1",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 11,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 11,
+    "problemLabel": "problem 4",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 11,
+    "problemLabel": "problem 5",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 11,
+    "problemLabel": "section 6",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 11,
+    "problemLabel": "problem 7",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 12,
+    "problemLabel": "problem 2",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 12,
+    "problemLabel": "problem 3",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 12,
+    "problemLabel": "problem 4",
+    "section": "2",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 12,
+    "problemLabel": "problem 5",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  },
+  {
+    "week": 12,
+    "problemLabel": "section 6",
+    "section": "3",
+    "onRecommendedList": true,
+    "isKeyQuestion": false,
+    "source": "Exam-structure.pdf"
+  }
+]

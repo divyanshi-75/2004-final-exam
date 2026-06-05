@@ -1,0 +1,2804 @@
+Faculty of Information Technology,
+Monash University
+
+---PAGE_BREAK---
+
+FIT2004: Algorithms and Data 
+Structures
+Week 2: Analysis of Algorithms and 
+Sorting
+
+---PAGE_BREAK---
+
+Outline
+Proving correctness of algorithms
+Comparison -based sorting algorithms
+Selection sort
+Lower bound for comparison -based sorting
+Non-comparison sorting algorithms
+Counting Sort
+Radix Sort
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Algorithmic Analysis
+In algorithmic analysis, one is interested in (at least) two 
+things:
+An algorithm's correctness.
+The amount of resources used by the algorithm.
+We will now look at how to prove correctness. 
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Proving Correctness of Algorithms
+Commonly, wewrite programs andthen testthem .
+Testing detects inputs forwhich theprogram hasincorrect output .
+Can wetestallpossible inputs?
+There areinfinitely many possible inputs (formost programs) sowe
+cannot testthem all,therefore …
+Testing cannot guarantee thattheprogram isalways correct!
+Logic can prove that aprogram isalways correct .This isusually
+achieved intwoparts :
+1.Show thattheprogram always terminates ;
+2.Show thataprogram produces correct results when itterminates .
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Finding Minimum Value
+//Find minimum value in an unsorted array of N>0 elements
+min =array[1] // index starts at 1
+index = 2
+whileindex <=N
+ifarray[index]<min
+min =array[index]
+index =index +1
+returnmin
+FIT2004 : Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Does it Always Terminate?
+//Find minimum value in an unsorted array of N>0 elements
+min =array[1]
+index = 2
+whileindex <=N
+ifarray[index]<min
+min =array[index]
+index =index +1
+returnmin
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Correct Result at Termination?
+//Find minimum value in an unsorted array of N>0 elements
+min =array[1]
+index = 2
+whileindex <=N
+ifarray[index]<min
+min =array[index]
+index =index +1
+returnmin
+FIT2004: Lecture 2 -Analysis of AlgorithmsWill we get a correct 
+result if we replace index 
+<= N with index < N ?
+
+
+---PAGE_BREAK---
+
+Correctness using Loop Invariant
+Aloop invariant isastatement about analgorithm’s loop
+Invariant should betrueatthree points :
+1.Before the loop starts (initialisation)
+2.During each loop (maintenance)
+3.After the loop terminates (termination)
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Correctness using Loop Invariant
+min =array[1]
+index = 2
+//LI: min equals the minimum value in array[1 … index -1]
+whileindex <=N
+ifarray[index]<min
+min =array[index]
+index =index +1
+returnmin
+The easiest way to do this is often to consider the invariant just 
+before the loop condition is checked.
+•min = array[1]
+•index = 2
+•array[1 … index –1] = array[1…1]
+As requiredInitialisation
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Correctness using Loop Invariant
+min =array[1]
+index = 2
+//LI: min equals the minimum value in array[1 … index -1]
+whileindex <=N
+ifarray[index]<min
+min =array[index]
+index =index +1
+returnmin
+•If LI was true when index was k, is it still true when index is 
+k+1?
+•To prove this, examine the code in the body of the loop and 
+reason about the invariant.
+•Remember to use the assumption that LI was true when index
+was kMaintenance
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Correctness using Loop Invariant
+min =array[1]
+index = 2
+//LI: min equals the minimum value in array[1 … index -1]
+whileindex <=N
+ifarray[index]<min
+min =array[index]
+index =index +1
+returnmin
+•We have shown that LI is true for all values of index (in the previous 
+step)
+•Set index to the value which causes termination ( N+1)
+•Check if the statement of LI with this index value is what we want
+•//LI: min equals the minimum value in array[1 … N] as 
+requiredTermination
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+A Harder Problem
+lo = 1 (we are 1 indexed here)
+hi = N
+while( lo <=hi )
+mid =floor( (lo+hi)//2 )
+iftarget >array[mid]
+lo=mid+1
+else if target <array[mid]
+hi=mid-1
+else
+return mid
+Return FalseBinary search: Finds an instance of target, if 
+it exists
+Always terminates (why?)
+What if there is duplicate occurrences of 
+target?
+We don’t know which one it will find
+Let’s solve the problem of finding the 
+rightmost instance of target
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Binary Search: Rightmost Instance
+= “active” subarray
+= target items
+lo hi
+lo himid
+lo himid
+mid
+FIT2004: Lecture 2 -Analysis of AlgorithmsN+1
+N+1𝑡𝑎𝑟𝑔𝑒𝑡≥𝑎𝑟𝑟𝑎𝑦[𝑚𝑖𝑑]
+𝑡𝑎𝑟𝑔𝑒𝑡<𝑎𝑟𝑟𝑎𝑦[𝑚𝑖𝑑]
+
+---PAGE_BREAK---
+
+Binary Search: Rightmost Instance
+Wewant tomove lowhen therightmost instance oftarget istotheright
+ofmid→t>L[mid]
+Wewant tomove hiwhen therightmost instance oftarget istotheleft
+ofmid→t<L[mid]
+Wewant tomove lowhen atarget isatmid(since wearelooking for
+therightmost) →t==L[mid]
+This suggest weonly have 2cases :
+t<L[mid]→move hitomid
+t>=L[mid]→move lotomid
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Binary Search Invariant
+5 10 15 20 25 30 35 40 45 50
+1 2 3 4 5 6 7 8 9 10
+Invariant must relate to relevant variables ( lo, hi, array ).
+At termination, the invariant should tell us that the algorithm works.
+Example: min is the minimum of array[1…N].
+FIT2004: Lecture 2 -Analysis of Algorithmshttps://flux.qa/F7CWW9
+
+
+---PAGE_BREAK---
+
+Binary Search Invariant
+One possible invariant :
+Rightmost instance isbetween lo(inclusive) andhi(exclusive)
+Isthistrueatthestart?
+Yes, ifitexists …
+Invariant :iftarget isinthelist,therightmost instance isinlist[lo …hi-1]
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Design from Invariant
+lo = 1
+hi = N+1
+while( lo ?hi )Invariant: If key is in L, it is in L[lo…hi -1]
+When does the “active” section of the 
+list have one element?
+i.e. when is L[lo…hi -1] a single item?
+When lo = hi -1 (or lo >= hi -1)
+The while condition should be the 
+opposite
+i.e. we should continue the loop as 
+long as there the active section has 
+more than one item
+While lo < hi -1
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Design from Invariant
+lo = 1
+hi = N+1
+while( lo < hi -1 )Invariant: If key is in L, it is in L[lo…hi -1]
+When does the “active ” section of the 
+list have one element?
+i.e. when is L[lo …hi-1] a single item?
+When lo = hi -1 (or lo >= hi -1)
+The while condition should be the 
+opposite
+i.e. we should continue the loop as 
+long as there the active section has 
+more than one item
+While lo < hi -1
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Design from Invariant
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]Invariant: If key is in L, it is in L[lo…hi -1]
+Where should we move lo to?
+We know that the element we are 
+looking for is at or to the right of mid
+We should set lo=mid, since lo is 
+inclusive
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Design from Invariant
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]
+lo = midInvariant: If key is in L, it is in L[lo…hi -1]
+Where should we move lo to?
+We know that the element we are 
+looking for is at or to the right of mid
+We should set lo=mid, since lo is 
+inclusive
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Design from Invariant
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]
+lo = mid
+ift < L[mid]
+hi = midInvariant: If key is in L, it is in L[lo…hi -1]
+Where should we move hi to?
+Remember, L[hi] is excluded from the 
+active range
+We can move hi to mid, since we 
+know L[mid] is not what we are 
+looking for
+FIT2004 : Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Design from Invariant
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]
+lo = mid
+ift < L[mid]
+hi = midInvariant: If key is in L, it is in L[lo…hi -1]
+When the loop ends, lo = hi -1.
+The only element in the active range 
+is L[lo]
+This means that either L[lo] is what 
+we are looking for, or it isn’t
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Design from Invariant
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]
+lo = mid
+ift < L[mid]
+hi = mid
+ifL[lo] == t
+returnlo
+returnFalseInvariant: If key is in L, it is in L[lo …hi-1]
+When the loop ends, lo = hi -1.
+The only element in the active range 
+is L[lo]
+This means that either L[lo] is what 
+we are looking for, or it isn’t
+Note that this algorithm improves over 
+the “standard” 3 -check algorithm 
+since it does less work each iteration
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Design from Invariant
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]
+lo = mid
+ift < L[mid]
+hi = mid
+ifL[lo] == t
+returnlo
+returnFalseTry to think about what would happen 
+if we included hi (i.e. we try the 
+invariant
+If key is in L, it is in L[lo…hi]
+The issue is in the while condition
+It would need to be while (lo < hi)
+What happens when lo = hi –1 and
+t ≥ L[mid]? Does it always terminate?
+FIT2004: Lecture 2 -Analysis of Algorithms45 50
+1
+lo2
+hit= 50
+mid =??Invariant: If key is in L, it is in L[lo…hi -1]
+
+---PAGE_BREAK---
+
+Algorithm for Binary Search
+Is this algorithm correct?
+To prove correctness, we need to show that
+1.it always terminates, and
+2.it returns correct result when it 
+terminatesInvariant: If key is in L, it is in L[lo…hi -1]
+BinarySearch (L[1..n], t)
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]
+lo = mid
+ift < L[mid]
+hi = mid
+ifL[lo] == t
+returnlo
+returnFalse
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Correctness using Loop Invariant
+Always terminates
+•Algorithm terminates when lo >= 
+hi -1
+•Because of the while condition, 
+each iteration, after mid is 
+calculated, lo < mid, mid < hi 
+(why?)
+•When we set lo to mid, lo must 
+therefore increase by at least 1
+•Similarly, when we set hi to mid, 
+hi must decrease by at least 1
+•So every iteration, either lo 
+increases or hi decreases.
+•Eventually, lo >= hi -1BinarySearch (L[1..n], t)
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]
+lo = mid
+ift < L[mid]
+hi = mid
+ifL[lo] == t
+returnlo
+returnFalseInvariant: If key is in L, it is in L[lo…hi -1]
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Correctness using Loop Invariant
+Initialisation
+•If rightmost target is in L, then 
+target is in L[lo…hi-1] = 
+L[1…N] = L
+As requiredBinarySearch (L[1..n], t)
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]
+lo = mid
+ift < L[mid]
+hi = mid
+ifL[lo] == t
+returnlo
+returnFalseInvariant: If key is in L, it is in L[lo…hi -1]
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Correctness using Loop Invariant
+Maintenance
+•Assume target in L[lo…hi-1] 
+before some loop iteration
+•If t >= L[mid], then it must 
+be located in the range 
+L[mid…hi -1], so we should 
+setlo tomid
+•If t < L[mid ], then it must be 
+in the range L[lo…mid -1], so 
+we should set hi tomid 
+(since L[hi] is excluded)
+•Since this is exactly what we do, 
+at the start of the next iteration 
+the invariant is still trueBinarySearch (L[1..n], t)
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]
+lo = mid
+ift < L[mid]
+hi = mid
+ifL[lo] == t
+returnlo
+returnFalseInvariant: If key is in L, it is in L[lo…hi -1]
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Correctness using Loop Invariant
+Termination
+•lo == hi -1. Since the 
+invariant has been correctly 
+maintained…
+•Rightmost target must be in 
+L[lo…hi-1], or it is not in the 
+list
+•L[lo…hi-1] is a single 
+element, L[lo]. 
+•If the element is found at 
+L[lo], then return that index
+•Otherwise return FalseBinarySearch (L[1..n], t)
+lo = 1
+hi = N+1
+while( lo < hi -1 )
+mid = (lo+hi)/2
+ift ≥L[mid]
+lo = mid
+ift < L[mid]
+hi = mid
+ifL[lo] == t
+returnlo
+returnFalseInvariant: If key is in L, it is in L[lo…hi -1]
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Outline
+Proving correctness of algorithms
+Comparison -based sorting algorithms
+Selection sort
+Lower bound for comparison -based sorting
+Non-comparison sorting algorithms
+Counting Sort
+Radix Sort
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Comparison -based Sorting
+FIT2004: Lecture 2 -Analysis of AlgorithmsComparison -based sorting algorithms sort the input array 
+by comparing the items with each other:
+Selection Sort
+Insertion Sort
+Quick Sort (to be analysed next week)
+Merge Sort
+Heap Sort
+…
+The algorithms that do not require comparing items with 
+each other are called non -comparison sorting algorithms. 
+E.g., Counting sort, radix sort, bucket sort etc.
+
+
+---PAGE_BREAK---
+
+Comparison Cost
+FIT2004: Lecture 2 -Analysis of AlgorithmsTypically, we assume that comparing two elements takes O(1), e.g., 
+array[ i] <= array[j]. This is not necessarily true.
+String Comparison: The worst -case cost of comparing two strings is O(L) 
+where L is the number of characters in the smaller string. E.g.,
+“Welcome to Fa culty of IT ”<= “Welcome to FI T2004 ” ??
+We compare strings character by character (from left to right) until the two 
+characters are different –all green letters are compared in above example
+Number Comparison: Generally we assume that numbers are machine -
+word sized (i.e. fit in a register) and so comparison is O(1). In theory, for 
+very large numbers, comparison would be O(digits).
+
+---PAGE_BREAK---
+
+Comparison Cost
+FIT2004: Lecture 2 -Analysis of AlgorithmsTypically assume comparison cost is O(1) (small values)
+Sometimes comparison cost is critical: genome sequences may have 
+millions of characters –expensive comparison.
+The cost of comparison -based sorting is often taken as in terms of # of 
+comparisons, e.g., # of comparisons in merge sort is O(N log N).
+This ignores comparison cost (which is mostly fine).
+In summary:
+In this unit we will assume generally assume that 
+String comparison is O(c), where c is the number of characters which get 
+compared
+Numerical comparison is O(1) unless otherwise specified
+
+---PAGE_BREAK---
+
+Stable Sorting Algorithms
+FIT2004: Lecture 2 -Analysis of AlgorithmsA sorting algorithm is called stable if it maintains the relative ordering of 
+elements that have equal keys.
+Marks 80 75 70 90 85 75
+Name Alice Bill Don Geoff Leo MariaInput 
+Marks 70 75 75 80 85 90
+Name Don Bill Maria Alice Leo GeoffOutput Sort on Marks using a stable algorithm 
+Note: Output is sorted on marks then names.
+Unstable sorting cannot guarantee this (e.g., Maria may appear before Bill)Input is sorted by names
+
+---PAGE_BREAK---
+
+Outline
+Proving correctness of algorithms
+Comparison -based sorting algorithms
+Selection sort
+Lower bound for comparison -based sorting
+Non-comparison sorting algorithms
+Counting Sort
+Radix Sort
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Selection Sort (Correctness)
+FIT2004: Lecture 2 -Analysis of Algorithms5 6 2 4 8 7 11 10
+iSort an array (denoted as arr) in ascending order
+for(i=1;i<N;i++){
+j = index of minimum element in arr[i… N]
+swap (arr[i],arr[j])
+}
+
+---PAGE_BREAK---
+
+Selection Sort (Correctness)
+FIT2004: Lecture 2 -Analysis of Algorithms5 6 2 4 8 7 11
+j10
+iSort an array (denoted as arr) in ascending order
+for(i=1;i<N;i++){
+j = index of minimum element in arr[i… N]
+swap (arr[i],arr[j])
+}
+
+---PAGE_BREAK---
+
+Selection Sort (Correctness)
+FIT2004: Lecture 2 -Analysis of Algorithms5 6 2 4 810
+i11
+j7
+https://flux.qa/F7CWW9
+Sort an array (denoted as arr) in ascending order
+for(i=1;i<N;i++){
+j = index of minimum element in arr[i… N]
+swap (arr[i],arr[j])
+}
+
+---PAGE_BREAK---
+
+Selection Sort (Correctness)
+FIT2004: Lecture 2 -Analysis of AlgorithmsSort an array (denoted as arr) in ascending order
+// LI: arr[1 … i-1]issorted ANDarr[1 … i-1] <= arr[i… N]
+for(i=1;i<N;i++){
+j = index of minimum element in arr[i… N]
+swap (arr[i],arr[j])
+}
+// i=N when the loop terminates
+// LI: arr[1 … N-1]issorted ANDarr[1 … N-1] <= arr[N]
+5 6 7 2 4 810
+i11
+j
+
+---PAGE_BREAK---
+
+Selection Sort (Correctness)
+FIT2004: Lecture 2 -Analysis of AlgorithmsSort an array (denoted as arr) in ascending order
+// LI: arr[1 … i-1]issorted ANDarr[1 … i-1] <= arr[i… N]
+for(i=1;i<N;i++){
+j = index of minimum element in arr[i… N]
+swap (arr[i],arr[j])
+}
+// i=N when the loop terminates
+// LI: arr[1 … N-1]issorted ANDarr[1 … N-1] <= arr[N]
+Could we use a weaker loop invariant, e.g.,
+// LI: arr[1 … i-1]issorted (That is Insertion Sort)
+
+---PAGE_BREAK---
+
+Selection Sort (Correctness)
+FIT2004: Lecture 2 -Analysis of AlgorithmsCould we use a weaker loop invariant, e.g.,
+// LI: arr[1 … i-1]issorted (That is Insertion Sort)
+While doing the proof, we need to show that if the LI is true at iteration k, it is true 
+at iteration k+1
+j = index of minimum element in arr[i… N]
+swap (arr[i],arr[j])
+i-1i
+sorted unsorted2 4 5 8 10 12 7 15 13
+
+---PAGE_BREAK---
+
+Selection Sort (Correctness)
+FIT2004: Lecture 2 -Analysis of AlgorithmsCould we use a weaker loop invariant, e.g.,
+// LI: arr [1 … i-1]issorted (That is Insertion Sort)
+While doing the proof, we need to show that if the LI is true at iteration k, it is true 
+at iteration k+1
+j = index of minimum element in arr[i … N]
+swap (arr[i],arr[j])
+The invariant currently holdsi-1i
+sorted unsorted2 4 5 8 10 12 7 15 13
+
+---PAGE_BREAK---
+
+Selection Sort (Correctness)
+FIT2004: Lecture 2 -Analysis of AlgorithmsCould we use a weaker loop invariant, e.g.,
+// LI: arr[1 … i-1]issorted (That is Insertion Sort)
+While doing the proof, we need to show that if the LI is true at iteration k, it is true 
+at iteration k+1
+j = index of minimum element in arr[i… N]
+swap (arr[i],arr[j])
+The invariant currently holdsi-1i
+sorted unsortedj
+2 4 5 8 10 12 7 15 13
+
+---PAGE_BREAK---
+
+Selection Sort (Correctness)
+FIT2004: Lecture 2 -Analysis of AlgorithmsCould we use a weaker loop invariant, e.g.,
+// LI: arr [1 … i-1]issorted (That is Insertion Sort)
+While doing the proof, we need to show that if the LI is true at iteration k, it is true 
+at iteration k+1
+j = index of minimum element in arr[i … N]
+swap (arr[i],arr[j])
+The invariant currently holdsi-1i
+sorted unsortedj
+2 4 5 8 7 12 10 15 13
+
+---PAGE_BREAK---
+
+Selection Sort (Correctness)
+FIT2004: Lecture 2 -Analysis of AlgorithmsCould we use a weaker loop invariant, e.g.,
+// LI: arr [1 … i-1]issorted (That is Insertion Sort)
+While doing the proof, we need to show that if the LI is true at iteration k, it is true 
+at iteration k+1
+j = index of minimum element in arr[i … N]
+swap (arr[i],arr[j])
+The invariant should still be true… but it is noti-1i
+sorted unsortedj
+2 4 5 8 7 12 10 15 13
+
+---PAGE_BREAK---
+
+Selection Sort Analysis
+FIT2004: Lecture 2 -Analysis of AlgorithmsTime Complexity?
+Worst -case
+Complexity of finding minimum element at i-thiteration?
+Total complexity?
+Best-case
+Space Complexity?
+Auxiliary Space Complexity?
+oSelection Sort is an in -place algorithm!
+Is selection sort stable?for(i=1;i<N;i++){
+j = index of minimum element in arr[i… N]
+swap (arr[i],arr[j])
+}
+5 6 10 2 4 10 7
+i11
+j
+
+---PAGE_BREAK---
+
+Outline
+Proving correctness of algorithms
+Comparison -based sorting algorithms
+Selection sort
+Lower bound for comparison -based sorting
+Non-comparison sorting algorithms
+Counting Sort
+Radix Sort
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Summary of Comparison -based Sorting Algorithms
+Best Worst Average Stable? In-
+place?
+Selection Sort O(N2) O(N2) O(N2) No Yes
+Insertion Sort O(N) O(N2) O(N2) Yes Yes
+Heap Sort O(N) O(N log N) O(N log N) No Yes
+Merge Sort O(N log N) O(N log N) O(N log N) Yes No
+FIT2004: Lecture 2 -Analysis of Algorithms•Is it possible to develop a sorting algorithm with worst -case time 
+complexity better than O(N log N)?
+
+---PAGE_BREAK---
+
+Lower Bound Complexity
+FIT2004: Lecture 2 -Analysis of AlgorithmsLower bound complexity foraproblem isthelowest possible complexity any
+algorithm (known orunknown) canachieve tosolve theproblem .
+oItisimportant because itgives atheoretical bound onwhat isbest possible .
+oUnless stated otherwise, lower bound isfortheworst -case complexity ofthe
+algorithm .
+What isthelower bound complexity offinding theminimum element inanarray
+ofNelements
+oAns:Ω(N):We(atleast) need tolook atevery element .
+Since thefinding minimum algorithm wesaw hasO(N) worst -case complexity, it
+isthebest possible algorithm (i.e.,optimal) interms oftime complexity .
+
+---PAGE_BREAK---
+
+Lower Bound Complexity
+FIT2004: Lecture 2 -Analysis of AlgorithmsLower bound complexity foraproblem isthelowest possible complexity any
+algorithm (known orunknown) canachieve tosolve theproblem .
+Itisimportant because itgives atheoretical bound onwhat isbest possible .
+Unless stated otherwise, lower bound isfortheworst -case complexity ofthe
+algorithm .
+What isthelower bound complexity forsorting?
+Forcomparison -based algorithm, lower bound complexity isΩ(NlogN).
+Read thelecture notes toseewhy thelower bound isΩ(NlogN)--the
+proof isnotexaminable .
+Next, wediscuss twonon-comparison sorting algorithms thatdosorting inless
+than O(N logN).
+
+---PAGE_BREAK---
+
+Outline
+Proving correctness of algorithms
+Comparison -based sorting algorithms
+Selection sort
+Lower bound for comparison -based sorting
+Non-comparison sorting algorithms
+Counting Sort
+Radix Sort
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Intuition
+FIT2004: Lecture 2 -Analysis of AlgorithmsGiven anarray containing apermutation ofthenumbers 1…N,sort
+them .
+Given anarray containing asubset ofthenumbers 1…N,sortthem .for(i=1, i<= N, i++)
+print(i)
+
+---PAGE_BREAK---
+
+Counting Sort
+FIT2004: Lecture 2 -Analysis of AlgorithmsForexample, sorting positive integers .
+Determine themaximum value intheinput .
+Create anarray “count” ofthatsize.
+count 1
+2
+3
+4
+5
+6
+7
+80
+0
+0
+0
+0
+0
+0
+0Input (3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of AlgorithmsIterate through theinput and count thenumber oftimes each value
+occurs .
+Dothisbyincrementing thecorresponding position in“count” .
+Ifweseea3,increment 𝑐𝑜𝑢𝑛𝑡[3].
+0
+0
+0
+0
+0
+0
+0
+0(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms0
+0
+1
+0
+0
+0
+0
+0(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Iterate through theinput and count thenumber oftimes each value
+occurs .
+Dothisbyincrementing thecorresponding position in“count” .
+Ifweseea3,increment 𝑐𝑜𝑢𝑛𝑡[3].
+count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+1
+0
+0
+0
+0
+0(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Iterate through theinput and count thenumber oftimes each value
+occurs .
+Dothisbyincrementing thecorresponding position in“count” .
+Ifweseea3,increment 𝑐𝑜𝑢𝑛𝑡[3].
+count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+2
+0
+0
+0
+0
+0(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Iterate through theinput and count thenumber oftimes each value
+occurs .
+Dothisbyincrementing thecorresponding position in“count” .
+Ifweseea3,increment 𝑐𝑜𝑢𝑛𝑡[3].
+count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+2
+0
+0
+0
+1
+0(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Iterate through theinput and count thenumber oftimes each value
+occurs .
+Dothisbyincrementing thecorresponding position in“count” .
+Ifweseea3,increment 𝑐𝑜𝑢𝑛𝑡[3].
+count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+2
+0
+1
+0
+1
+0(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Iterate through theinput and count thenumber oftimes each value
+occurs .
+Dothisbyincrementing thecorresponding position in“count” .
+Ifweseea3,increment 𝑐𝑜𝑢𝑛𝑡[3].
+count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+1
+0(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Iterate through theinput and count thenumber oftimes each value
+occurs .
+Dothisbyincrementing thecorresponding position in“count” .
+Ifweseea3,increment 𝑐𝑜𝑢𝑛𝑡[3].
+count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+2
+0(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Iterate through theinput and count thenumber oftimes each value
+occurs .
+Dothisbyincrementing thecorresponding position in“count” .
+Ifweseea3,increment 𝑐𝑜𝑢𝑛𝑡[3].
+count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+2
+1(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Iterate through theinput and count thenumber oftimes each value
+occurs .
+Dothisbyincrementing thecorresponding position in“count” .
+Ifweseea3,increment 𝑐𝑜𝑢𝑛𝑡[3].
+count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of AlgorithmsCreate “output” .
+Foreach position incount :
+oAppend 𝑐𝑜𝑢𝑛𝑡[𝑖]copies ofthevalue𝑖tooutput .
+oSoif𝑐𝑜𝑢𝑛𝑡[7]=2,then append2copies of7.
+1
+0
+3
+0
+1
+0
+2
+1(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Output count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+2
+1(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Create “output” .
+Foreach position incount :
+oAppend 𝑐𝑜𝑢𝑛𝑡[𝑖]copies ofthevalue𝑖tooutput .
+oSoif𝑐𝑜𝑢𝑛𝑡[7]=2,then append2copies of7.
+Output 1count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+2
+1(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Create “output” .
+Foreach position incount :
+oAppend 𝑐𝑜𝑢𝑛𝑡[𝑖]copies ofthevalue𝑖tooutput .
+oSoif𝑐𝑜𝑢𝑛𝑡[7]=2,then append2copies of7.
+Output 1count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+2
+1(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Create “output” .
+Foreach position incount :
+oAppend 𝑐𝑜𝑢𝑛𝑡[𝑖]copies ofthevalue𝑖tooutput .
+oSoif𝑐𝑜𝑢𝑛𝑡[7]=2,then append2copies of7.
+Output 1 3 3 3count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+2
+1(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Create “output” .
+Foreach position incount :
+oAppend 𝑐𝑜𝑢𝑛𝑡[𝑖]copies ofthevalue𝑖tooutput .
+oSoif𝑐𝑜𝑢𝑛𝑡[7]=2,then append2copies of7.
+Output 1 3 3 3count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+2
+1(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Create “output” .
+Foreach position incount :
+oAppend 𝑐𝑜𝑢𝑛𝑡[𝑖]copies ofthevalue𝑖tooutput .
+oSoif𝑐𝑜𝑢𝑛𝑡[7]=2,then append2copies of7.
+Output 1 3 3 3 5count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+2
+1(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Create “output” .
+Foreach position incount :
+oAppend 𝑐𝑜𝑢𝑛𝑡[𝑖]copies ofthevalue𝑖tooutput .
+oSoif𝑐𝑜𝑢𝑛𝑡[7]=2,then append2copies of7.
+Output 1 3 3 3 5count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+2
+1(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Create “output” .
+Foreach position incount :
+oAppend 𝑐𝑜𝑢𝑛𝑡[𝑖]copies ofthevalue𝑖tooutput .
+oSoif𝑐𝑜𝑢𝑛𝑡[7]=2,then append2copies of7.
+Output 1 3 3 3 5 7 7count 
+Input 
+
+---PAGE_BREAK---
+
+1
+2
+3
+4
+5
+6
+7
+8Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1
+0
+3
+0
+1
+0
+2
+1(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)Create “output” .
+Foreach position incount :
+oAppend 𝑐𝑜𝑢𝑛𝑡[𝑖]copies ofthevalue𝑖tooutput .
+oSoif𝑐𝑜𝑢𝑛𝑡[7]=2,then append2copies of7.
+Output 1 3 3 3 5 7 7 8count 
+Input 
+
+---PAGE_BREAK---
+
+Analysis of Counting Sort
+FIT2004: Lecture 2 -Analysis of AlgorithmsCreate “count” array ofsize max, where max isthemaximum value intheinput .
+Foreach value in“Input” :
+ocount[value] += 1
+Output =empty
+Forx=1tolen(count ):
+oNumOfOccurrences = count[x]
+oAppend x to Output NumOfOccurrences times
+Let N be the size of Input array and U be the domain size (e.g., max), i.e., U is the size of 
+count array.
+Time Complexity:
+O(N+U) –worst -case, best-case, average -case allarethesame .
+Space Complexity:
+O(N+U)
+
+---PAGE_BREAK---
+
+Analysis of Counting Sort
+FIT2004: Lecture 2 -Analysis of AlgorithmsCreate “count” array ofsize max, where max isthemaximum value intheinput .
+Foreach value in“Input” :
+ocount[value] += 1
+Output =empty
+Forx=1tolen(count ):
+oNumOfOccurrences = count[x]
+oAppend x to Output NumOfOccurrences times
+Is counting sort stable?
+No, because it counts the values but does not distinguishes between them. In fact, it loses 
+any data associated with the values, so it is much worse than unstable. Let’s fix this!
+(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Output 1 3 3 3 5 7 7 8Input 
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of AlgorithmsTofixthetwoproblems ofstability andlosing data, weneed asmart
+idea.
+What information would youneed tocorrectly place thedata withkey“5”
+intheoutput?Input (3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+(1,p) (3,a) (3,c) (3,b) (5,g) (7,f) (7,d) (8,w) Output 
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of AlgorithmsInput (3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+1
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1position Input 
+count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+0
+0
+0
+0
+0
+0
+0
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[i] = position[i -1] + count[i -1]position Input 
+count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+0
+0
+0
+0
+0
+0
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[i] = position[i -1] + count[i -1]position Input 
+count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+2
+0
+0
+0
+0
+0
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[i] = position[i -1] + count[i -1]position Input 
+count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+2
+5
+0
+0
+0
+0
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[i] = position[i -1] + count[i -1]position Input 
+count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+2
+5
+5
+0
+0
+0
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[i] = position[i -1] + count[i -1]position Input 
+count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+2
+5
+5
+6
+0
+0
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[i] = position[i -1] + count[i -1]position Input 
+count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+2
+5
+5
+6
+6
+0
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[i] = position[i -1] + count[i -1]position Input 
+count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+2
+5
+5
+6
+6
+8
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) pair 
+from input
+•Increment position[key]position Input 
+Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+2
+5
+5
+6
+6
+8
+1 2 3 4 5 6 7 8
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(3,a) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+2
+5
+5
+6
+6
+8
+1 2 3 4 5 6 7 8
+
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(3,a) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+3
+5
+5
+6
+6
+8
+1 2 3 4 5 6 7 8
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+81
+2
+3
+5
+5
+6
+6
+8
+1 2 3 4 5 6 7 8
+
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+3
+5
+5
+6
+6
+8
+1 2 3 4 5 6 7 8
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+3
+5
+5
+6
+6
+8
+1 2 3 4 5 6 7 8
+
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+4
+5
+5
+6
+6
+8
+1 2 3 4 5 6 7 8
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) (7,f) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+4
+5
+5
+6
+6
+8
+1 2 3 4 5 6 7 8
+
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) (7,f) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+4
+5
+5
+6
+7
+8
+1 2 3 4 5 6 7 8
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) (5,g) (7,f) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+4
+5
+5
+6
+7
+8
+1 2 3 4 5 6 7 8
+
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) (5,g) (7,f) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+4
+5
+6
+6
+7
+8
+1 2 3 4 5 6 7 8
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) (3,b) (5,g) (7,f) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+4
+5
+6
+6
+7
+8
+1 2 3 4 5 6 7 8
+
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) (3,b) (5,g) (7,f) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+5
+5
+6
+6
+7
+8
+1 2 3 4 5 6 7 8
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) (3,b) (5,g) (7,f) (7,d) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+5
+5
+6
+6
+7
+8
+1 2 3 4 5 6 7 8
+
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) (3,b) (5,g) (7,f) (7,d) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+5
+5
+6
+6
+8
+8
+1 2 3 4 5 6 7 8
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) (3,b) (5,g) (7,f) (7,d) (8,w) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+5
+5
+6
+6
+8
+8
+1 2 3 4 5 6 7 8
+
+
+---PAGE_BREAK---
+
+Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of Algorithms(3,a) (1,p) (3,c) (7,f) (5,g) (3,b) (7,d) (8,w)
+Construct count:
+•For each key in input,
+•count[key] += 1
+Construct position:
+•Initialise first position as a 1
+•position[ i] = position[i -1] + count[i -1]
+Construct output
+•Go through input, looking at each (key, val)
+•Set output[position[key]] to the (key, val) 
+pair from input
+•Increment position[key]position Input 
+(1,p) (3,a) (3,c) (3,b) (5,g) (7,f) (7,d) (8,w) Output count 
+1
+2
+3
+4
+5
+6
+7
+81
+0
+3
+0
+1
+0
+2
+11
+2
+3
+4
+5
+6
+7
+82
+2
+5
+5
+6
+6
+8
+9
+1 2 3 4 5 6 7 8
+
+---PAGE_BREAK---
+
+Analysis of Stable Counting Sort
+FIT2004: Lecture 2 -Analysis of AlgorithmsWehave made count sort:
+oStable
+oAble to keep associated data
+Time andspace complexity?
+oWe have not changed the complexity (Though one is faster in practice).
+oTime Complexity is O(N+U)
+oCan it be O(N)? 
+oYes, when U is O(N) (very efficient)
+Counting sortcanalso bevery inefficient forcertain kinds ofinput, any
+guesses?
+oExample: N = 2, U = 9223372036854775807 
+oInput: [0, 9223372036854775807 ]
+Using counting sort, canwebuild afastwaytosortnumbers?
+
+---PAGE_BREAK---
+
+Outline
+Proving correctness of algorithms
+Comparison -based sorting algorithms
+Selection sort
+Lower bound for comparison -based sorting
+Non-comparison sorting algorithms
+Counting Sort
+Radix Sort
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Radix Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1191
+4642
+3512
+6682
+5412
+1182
+1323
+9523
+3784
+6284
+7555
+93563512
+5412
+1323
+9523
+4642
+7555
+9356
+6682
+1182
+3784
+6284
+1191Sort on 
+4thdigitSort on 
+3rddigit1182
+1191
+6284
+1323
+9356
+5412
+3512
+9523
+7555
+4642
+6682
+3784Sort on 
+2nddigit1182
+1191
+1323
+3512
+3784
+4642
+5412
+6284
+6682
+7555
+9356
+9523Sort on 
+1stdigit7555
+4642
+3512
+1323
+3784
+6284
+6682
+9523
+1191
+9356
+5412
+1182Sort an array of numbers, assuming each number has k digits (why is this often reasonable?)
+▪Use stable sort to sort them on the k -thdigit
+▪Use stable sort to sort them on the (k -1)-thdigit
+▪…
+▪Use stable sort to sort them on 1st digit
+
+---PAGE_BREAK---
+
+Radix Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1191
+1182
+3512
+4642
+5412
+6682
+1323
+9523
+3784
+6284
+7555
+93563512
+5412
+1323
+9523
+4642
+9356
+7555
+3784
+6284
+1182
+6682
+1191Sort on 
+4thdigitSort on 
+3rddigit1191
+1182
+6284
+9356
+1323
+5412
+7555
+9523
+3512
+6682
+4642
+3784Sort on 
+2nddigit1323
+1191
+1182
+3784
+3512
+4642
+5412
+6682
+6284
+7555
+9523
+9356Sort on 
+1stdigit7555
+4642
+3512
+1323
+3784
+6284
+6682
+9523
+1191
+9356
+5412
+1182What happens if we don’t use stable sort?
+
+---PAGE_BREAK---
+
+Radix Sort
+FIT2004: Lecture 2 -Analysis of Algorithms1323
+1191
+1182
+3512
+3784
+4642
+5412
+6284
+6682
+7555
+9523
+93561191
+1182
+6284
+1323
+9356
+5412
+3512
+7555
+9523
+4642
+6682
+3784Sort on 
+1stdigitSort on 
+2nddigit5412
+3512
+1323
+9523
+4642
+9356
+7555
+1182
+6284
+6682
+3784
+1191Sort on 
+3rddigit1191
+5412
+3512
+4642
+1182
+6682
+1323
+9523
+6284
+3784
+7555
+9356Sort on 
+4thdigit7555
+4642
+3512
+1323
+3784
+6284
+6682
+9523
+1191
+9356
+5412
+1182What happens if we process left to right (or most significant 
+digit to least?)
+
+---PAGE_BREAK---
+
+Analysis of Radix Sort
+Sort an array of numbers, assuming each number has k digits
+•Use stable sort to sort them on the k -thdigit
+•Use stable sort to sort them on the (k -1)-thdigit
+•…
+•Use stable sort to sort them on 1st digit
+Assume that Nnumbers to be sorted and each number has kdigits
+Assume we are using stable counting sort which has time and space 
+complexity 𝑂(𝑁+𝑈)
+Time complexity of radix sort:
+•Number of digits ∗complexity of counting sort 
+•𝑂(𝑘∗(𝑁+𝑈))=𝑂(𝑘𝑁)because U is 10
+Space complexity of radix sort:
+•𝑂(𝑘∗(𝑁+𝑈))=𝑂(𝑘𝑁)
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Analysis of Radix Sort
+But wait!
+Why base 10?
+Variable base, letscallthebase “b”
+How many digits does anumber have inbase b?
+Ifthenumber hasvalue𝑀,then ithasroughlylog𝑏𝑀digits
+The exact number of digits is log𝑏𝑀+1, but since we are doing 
+complexity analysis, we can just say this is O(log𝑏𝑀)
+Sowewould needO(log𝑏𝑀)count sorts tosortnumbers ofsizeM
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Analysis of Radix Sort
+Sowewould needO(log𝑏𝑀)count sorts tosortnumbers ofsize𝑀
+What would bethecomplexity ofeach counting sort?
+Each counting sortwould take𝑂(𝑁+𝑏)
+Total cost:O(log𝑏𝑀∗N+b)
+Asweincrease 𝑏…
+Number of count sorts goes down
+Cost of each count sort goes up
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Analysis of Radix Sort
+Total cost:O(log𝑏𝑀∗N+b)
+We want to find a good balance …
+Notice thateach count sortwillbeO(N) aslong asthebase bisO(N)
+Asanexample, pick b=N(i.e.thebase isthenumber ofelements in
+theinput)
+Total cost:O(log𝑁𝑀∗N)
+What would bethevalue ofMwhich makes thetotal costO(N) ?
+IfMisO(Nc),then total cost:O(logNNc*(N))=O(CN) =O(N) !!!
+Ofcourse, practical considerations also matter :
+Choosing a base which is a power of 2 is probably good
+Cache/localisation considerations …
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Sorting Strings
+FIT2004: Lecture 2 -Analysis of AlgorithmsHow canweapply thecount sort/radix sortidea tostrings?
+Strings have “digits” which areletters
+Themapping canbedone using ASCII :
+e.g., in python:
+ord(“A”) gives 65.
+ord(“B”) gives 66.
+and so on…
+The radix isnow 26(orhowever many characters weareusing, e.g.
+256)https://flux.qa/F 7CWW 9
+
+
+---PAGE_BREAK---
+
+Algorithm’s Heroes
+FIT2004: Lecture 2 -Analysis of Algorithms•An American mathematician and programmer
+•One of the six original programmers of the first 
+electronic digital computer ENIAC (Electronic 
+Numerical Integrator and Calculator)
+•She was the inventor of breakpoints in 
+computer debugging
+•Once she said: By 1951 engineers had well 
+accepted the computer, but the business world was 
+still very sceptical about it, because they had such 
+questions as, "How do I know the data is on the 
+magnetic tape?" And "What is the legal implication of 
+data on a magnetic tape?"Betty Holberton (March 7, 1917 –December 8, 2001)
+
+---PAGE_BREAK---
+
+Reading
+Course Notes: Sections 1.1, 1.5, 3.1, 3.3 and 3.4
+You can also check algorithms’ textbooks for contents related to this 
+lecture, e.g.:
+CLRS: Section 2.1, Chapter 8
+Rou: Section 5.6
+FIT2004: Lecture 2 -Analysis of Algorithms
+
+---PAGE_BREAK---
+
+Concluding Remarks
+FIT2004: Lecture 2 -Analysis of AlgorithmsSummary
+Loop invariants canbeused toprove correctness
+Stable sorting, in-place algorithms
+Non-comparison sorting
+Coming Up Next
+Quick Sortanditsbest/worst/average case analysis
+How toimprove worst -case complexity ofQuick SorttoO(NlogN)
+Preparation required before next lecture
+Make sure youunderstand thislecture completely
+Trytoimplement radix sortyourself

@@ -1,0 +1,663 @@
+FIT2004 - Algorithms and Data Structures
+Lecture 1 - Introduction
+Rafael Dowsley
+
+---PAGE_BREAK---
+
+Agenda
+1Unit Information
+2Divide-and-Conquer
+3Complexity Analysis
+4Solving Recurrence Relations
+
+---PAGE_BREAK---
+
+Unit Information
+
+---PAGE_BREAK---
+
+What is this unit about?
+Solving problems with computers -efficiently .
+Developing your algorithm toolbox.
+Training your problem solving skills.
+The unit is not really about programming:
+▶The subject is really language agnostic.
+▶Algorithms in this unit will be described in English, pseudocode, procedural
+set of instructions or Python.
+1/39
+
+---PAGE_BREAK---
+
+Is this unit important?
+Algorithms and Data Structures is a key unit in computer science
+degrees around the world.
+The subject is very important for careers in the area:
+▶Companies actively hunt for people good at algorithms and data structures.
+▶Many job interview questions are based on algorithms from this unit.
+▶Many applied class questions are in fact very similar to questions you could
+be asked in job interviews.
+▶You are the future of CS and will make great contributions to field.
+What you learn in this unit will greatly help you throughout your career.
+2/39
+
+---PAGE_BREAK---
+
+Overview of the contents
+Explore some of the most important algorithm design paradigms:
+▶Divide-and-Conquer
+▶Greedy algorithms
+▶Dynamic Programming
+▶Network Flow
+Analysis of algorithms.
+Learn important data structures for implementing algorithms
+efficiently.
+Algorithms for solving important computational problems.
+3/39
+
+---PAGE_BREAK---
+
+Additional references
+This subject has huge value for your professional development into
+careers in computer science. Some books you might want to refer to
+(from time-to-time, even beyond this unit) include:
+▶CLRS: Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford
+Stein. Introduction to Algorithms .
+▶KT: Jon Kleinberg, ´Eva Tardos. Algorithm Design.
+▶Rou: Tim Roughgarden. Algorithms Illuminated .
+▶Knu: Donald Knuth. The Art of Computer Programming . More advanced,
+pretty expensive; but iconic CS book!
+No required textbooks. Beware that all of those textbooks contain
+both less and (far) more than is required for the unit. That is why it
+is important to not rely solely on these books (i.e., you should watch
+the seminars, attend applied classes and read the course notes).
+4/39
+
+---PAGE_BREAK---
+
+Your first algorithm
+What was the first algorithm you learned?
+▶As an CS student you already learned some algorithms in the university:
+binary search, sorting algorithms, etc.
+▶But algorithms predate computers by millennia. Even the word ‘algorithm’
+is derived from the name of a 9th century Persian mathematician.
+▶In fact, you learned in school an algorithm that is more than 2000 years
+old: Euclid’s algorithm for computing the greatest common divisor.
+▶Even in your first school years you already learned the “grade school”
+multiplication algorithm.
+5/39
+
+---PAGE_BREAK---
+
+Grade school multiplication algorithm
+Grade school multiplication algorithm using partial products:
+Did your teacher talk about the efficiency of this algorithm? Showed
+the correctness proof?
+Well, back then you were only a user of the algorithm.
+In the future, understanding the efficiency and correctness of
+algorithms will be a central skill in your career.
+6/39
+
+---PAGE_BREAK---
+
+Grade school multiplication algorithm
+Grade school multiplication algorithm using partial products:
+If we consider addition and multiplication of single digit numbers as
+the basic operations, for n-digit numbers, this algorithm clearly has
+complexity that is quadratic in n.
+Fundamental question in algorithm design: Can we do it more
+efficiently?
+7/39
+
+---PAGE_BREAK---
+
+Divide-and-Conquer
+
+---PAGE_BREAK---
+
+Divide-and-Conquer paradigm
+The Divide-and-Conquer algorithm design paradigm works in 3
+steps:
+1. Divide the problem into smaller subproblems.
+2. Conquer (i.e., solve) the smaller subproblems.
+3. Combine the solutions of the smaller subproblems to obtain the
+solution of the bigger problem.
+Analysing the time complexity of a divide-and-conquer algorithm
+normally involves solving a recurrence relation.
+Normally a polynomial time solution to the problem is already know,
+and the divide-and-conquer strategy is used to reduce the time
+complexity to a lower polynomial.
+8/39
+
+---PAGE_BREAK---
+
+First improvement idea
+Problem: multiply two n-digits numbers aandbin sub-quadratic
+time given addition and multiplication of single digit numbers as the
+basic operations.
+ba
+×
+Improvement idea: split the numbers between the n/2 most
+significant digits and the n/2 least significant digits; and do
+recursive calls with them.
+From math we know that:
+a·b= ( aM·10n/2+aL)(bM·10n/2+bL)
+=aM·bM·10n+aM·bL·10n/2+aL·bM·10n/2+aL·bL
+9/39
+
+---PAGE_BREAK---
+
+Are we making progress?
+a·b=aM·bM·10n+aM·bL·10n/2+aL·bM·10n/2+aL·bL
+Reduce 1 instance of the problem of size nto 4 instances of size n/2:
+bMaM
+×
+bLaM
+×
+bMaL
+×
+bLaL
+×
+Are we making progress?
+Not really! Intuition: 4 instances that will each take about1
+4of the
+time that was necessary to solve the original problem, so the overall
+time stays in the same order. You can later check that by solving
+the recurrence T(n) = 4·T(n/2) + c·n.
+If we want to follow this approach to improve the efficiency, we
+should use at most 3 recursive calls.10/39
+
+---PAGE_BREAK---
+
+Are improvements possible?
+Andrey Kolmogorov, one of the greatest
+mathematicians of the 20th century.
+Anatoly Karatsuba, then a 23 y/o
+student, within one week from hearing
+that in his seminar.
+11/39
+
+---PAGE_BREAK---
+
+Karatsuba’s algorithm
+a·b=aM·bM·10n+ (aM·bL+aL·bM)·10n/2+aL·bL
+Do only 3 recursive calls to compute:
+bMaM
+×
+= (1)bLaL
+×
+= (2)bM+bLaM+aL
+×
+= (3)
+Given the results of (1), (2) and (3), if we can trivially obtain
+(aM·bL+aL·bM) then we are done computing a·bwith only 3
+recursive calls.
+12/39
+
+---PAGE_BREAK---
+
+The trick
+Problem: Obtain c= (aM·bL+aL·bM) without further recursive
+calls when given:
+bMaM
+×
+= (1)bLaL
+×
+= (2)bM+bLaM+aL
+×
+= (3)
+Note that
+(aM+aL)·(bM+bL) = aM·bM+aM·bL·+aL·bM+aL·bL
+=c+aM·bM+aL·bL
+Solution: We obtain cby computing (3) - (1) - (2).
+Where does this trick come from?
+13/39
+
+---PAGE_BREAK---
+
+Where does this trick come from?
+This trick traces back to Gauss’ method for multiplying complex
+numbers using 3 multiplications of real numbers instead of 4.
+Johann Carl Friedrich Gauss
+Adapting previous ideas to solve your new problem can be
+very useful!
+“It is not knowledge, but the act of learning, not the possession of
+but the act of getting there, which grants the greatest enjoyment.”
+- Johann Carl Friedrich Gauss
+14/39
+
+---PAGE_BREAK---
+
+Is that a big improvement?
+The time complexity of Karatsuba’s algorithm is O(n1.59). To verify
+that, just solve the recurrence T(n) = 3·T(n/2) + c·nand use the
+fact that log23<1.59.
+Don’t underestimate the difference between n2andn1.59!
+This is the algorithm that Python uses for multiplying large
+numbers.
+15/39
+
+---PAGE_BREAK---
+
+Merge Sort
+O(nlogn) sorting algorithm presented by John von Neumann.
+One of the first explicit uses of the Divide-and-Conquer paradigm.
+Python uses as standard Timsort (a hybrid stable sorting algorithm
+derived from Merge Sort and Insertion Sort).
+Merge sort
+1:function merge sort (array [lo..hi])
+2: ifhi>lothen
+3: mid=⌊(lo+hi)/2⌋
+4: merge sort (array [lo..mid])
+5: merge sort (array [mid+ 1..hi])
+6: array [lo..hi] =merge (array [lo..mid],array [mid+ 1..hi])
+John von Neumann, one of
+the greatest mathematicians
+of the 20th century.
+16/39
+
+---PAGE_BREAK---
+
+Quick Sort
+Sorting algorithm created by Tony Hoare that uses the
+Divide-and-Conquer paradigm, but the subproblems are not
+necessarily of the same size.
+Tony Hoare (Turing Award 1980)
+Seminar 3 will cover it in detail.
+17/39
+
+---PAGE_BREAK---
+
+Other Divide-and-Conquer examples
+The Divide-and-Conquer paradigm can be applied to get efficient
+algorithms for a wide range of problems, such as:
+Finding closest pair of points in a plane in O(nlogn).
+Counting inversions in O(nlogn), Applied Class next week.
+Improving matrix multiplication (Strassen’s algorithm).
+Fast Fourier Transform: this algorithm published by James
+Cooley and John Tukey in 1965 is one of the most influential
+algorithms, with a wide range of applications in engineering, music,
+science, mathematics, etc.
+▶In fact, it can be traced back to unpublished work by Gauss.
+18/39
+
+---PAGE_BREAK---
+
+Complexity Analysis
+
+---PAGE_BREAK---
+
+Time complexity
+Time complexity is the amount of time taken by an algorithm to run
+as a function of the input size.
+▶Worst-case complexity (our main focus).
+▶Best-case complexity.
+▶Average-case complexity.
+19/39
+
+---PAGE_BREAK---
+
+Asymptotic notation
+Big-O Notation
+It is said that f(n) =O(g(n)) if there are constants candn0such that
+f(n)≤c·g(n) for all n≥n0.
+Big-ΩNotation
+It is said that f(n) = Ω( g(n)) if there are constants candn0such that
+f(n)≥c·g(n) for all n≥n0.
+Big-ΘNotation
+It is said that f(n) = Θ( g(n)) if, and only if, f(n) =O(g(n)) and
+f(n) = Ω( g(n)).
+20/39
+
+---PAGE_BREAK---
+
+Space complexity
+Space complexity is the total amount of space taken by an algorithm
+as a function of input size.
+Auxiliary space complexity is the amount of space taken by an
+algorithm excluding the space taken by the input .
+▶Many textbooks and online resources do not distinguish between the above
+two terms and use the term “space complexity” when they are in fact
+referring to auxiliary space complexity.
+▶In this unit, we use these two terms to differentiate between them.
+21/39
+
+---PAGE_BREAK---
+
+In-place algorithm
+An in-place algorithm has O(1) auxiliary space complexity.
+▶In other words, it only requires constant space in addition to the space
+taken by its input.
+▶Merging is not an in-place algorithm as it needs to create the output list
+which is size n.
+▶Be mindful that some books use a different definition (e.g., space taken by
+recursion may be ignored). For the sake of this unit, we will use the above
+definition.
+22/39
+
+---PAGE_BREAK---
+
+Time complexity of Binary Search
+Binary Search
+1:function binary search (array [1..n],key)
+2: lo= 1 and hi=n+ 1
+3: while lo<hi−1do
+4: mid=⌊(lo + hi) /2)⌋
+5: ifkey≥array [mid]then lo=mid
+6: else hi=mid
+7: ifarray [lo] =keythen return lo
+8: else return nullWorst-case time complexity?
+▶Search space at start: n
+▶After 1st iteration: n/2
+▶After 2nd iteration: n/4
+▶. . .
+▶After xiterations: 1
+▶How many iterations?
+▶O(logn)
+Best-case time complexity?
+▶O(1)
+23/39
+
+---PAGE_BREAK---
+
+Space complexity of Binary Search
+Binary Search
+1:function binary search (array [1..n],key)
+2: lo= 1 and hi=n+ 1
+3: while lo<hi−1do
+4: mid=⌊(lo + hi) /2)⌋
+5: ifkey≥array [mid]then lo=mid
+6: else hi=mid
+7: ifarray [lo] =keythen return lo
+8: else return nullSpace complexity?
+▶O(n)
+Auxiliary space complexity?
+▶O(1)
+It is an in-place algorithm!
+24/39
+
+---PAGE_BREAK---
+
+What is the time complexity?
+Problem: Given a sorted array of nunique numbers and two values
+xandy, print all numbers that are in between xandy.
+Algorithm: Binary search to find the smallest number greater than
+x. Linear scan from xuntil next number is ≥y.
+What is the time complexity?
+O(n) because all numbers may be between xandy.
+But it seems to really depend on the output . . .
+25/39
+
+---PAGE_BREAK---
+
+Output-sensitive time complexity
+Output-sensitive time complexity is the time-complexity that also
+depends on the size of the output.
+x= 23 ,y= 35
+1 5 8 17 22 27 31 32 36 41
+Algorithm: Binary search to find the smallest number greater than
+x. Linear scan from xuntil next number is ≥y.
+Letwbe the number of values in the range (i.e., in output). What
+is the output-sensitive time complexity of the algorithm?
+O(w+ log n). Note that wmay be nin the worst-case.
+Output-sensitive complexity is only relevant when output-size may
+vary, e.g., it is not relevant for sorting, finding minimum value etc.
+26/39
+
+---PAGE_BREAK---
+
+Solving Recurrence Relations
+
+---PAGE_BREAK---
+
+Recurrence relation
+A recurrence relation is an equation that recursively defines a
+sequence of values, and one or more base cases are given, e.g.:
+T(n) =(
+T(n−1) + c,ifn>1,
+b, ifn= 1.
+The complexity of recursive algorithms can be analysed by writing
+its recurrence relation and then solving it.
+27/39
+
+---PAGE_BREAK---
+
+Solving a simple recurrence relation for time complexity
+Power1
+1:function power1 (x, n)
+2: ifn= 0then return 1
+3: else if n= 1then return x
+4: else return x·power1 (x,n−1)
+Goal
+Reduce general case to be in terms of the
+base case.
+Solution
+T(n) = b+c·(n−1)
+=c·n+b−c
+=O(n)Cost when n= 1:
+▶T(1) = bfor constant b
+Cost for general case:
+▶T(n) =T(n−1) + cfor constant c
+▶T(n) =T(n−2) + 2 c
+T(n) =T(n−3) + 3 c
+▶Pattern?
+▶T(n) =T(n−k) +c·k
+▶Setk=n−1 to get base case.Cost for n−1: Cost for n−2:
+▶T(n−1) = T(n−2) + c
+T(n−2) = T(n−3) + c
+Replace T(n−1) in general case.
+Replace T(n−2) in general case.
+T(n) = ( T(n−2) + c) +c
+T(n) = ( T(n−3) + c) + 2 c
+28/39
+
+---PAGE_BREAK---
+
+Checking solution by substitution
+Power1
+1:function power1 (x, n)
+2: ifn= 0then return 1
+3: else if n= 1then return x
+4: else return x·power1 (x,n−1)
+Goal
+Reduce general case to be in terms of the
+base case.
+Solution
+T(n) = b+c·(n−1)
+=c·n+b−c
+=O(n)Cost when n= 1:
+▶T(1) = bfor constant b
+We have that:
+T(1) = c·1 +b−c
+=b
+Cost for general case:
+▶T(n) =T(n−1) + cfor constant c
+We have that:
+T(n−1) + c=c·(n−1) + b−c+c
+=c·n+b−c
+=T(n)
+29/39
+
+---PAGE_BREAK---
+
+Space complexity of this power function
+Power1
+1:function power1 (x, n)
+2: ifn= 0then return 1
+3: else if n= 1then return x
+4: else return x·power1 (x,n−1)
+Power2
+1:function power2 (x, n)
+2: result = 1
+3: fori←1 to ndo
+4: result =result·x
+5: return resultSpace complexity?
+▶Total space usage = local space
+used by the function * maximum
+depth of recursion
+▶O(n)
+We will not discuss tail-recursion in
+this unit because it is language
+specific, e.g., Python doesn’t utilise
+tail-recursion.
+Auxiliary Space Complexity?
+power1 (x,n) is not in-place.
+Iterative version power2 (x,n) is
+in-place.
+30/39
+
+---PAGE_BREAK---
+
+Yet another power function
+Power3
+1:function power3 (x, n)
+2: ifn= 0then return 1
+3: else if n= 1then return x
+4: y=power3 (x·x,⌊n/2⌋)
+5: ifn even then return y
+6: else return x·y
+Goal
+Reduce general case to be in terms of the
+base case.
+Solution
+T(n) = b+c·logn
+=O(logn)Cost when n= 1:
+▶T(1) = bfor constant b
+Cost for general case:
+▶T(n) =T(n/2) + cfor constant c
+▶T(n) =T(n/4) + 2 c
+T(n) =T(n/8) + 3 c
+▶Pattern?
+▶T(n) =T
+n
+2k
++c·k
+▶Setk= log nto get base case.Cost for n/2: Cost for n/4:
+▶T(n/2) = T(n/4) + c
+T(n/4) = T(n/8) + c
+Replace T(n/2) in general case.
+Replace T(n/4) in general case.
+T(n) = ( T(n/4) + c) +c
+T(n) = ( T(n/8) + c) + 2 c
+31/39
+
+---PAGE_BREAK---
+
+Another check by substitution
+Power3
+1:function power3 (x, n)
+2: ifn= 0then return 1
+3: else if n= 1then return x
+4: y=power3 (x·x,⌊n/2⌋)
+5: ifn even then return y
+6: else return x·y
+Goal
+Reduce general case to be in terms of the
+base case.
+Solution
+T(n) = b+c·logn
+=O(logn)Cost when n= 1:
+▶T(1) = bfor constant b
+We have that:
+T(1) = b+c·log 1
+=b
+Cost for general case:
+▶T(n) =T(n/2) + cfor constant c
+We have that:
+T(n/2) + c=b+c·log(n/2) + c
+=b+c·(logn−log 2) + c
+=b+c·logn
+=T(n)
+32/39
+
+---PAGE_BREAK---
+
+Recurrence and complexity
+Recurrence relation:
+T(n) =(
+T(n/2) + c,ifn>1,
+b, ifn= 1.
+Algorithmic example?
+▶Binary search
+Asymptotic complexity?
+▶O(logn)
+33/39
+
+---PAGE_BREAK---
+
+Recurrence and complexity
+Recurrence relation:
+T(n) =(
+T(n−1) + c,ifn>1,
+b, ifn= 1.
+Algorithmic example?
+▶Linear search
+Asymptotic complexity?
+▶O(n)
+34/39
+
+---PAGE_BREAK---
+
+Recurrence and complexity
+Recurrence relation:
+T(n) =(
+2·T(n/2) + c·n,ifn>1,
+b, ifn= 1.
+Algorithmic example?
+▶Merge Sort
+Asymptotic complexity?
+▶O(nlogn)
+35/39
+
+---PAGE_BREAK---
+
+Recurrence and complexity
+Recurrence relation:
+T(n) =(
+T(n−1) + c·n,ifn>1,
+b, ifn= 1.
+Algorithmic example?
+▶Selection Sort
+Asymptotic complexity?
+▶O(n2)
+36/39
+
+---PAGE_BREAK---
+
+Recurrence and complexity
+Recurrence relation:
+T(n) =(
+2·T(n−1) + c,ifn>1,
+b, ifn∈ {0,1}.
+Algorithmic example?
+▶Naive recursive Fibonacci
+Asymptotic complexity?
+▶O(2n)
+37/39
+
+---PAGE_BREAK---
+
+Reading
+Course Notes: Sections 1.2, 1.3 and 1.4, Chapter 2
+Additional resources (not required, but also not necessary covering
+all topics). Contents related to this seminar and recap of previous
+units can be found in standard algorithms books such as:
+▶CLRS: Chapters 3 and 4
+▶KT: Chapters 2 and 5
+▶Rou: Chapters 1 to 4
+38/39
+
+---PAGE_BREAK---
+
+Concluding remarks
+This unit demands your efforts from Week 1.
+The Divide-and-Conquer algorithm design paradigm can be useful
+for reducing time complexity.
+Coming up next:
+▶Analysis of algorithms
+▶Non-comparison based sorting (Counting Sort, Radix Sort)
+Preparation required before the next week:
+▶Revise computational complexity covered in earlier units.
+▶Complete Preparation 1 (in your own time to self-assess your prerequisite
+knowledge).
+▶Complete Preparation 2 before your Applied Class of Week 2.
+39/39

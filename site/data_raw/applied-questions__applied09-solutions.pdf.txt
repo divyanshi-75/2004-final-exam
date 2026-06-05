@@ -1,0 +1,356 @@
+Week 9 Applied Sheet
+(Solutions)
+Useful advice:The following solutions pertain to the theoretical problems given in the applied classes. You are
+strongly advised to attempt the problems thoroughly before looking at these solutions. Simply reading the solu-
+tions without thinking about the problems will rob you of the practice required to be able to solve complicated
+problems on your own. You will perform poorly on the exam if you simply attempt to memorise solutions to
+these problems. Thinking about a problem, even if you do not solve it, will greatly increase your understanding
+of the underlying concepts. Solutions are typically not provided for Python implementation questions. In some
+cases, pseudocode may be provided where it illustrates a particular useful concept.
+Problems
+Problem 1.Describe an algorithm that given a sequence of strings over a constant-size alphabet, counts how
+many different ones there are (i.e. how many there are ignoring duplicates). Your algorithm should run inO(T)
+time whereTis the total length of all of the strings.
+Solution
+Initialisecount=0. Append “$” to each string. Insert each string into a trie. After all strings have been
+inserted, traverse the tree and count the number of “$” nodes. If two strings are the same, they will termi-
+nate in the same node, so the number of “$”s is the number of distinct strings. It will takeO(T)to build
+the trie, andO(T)to traverse the trie, so the whole algorithm runs inO(T).
+Problem 2.Consider a prefix trie for a set of unique strings. Describe how to modify the prefix trie so that it can
+perform queries of the form “count the number of strings in the trie with prefixp” . Your modification should not
+affect the time or space complexity of building the trie, and should support queries inO(m)time, wheremis the
+length of the prefix.
+Solution
+All words with a prefixpare leaves in the subtree rooted at the node containing the last character inp.
+So we have to count the leaves in the subtree of that node. We could traverse the trie to get to the last
+node ofpinO(m)and then do a complete traversal of the subtree, but this would take much longer than
+O(m), possibly even takingO(T)whereTis the number of characters in the tree.
+Instead, we modify the insertion algorithm. We will store a counter at each node of our trie, initialised to
+0. When inserting a word, whenever we move to or create a node, we increment the counter at that node
+by 1. This counter tracks the number of words which have the prefix corresponding to that node. Then,
+to count the number of strings with prefixp, we just traverse the tree to the last node ofpwhich takes
+O(m)time, and return the count of that node.
+Problem 3.Describe an algorithm that given a stringSof lengthn, counts the number of distinct substrings of
+SinO(n)time. You can assume that you can build suffix trees inO(n)time.
+Solution
+First let’s consider how to solve this with a suffix trie, and then convert our solution to work in a suffix
+tree. A substring ofSis a prefix of a suffix ofS. This means that each substring ofScan be found by
+following some path from the root of a suffix trie ofSto some node. If two substrings ofSare the same,
+they will end at the same node. So to count distinct substrings, we can just count the nodes of the suffix
+1
+
+---PAGE_BREAK---
+
+trie (excluding $ nodes), which takesO(n2)time.
+Now we want to use a suffix tree instead. If we think about converting a trie to a tree, each node in the tree
+is made from one or more nodes in the trie, and the number of characters stored at each node in the tree
+is exactly the number of nodes which were compressed to create that tree node. So to do the equivalent
+of counting nodes in the trie, we need to count total characters in the tree. We can do this with a single
+traversal takingO(n)time, because a suffix tree hasO(n)nodes, and at each node, we look up the indices
+of its parent edge label to determine its length, so counting the characters in a node takesO(1).
+Problem 4.Earlier, we learned about the longest commonsubsequenceproblem. Now we consider a similar,
+related problem, thelongest common substringproblem. Given two stringss 1ands 2, your goal is to find a string
+that is a substring of boths 1ands 2and is as long as possible. Describe how a suffix tree can be used to solve this
+problem. Your algorithm should run inO(n+m)time, wheren,mare the lengths ofs 1,s2respectively. You may
+assume that you can construct a suffix tree in linear time.
+Hint:It is often easier to think about how to solve problems in a trie context, and then convert your solution to
+work in a tree.
+Solution
+Finding the longest common substring ofs 1ands 2is very similar to finding the longest repeated substring
+ofs 1s2, which we know can be found by creating a suffix tree and then finding the deepest node with
+more than one child. The issue with naively applying this tos 1s2is that, in the concatenated string, the
+longest repeated substring might lie totally ins 1(ors 2), or partially ins 1and partially ins 2. We can solve
+the second problem easily by adding a separator character (which is not present in either string) in our
+concatenation, so that we haves 1#s2$.
+An important observation about the placement of “#” and “$” in the tree is that no internal node can
+contain either of them. That is, all instances of these terminator characters must appear in leaves. This
+is clearly true for “$” , since it terminates the whole string. For “#” , since it only appears once in the string,
+and since we know that all internal nodes in a tree have at least two children, i.e. they correspond to
+repeating substrings, we know that “#” cannot be in any internal node, as it does not repeat.
+Bearing this observation in mind, we need to address the problem of ensuring that one of our repetitions
+is ins 1, and the other is ins 2. Consider an internal node of the tree. If it has a leaf descendant node with
+a “#” , then it must appear ins 1. If it has a leaf descendant without a “#” , then it must appear ins 2. So we
+need to find the deepest such node.
+We traverse the tree, and at each node we store two flags, one for being a substring ofs 1and the other for
+being a substring ofs 2. If a node is a substring ofs 1, all its ancestors are substrings ofs 1, and similarly for
+s2. Once we have finished we return the depth of the node with the longest substring that was a substring
+of boths 1ands 2, i.e. had both flags set.
+It is worth having a think about how to set the flags for every node in the tree in linear time, and also how
+to check whether a leaf node contains a “#” in constant time.
+Problem 5.Given a trie and a query string, we want to find the lexicographically greatest string in the trie which
+is lexicographically less than or equal to the query string.
+Your data structure should perform these queries inO(n+m)time, wheremis the length of the query string,
+andnis the length of the answer string (the predecessor). Note that this is an output-sensitive time complexity.
+It is possible that some queries have no string which satisfies the criterion above (if it is less than all of the strings
+in the trie), in which case you should returnnull.
+Example: Suppose the trie contains "aaa", "aba", "baa". If the query is "ba", the result is "aba". If the query is
+"baa", the result is "baa".
+2
+
+---PAGE_BREAK---
+
+Solution
+Let’s assume that the contents of our trie are terminated with a character $/∈Σ. We traverse the query
+string, keeping track of the deepest node with a child lexicographically less than the child we are about
+to move to (initiallynull). This node is the longest prefix that the query string shares with the answer.
+We either end up failing at some point (the current node has no child with the character we want), or we
+reach the end of the query string. If we reach the end of the query string (including the “$”) we return the
+query. Otherwise we look at the node we were keeping track of, and if it isnull, we returnnullsince the
+word must have no predecessor, as none of its prefixes could be extended with a lexicographically lesser
+character. If such a node does exist, go back to that node, go along the edge with the greatest character
+such that it is lexicographically less than the character we followed in our initial traversal. Then follow
+the lexicographically greatest path from that node to a leaf. The string corresponding to that path is the
+solution. This takesO(m)to traverse the query andO(n)to traverse the answer string.
+In the below example, the query iscandelabra. After the traversal,nis the deepest node with a child
+lexicographically less than the node we traverse to (ddoes not satisfy this condition since its children are
+both greater thane). So after traversingcandwe go back tonand then traverse until we find a leaf, always
+choosing the lexicographically greatest option, which yieldscanal.
+C
+A
+N
+A
+D
+A
+$L
+$D
+I
+D
+$Y
+$R
+T
+$Last stored node
+1:functionPREDECESSOR(S[1..n])
+2:node=root
+3:ancestor=null//Lowest ancestor with an extension lexicographically less than S
+4:ancestor_child=null
+5:answer=“”
+3
+
+---PAGE_BREAK---
+
+6:for eachcharacter cinS[1..n]do
+7:ifnode has an edge with label<cthen
+8:ancestor=node
+9:ancestor_child=the greatest child of ancestor lexicographically less than c
+10:ifnode has an edge for character cthennode=node.get_child(c)
+11:else break
+12:ifc=$then returnanswer//S is in the trie
+13:elseanswer+=c
+14:ifancestor=null then return null//Nothing is lexicographically less than S
+15:whilenode̸=ancestordo
+16:node=node.parent
+17:answer.pop_back()//Remove last character from answer
+18:answer+=ancestor_child.character
+19:node=ancestor_child
+20:whilenode is not a leafdo
+21:c=lexicographically greatest edge of node
+22:answer+=c
+23:node=node.get_child(c)
+24:returnanswer.pop_back()//Remove the $ from the answer string
+Problem 6.Given a stringSand a stringT, we wish to formTby concatenating substrings ofS. Describe an
+algorithm for determining the fewest concatenations of substrings ofSto formT. Using the same substring
+multiple times counts as multiple concatenations. For example, given the stringsS=ABCCBAandT=CBAABCA,
+it takes at least three substrings, e.g.CBA + ABC + A. Your algorithm should run inO(n+m)time, wherenand
+mare the lengths ofSandT. You can assume that you have an algorithm to construct suffix tree in linear time.
+Solution
+We first make the observation that we can be greedy. If we are up to a certain pointT[j...], then it is
+optimal to take the longest possible substring fromSthat matchesT[j..k]for the largest possiblek. First
+build a suffix tree fromS, takingO(n)time, then search for the stringTin the tree. This search is going
+to find the longest substring ofSwhich corresponds to the start ofT. Once we reach a point where the
+search stops, this means that the current substring cannot be extended, so we go back to the root and
+search again from the next character ofT. We repeat this process until we reach the last character inT.
+Below is an illustration of the example case given in this problem.
+4
+
+---PAGE_BREAK---
+
+A
+B
+C
+C
+B
+A
+$$B
+A
+$C
+C
+B
+A
+$C
+B
+A
+$C
+B
+A
+$$
+Traversal 1
+Traversal 2
+Traversal 3
+Supplementary Problems
+Problem 7.You are given a sequence ofnstringss 1,s2, ...,s neach of which has an associated weightw 1,w 2, ...,w n.
+You wish to find the “most powerful prefix” of these words. The most powerful prefix is a prefix that maximises
+the following function
+score(p) =X
+sisuch thatp
+is a prefix ofs iwi×|p|,
+where|p|denotes the length of the prefixp. Describe an algorithm that solves this problem inO(T)time, where
+Tis the total length of the stringss 1, ...,s n. Assume that we have three stringsbaby,bank,bitwith weights 10,
+20 and 40, respectively. The score of prefixbais 2×10+2×20=60, the score of prefixbis 1×10+1×20+1×40=70
+and the score of prefixbitis 3×40=120.
+Solution
+For each prefix, we need to keep track of its score. We modify our prefix trie to store a score at each
+node, and each time we insert a word, we update the score by adding to it the weight of the current word
+multiplied by the length of the prefix represented by this node.
+Once all insertions are complete, we traverse the tree to find the node with the maximum score. The
+prefix corresponding to this node is the answer.
+5
+
+---PAGE_BREAK---
+
+Problem 8.Describe an algorithm for finding a shortest unique substring of a given stringS. That is, finding a
+shortest substring ofSthat only occurs once inS. For example, given the stringcababac, the shortest unique
+substrings arecaandacof length two. Your algorithm should run inO(n)time, wherenis the length ofS. You
+can assume that you have an algorithm to construct suffix tree in linear time.
+Solution
+Consider a suffix trie ofS. A unique substring corresponds to a node that has only one leaf below it. We
+want to find the highest such node, since this will be the shortest such substring.
+Now consider a suffix tree ofS. Define a candidate node as a node which has a leaf as a child, whose
+edge label contains more than just $. In a suffix tree, all internal nodes have two or more children. So
+we want to find the shallowest candidate node, i.e. the candidate node which has the fewest characters
+on the path from the root. Let’s traverse the tree, tracking the shallowest candidate. When we finish the
+traversal, the correct length is the length stored in the shallowest candidate+1. This is because we need
+to include the first character in one of the leaf edges, since internal nodes are non-unique substrings.
+The substring stored on the path from the root to the shallowest candidate, including the first character
+in any of its descendants is a shortest unique substring.
+0
+$
+1
+3
+BAC$ C$BA C$A
+2
+BAC$ C$BA
+1
+$ ABABAC$C
+Red numbers indicate the length we are tracking as we traverse the trie. When we finish, there are two
+candidate nodes with depth 1, so the length of the shortest non-repeating substring is 2, and the solutions
+areACandCA.
+Problem 9.Describe an algorithm for finding a shortest string that is not a substring of a given stringSover some
+fixed alphabet. For example, over the alphabet{A,B}the shortest string that is not a substring ofAAABABBBAis
+BAAof length three. Your algorithm should run inO(n)time, wherenis the length ofS.
+6
+
+---PAGE_BREAK---
+
+Solution
+If we traverse the suffix tree, the shallowest node we find that does not have every character in the alpha-
+bet as a child will give us the shortest missing substring. This is because, if a node has every alphabet
+character as a child, then we can extend the substring at that node to every possible substring with 1
+more character. If one or more alphabet characters are missing, we cannot do this, and so we have found
+a missing substring. The missing substring is given by the string at that node+the missing alphabet
+character. Note that the number of nodes in the suffix tree isO(n). So, the worst-case cost isO(n).
+$
+$
+ABABBBA$BABBBA$A
+ABBBA$BBA$BA
+$BBBA$A
+A$BA$BB
+A is missing
+In the example above, the shortest missing string isBAA.
+Problem 10.Prefix tries also have applications in processing integers. We can store integers in their binary
+representation in a prefix trie over the alphabet{0, 1}. Use this idea to solve the following problem. We are given
+a list ofw-bit integersa 1,a2, ...,a n. We want to answer queries of the form “given aw-bit integerx, select one of
+the integersa ito maximisex⊕a i, where⊕denotes the XOR operation. Your queries should run inO(w)time.
+Solution
+To maximise a binary number, we want to set 1 bits in the highest slots possible. This means we should
+select thea iwhich has the opposite bit toxin the highest possible positions as we read from left to right.
+If we have a prefix trie containinga 1,a2, ..a n, usingxwe can traverse the trie as follows. Each time we
+come to a node, see if the node has a child which is NOT(x[i]) (i.e. 0 ifx[i] =1, or 1 ifx[i] =0). If so,
+choose that child. If not, the node has only one child, so go to that node. One way to view this is like
+the ordinary trie traversal but opposite. We always chose to go to a child with adifferentlabel than the
+current character, instead of the one with the same character if possible.
+When we reach a leaf, the choice ofa iwhich maximisesa iXORxis that leaf. Since we traversed a single
+path from root to leaf, our query has takenO(w)time.
+7
+
+---PAGE_BREAK---
+
+Problem 11. (Advanced)Given a list ofw-bit integersa 1,a2, ...,a n, find the maximum possible cumulative XOR
+of a subarraya i, ...,a j, i.e. maximise
+ai⊕a i+1⊕...⊕a j−1⊕a j,
+where⊕denotes the XOR operation. Your algorithm should run inO(n w)time. Hint: Use the fact thatx⊕x=0,
+and the ideas from Problem 10.
+Solution
+First, some properties of XOR. It is associative, meaning that((a⊕b)⊕c) = (a⊕(b⊕c)), and, as given
+in the question,x⊕x=0. This means that if we have a list of numbers all being XOR’ed together, and
+some of these number are identical, we can reorder the list using associativity until the pairs of identical
+numbers are next to each other, and then cancel them using the second property.
+Define a function
+F(L,R) =a L⊕a L+1⊕...⊕a R
+The problem we are trying to solve is now to find anLandRwhich maximiseF, where 1≤L≤R≤n.
+Note that because of the facts above, we have
+F(L,R) =F(1,L−1)⊕F(1,R)
+So if we had all the valuesF(1, 1),F(1, 2)...F(1,j−1)in a trie, we could compute the maximum value
+forF(i,j),i≤jinO(w)with a query to the trie described in Problem 10. Then we simply iterate over
+1≤i≤n, keeping track of the maximum, which takesO(n w).
+1:functionMAX_SUBARRAY_XOR(A[1..n])
+2:prefix_xor=0
+3:trie=Trie()//The trie from Problem 10
+4:maximum_xor=0
+5:fori=1 to ndo
+6:prefix_xor=prefix_xor⊕A[i]//Extend the current prefix
+7:maximum_xor=max(maximum_xor, trie.query(prefix_xor))
+8:trie.insert(prefix_xor)
+9:return maximum_xor
+Problem 12. (Advanced)In a previous applied class, we wrote a dynamic programming solution to the following
+problem. Given a target stringSof lengthnand a listLofmstrings of length at mostn, find the minimum
+number of strings fromLto concatenate to formS. A word fromLmay be used multiple times. We devised an
+O(n2m)algorithm for this problem. Describe how you can use a prefix trie to speed up this solution toO(n2+nm)
+time.
+Solution
+In the previous applied, we wrote the following dynamic programming solution:
+DP[i] ={The minimum number of words needed to form the suffixS[i..n]},
+for 0≤i≤n
+DP[i] =
+
+0 ifi=n,
+∞if no wordw∈Lis a prefix ofS[i..n]
+1+min
+w∈L
+wprefix ofS[i..n]DP[i+|w|]otherwise.
+A part of this should immediately jump out at us. Note that we check over all stringsw∈Lthat are
+prefixes ofS[i..n]. We have a very good data structure for handling this sort of thing, a prefix trie! So,
+8
+
+---PAGE_BREAK---
+
+instead of simply looping over all of the words inLand checking whether they are prefixes, we will first
+insert all of the contents ofLinto a trie, terminated by $/∈Σ. Since there aremstrings of length at most
+nthis takesO(nm)time. Now to solve the subproblemDP[i], we simply search the trie forS[i..n], and at
+each character, we check whether the current prefixpis inL(by seeing whether it has a $ child), and if so,
+we consider the subproblemDP[i+|p|]. This means that solving each subproblem takes justO(n)time,
+and since there arensubproblems, this yields a total time ofO(n2+nm).
+Problem 13. (Advanced)Recall that we deal with suffix trees because suffix tries are very space inefficient and
+slow to produce. It is easy to see thatO(n2)is an upper bound on the size of a suffix trie of a string of lengthn,
+since there arensuffixes of length at mostn. Prove that it is also a lower bound, i.e. that there exists a string of
+lengthnsuch that its suffix trie takesΩ(n2)space.
+Solution
+First, we recall that each node of a suffix trie represents a substring of the string. Therefore a worst-case
+suffix trie with the most nodes is one for a string that has the most possible distinct substrings. There
+are many strings that fit this bill, but a famous and interesting set of them are theDe Brujin sequences.
+A De Brujin sequence of ordermover an alphabetΣof sizekis a sequence of lengthkmthat cyclically
+(substrings may wrap around) contains all possible lengthmstrings overΣexactly once. This means that
+every substring of a De Brujin sequence of lengthnor greater is distinct. Takem=logk(n), then we get a
+De Brujin sequence of lengthnsuch that all substrings of length at least logk(n)are distinct. There are
+
+n+1
+2
+−O(nlog(n))
+such substrings, since there are n+1
+2
+substrings in total, and for each position in the string, there are
+logk(n)positions to which we could form a substring of length logk(n), and hence there are at most
+O(nlog(n))substrings that are not distinct. Since n+1
+2
+=Ω(n2), this sequence has at leastΩ(n2)distinct
+substrings, and hence its suffix trie will haveΩ(n2)nodes.
+9

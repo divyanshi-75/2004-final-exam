@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+site/data_raw/
+site/data/
+node_modules/
+.next/

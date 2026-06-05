@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /Users/faye/Downloads/2004_exam && echo \"---\" && ls /Users/faye/Desktop/2004-final-exam)",
+      "Read(//Users/faye/Downloads/2004_exam/**)",
+      "Bash(mkdir -p /Users/faye/Desktop/2004-final-exam/quest/css /Users/faye/Desktop/2004-final-exam/quest/data /Users/faye/Desktop/2004-final-exam/quest/js)",
+      "Bash(cp \"/Users/faye/Downloads/2004_exam/FIT2004 Quest.html\" \"/Users/faye/Desktop/2004-final-exam/quest/FIT2004 Quest.html\")",
+      "Bash(cp \"/Users/faye/Downloads/2004_exam/styles.css\" \"/Users/faye/Desktop/2004-final-exam/quest/styles.css\")",
+      "Bash(cp /Users/faye/Downloads/2004_exam/css/* /Users/faye/Desktop/2004-final-exam/quest/css/)",
+      "Bash(cp /Users/faye/Downloads/2004_exam/data/* /Users/faye/Desktop/2004-final-exam/quest/data/)",
+      "Bash(cp /Users/faye/Downloads/2004_exam/js/* /Users/faye/Desktop/2004-final-exam/quest/js/)",
+      "Bash(open \"/Users/faye/Desktop/2004-final-exam/quest/FIT2004 Quest.html\")",
+      "Bash(node --check \"/Users/faye/Desktop/2004-final-exam/quest/js/content_1_3.jsx\")",
+      "Bash(node --check \"/Users/faye/Desktop/2004-final-exam/quest/js/content_4_6.jsx\")",
+      "Bash(node --check \"/Users/faye/Desktop/2004-final-exam/quest/js/content_7_9.jsx\")",
+      "Bash(node --check \"/Users/faye/Desktop/2004-final-exam/quest/js/content_10_11.jsx\")"
+    ],
+    "additionalDirectories": [
+      "/Users/faye/Desktop/2004-final-exam/quest"
+    ]
+  }
+}

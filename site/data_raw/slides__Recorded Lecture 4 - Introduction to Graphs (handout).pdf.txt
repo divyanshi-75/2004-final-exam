@@ -1,0 +1,1971 @@
+Faculty of Information Technology,
+Monash University
+
+---PAGE_BREAK---
+
+FIT2004: Algorithms and Data 
+Structures
+Week 4: Introduction to Graphs
+
+---PAGE_BREAK---
+
+Outline
+FIT2004: Seminar 4 - Introduction to Graphs1.Introduction to Graphs
+2.Graph Traversal Algorithms
+A.The idea
+B.Breadth -First Search (BFS)
+C.Depth -First Search (DFS)
+D.Applications
+
+---PAGE_BREAK---
+
+Graphs
+FIT2004: Seminar 4 - Introduction to GraphsA graph is simply a way of encoding pairwise relationships among a 
+set of objects.
+Each object is called a vertex or node. 
+Each edge of the graph “connects” two nodes.
+
+---PAGE_BREAK---
+
+Undirected Graph - Example
+FIT2004: Seminar 4 - Introduction to Graphs2
+1 3
+4 5
+
+---PAGE_BREAK---
+
+Directed Graph - Example
+FIT2004: Seminar 4 - Introduction to Graphs2
+1 3
+4 5
+
+---PAGE_BREAK---
+
+Undirected Weighted Graph - Example
+FIT2004: Seminar 4 - Introduction to Graphs2
+1 3
+4 54
+87
+6325
+
+---PAGE_BREAK---
+
+Directed Weighted Graph - Example
+FIT2004: Seminar 4 - Introduction to Graphs2
+1 3
+4 54
+87
+6325
+1
+10
+
+---PAGE_BREAK---
+
+Uses of Graphs
+FIT2004: Seminar 4 - Introduction to GraphsGraphs are extremely useful for modelling. For example:
+Transportation networks: map of routes of an airline, rail network, …
+Communication networks: the connections between different Internet service 
+providers, wireless ad -hoc networks, …
+Information networks: the connections between different webpages using links 
+(Google PageRank algorithm for determining the relative importance of each 
+website), …
+Social networks: the persons could be the nodes and the edges represent 
+friendship (Facebook), or the nodes represent companies and people, and the 
+edges financial relationships between them, etc. Properties of the graphs 
+representing social networks are often used to find influencers, target ads,…
+Dependency networks: prerequisites in a course map
+…
+
+---PAGE_BREAK---
+
+Graphs – Formal notations
+FIT2004: Seminar 4 - Introduction to GraphsA graph G = (V, E) is defined using a set of vertices V and a set of 
+edges E. 
+An edge e is represented as e = (u, v) where u and v are two 
+vertices
+For undirected graphs, (u, v) = (v, u) because there is no sense of 
+direction. For a directed graph, (u, v) represents an edge from u to 
+v and (u, v) ≠ (v, u).
+We will slightly abuse notation and use V (instead of |V|) for the 
+number of vertices and E (instead of |E|) for the number of edges 
+when what is meant is clear from the context.
+
+---PAGE_BREAK---
+
+Graphs – Formal notations
+FIT2004: Seminar 4 - Introduction to GraphsA weighted graph is represented as G = (V, E) and each edge (u, v) 
+has an associated weight w.
+A graph is called a simple graph if it does not have loops AND does  
+not contain multiple edges between same pair of vertices.
+In this unit, we focus on simple graphs with a finite number of 
+vertices. u
+v
+wzLoop
+Multiple edges
+
+---PAGE_BREAK---
+
+Graphs – Connected Components
+FIT2004: Seminar 4 - Introduction to GraphsA vertex v is reachable  from u if there is a path in the graph that 
+starts in u and ends v. 
+In an undirected graph, reachability is an equivalence relation :
+Reflexive: each u node is reachable from itself.
+Symmetric: if v is reachable from u, then u is reachable from v.
+Transitive: if v is reachable from u, and u is reachable from w, then v is reachable 
+from w.
+The set of vertices reachable from u defines the connected 
+component  of G containing u.
+For any two nodes u and v, their connected components are either 
+identical or disjoint.
+vu
+w
+
+---PAGE_BREAK---
+
+Graphs – Connected Components
+FIT2004: Seminar 4 - Introduction to GraphsAn undirected graph with 3 connected components:
+
+
+---PAGE_BREAK---
+
+Graphs – Connected Components
+FIT2004: Seminar 4 - Introduction to GraphsAn undirected graph is connected  if all vertices are part of a single 
+connected component. 
+In other words, for any pair of vertices u and v, there is a path 
+between them.   
+2
+1 3
+4 5
+
+---PAGE_BREAK---
+
+Graphs – Connected Components
+FIT2004: Seminar 4 - Introduction to GraphsWhy is that an important concept in practice?
+Example: Airlines normally want their air routes to form a connected graph.
+Getting a connected graph is often an important consideration when designing 
+communication and transportation networks.
+Hubs: Often it is not viable to have pairwise connections between all nodes ; but 
+one still wants to have paths, without many intermediary nodes, between every 
+pair of nodes.
+
+
+---PAGE_BREAK---
+
+In this graph the edge (g, h) is quite critical as any problem in the network that 
+eliminates this edge would break the connected graph into  “large” disjoint 
+connected components.
+This can be quite bad in networks. Some kind of redundancy
+ is often desirable.
+Adding edges that join distinct connected components can sometimes also have 
+bad consequences. E.g., quarantine measures often try to avoid a disease from 
+reaching a disease -free connected component of a social network.Graphs – Connected Components
+FIT2004: Seminar 4 - Introduction to Graphs
+
+---PAGE_BREAK---
+
+Some Graph Properties
+FIT2004: Seminar 4 - Introduction to GraphsLet G be a graph.
+The minimum number of edges in a connected undirected 
+graph
+???
+The maximum number of edges in an undirected graph
+???
+
+---PAGE_BREAK---
+
+Some Graph Properties
+FIT2004: Seminar 4 - Introduction to GraphsLet G be a graph. 
+The minimum number of edges in a connected undirected 
+graph
+V-1 = O(V)
+The maximum number edges in an undirected graph
+V(V - 1)/2 = O(V2)
+A graph is called sparse  if E  << V2   (<< means significantly smaller than)  
+A graph is called dense  if E ≈ V2
+
+---PAGE_BREAK---
+
+Tree
+FIT2004: Seminar 4 - Introduction to GraphsLet G=(V, E) be an undirected graph. G is a tree if it satisfies any 
+of the following equivalent conditions:
+G is connected and acyclic (i.e., contains no cycles).
+G is connected and has V -1 edges.
+G is acyclic and has V -1 edges.
+G is acyclic, but a cycle is formed if any edge 
+is added to G.
+G is connected, but would become disconnected 
+if any single edge is removed from G.
+In other words, if any of the above conditions is satisfied for an 
+undirected graph G, then G is a tree (and all the other 
+conditions will also hold).
+ 
+
+
+---PAGE_BREAK---
+
+Graphs – Connected Components
+FIT2004: Seminar 4 - Introduction to GraphsIn directed graphs, reachability is reflexive and transitive , but not 
+guaranteed to be symmetric  (i.e., possibly there could be a path 
+from u to v, but no path from v to u).
+Vertices u and v are called mutually reachable if there are paths 
+from u to v and from v to u. 
+Mutual reachability is an equivalence relation and decomposes the 
+graph into strongly -connected components (for any two vertices u 
+and v, their strong components are either identical or disjoint).
+
+---PAGE_BREAK---
+
+Graphs – Connected Components
+FIT2004: Seminar 4 - Introduction to GraphsA directed graph with 3 strongly -connected components:
+
+
+---PAGE_BREAK---
+
+Graphs – Connected Components
+FIT2004: Seminar 4 - Introduction to GraphsA directed graph is strongly connected if for every pair of vertices u 
+and v of G, there are paths from u to v and from v to u.
+I.e., the graph only has one strongly -connected component.
+
+---PAGE_BREAK---
+
+Representing Graphs
+FIT2004: Seminar 4 - Introduction to GraphsAdjacency Matrix ( Undirected Graph ):
+Create a V x V matrix M and store T (true) for M[ i][j] if there exists 
+an edge between i-th and j -th vertex. Otherwise, store F (false).
+2
+1 3
+4 51 2 3 4 5
+1 F T T T F
+2 T F T F T
+3 T T F F T
+4 T F F F T
+5 F T T T F
+
+---PAGE_BREAK---
+
+Representing Graphs
+FIT2004: Seminar 4 - Introduction to GraphsAdjacency Matrix ( Undirected Weighted Graph ):
+Create a V x V matrix M and store weight  at M[ i][j] only if there 
+exists an edge between i-th and j-th vertex. 
+1 2 3 4 5
+1 2 7 4
+2 2 5 6
+3 7 5 3
+4 4 8
+5 6 3 82
+1 3
+4 54
+87
+6325
+
+---PAGE_BREAK---
+
+Representing Graphs
+FIT2004: Seminar 4 - Introduction to GraphsAdjacency Matrix ( Directed Weighted Graph ):
+Create a V x V matrix M and store weight at M[ i][j] only if there exists an edge from  i-th to 
+j-th vertex.
+Space Complexity: O(V2) regardless of the number of edges
+Time Complexity of checking if an edge exits: O(1)
+Time Complexity of retrieving all neigbhbors  (adjacent vertices) of a given vertex: 
+O(V) regardless of the number of neighbors  (unless additional pointers are stored)
+1 2 3 4 5
+1 7 4
+2 2 5 6
+3 3
+4 8
+52
+1 3
+4 54
+87
+6325
+
+---PAGE_BREAK---
+
+Representing Graphs
+FIT2004: Seminar 4 - Introduction to GraphsAdjacency List ( Undirected Graph ):
+Create an array of size V. At each V[ i], store the list of vertices 
+adjacent to the i-th vertex.
+2
+1 3
+4 51
+2
+3
+4
+52 3 4
+1 3 5
+1 2 5
+1 5
+2 3 4
+
+---PAGE_BREAK---
+
+Representing Graphs
+FIT2004: Seminar 4 - Introduction to GraphsAdjacency List ( Undirected Weighted Graph ):
+Create an array of size V. At each V[ i], store the list of vertices 
+adjacent to the i-th vertex along with the weights .
+The numbers in parentheses correspond to the weights.
+1
+2
+3
+4
+52 (2) 3 (7) 4 (4)
+1 (2) 3 (5) 5 (6)
+1 (7) 2 (5) 5 (3)
+1 (4) 5 (8)
+2 (6) 3 (3) 4 (8)2
+1 3
+4 54
+87
+6325
+
+---PAGE_BREAK---
+
+Representing Graphs
+FIT2004: Seminar 4 - Introduction to GraphsAdjacency List ( Directed Weighted Graph ):
+Create an array of size V. At each V[ i], store the list of vertices adjacent to the i-th vertex along with 
+the weights .
+Space Complexity: 
+O(V + E) 
+Time complexity of checking if a particular edge exists: 
+O(log V) assuming each adjacency list is a sorted array on vertex IDs
+Time complexity of retrieving all adjacent vertices of a given vertex: 
+O(X) where X is the number of adjacent vertices (note: this is output -sensitive  complexity)
+1
+2
+3
+4
+53 (7) 4 (4)
+1 (2) 3 (5) 5 (6)
+5 (3)
+5 (8)2
+1 3
+4 54
+87
+6325
+
+---PAGE_BREAK---
+
+Outline
+FIT2004: Seminar 4 - Introduction to Graphs1.Introduction to Graphs
+2.Graph Traversal Algorithms
+A.The idea
+B.Breadth -First Search (BFS)
+C.Depth -First Search (DFS)
+D.Applications
+
+---PAGE_BREAK---
+
+Graph Traversal
+FIT2004: Seminar 4 - Introduction to GraphsGraph traversal algorithms traverse (visit) all nodes of a graph.
+They are very important in the design of numerous algorithms.
+We will look into two algorithms that traverse a connected component from a graph starting from 
+a source vertex:
+Breadth -First Search (BFS)
+Depth -First Search (DFS)
+Both of them visit the vertices exactly once.
+They visit vertices in different orders.
+If a graph has more than one connected component, they can be repeatedly called (on unvisited 
+nodes) until all graph nodes are marked as visited. 
+Each one has properties that makes it useful for certain kinds of graph problems.BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - BFS
+FIT2004: Seminar 4 - Introduction to GraphsBreadth -First Search (BFS)
+Traverses the graph uniformly from the source vertex
+i.e., all vertices that are k edges away from the source vertex are visited before all vertices that 
+are k+1 edges away  from source
+In the graph below, if A is the source, then one possible BFS order is:
+A, C, B, D, E, F, G, H
+BA
+EF
+HG
+DC
+Konrad Zuse , computer 
+science pioneer
+
+---PAGE_BREAK---
+
+Graph Traversal - BFS
+FIT2004: Seminar 4 - Introduction to GraphsBreadth -First Search (BFS)
+Traverses the graph uniformly from the source vertex
+i.e., all vertices that are k edges away from the source vertex are visited before all vertices that 
+are k+1 edges away  from source
+In the graph below, if A is the source, then one possible BFS order is:
+A, C, B, D, E, F, G, H
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - BFS
+FIT2004: Seminar 4 - Introduction to GraphsBreadth -First Search (BFS)
+Traverses the graph uniformly from the source vertex
+i.e., all vertices that are k edges away from the source vertex are visited before all vertices that 
+are k+1 edges away from source
+In the graph below, if A is the source, then one possible BFS order is:
+A, C, B, D, E, F, G, H
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - BFS
+FIT2004: Seminar 4 - Introduction to GraphsBreadth -First Search (BFS)
+Traverses the graph uniformly from the source vertex
+i.e., all vertices that are k edges away from the source vertex are visited before all vertices that 
+are k+1 edges away from source
+In the graph below, if A is the source, then one possible BFS order is:
+A, C, B, D, E, F, G, H
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - BFS
+FIT2004: Seminar 4 - Introduction to GraphsBreadth -First Search (BFS)
+Traverses the graph uniformly from the source vertex
+i.e., all vertices that are k edges away from the source vertex are visited before all vertices that 
+are k+1 edges away from source
+In the graph below, if A is the source, then one possible BFS order is:
+A, C, B, D, E, F, G, H
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - DFS
+FIT2004: Seminar 4 - Introduction to GraphsDepth -First Search (DFS)
+A version  of DFS was investigated  by the 19th century  French  
+mathematician Charles  Pierre  Trémaux  to solve  mazes .
+Traverses the graph as deeply as possible before backtracking and traversing 
+other nodes
+In the graph below , one possible DFS order is: A, B, F, G, H, E, C, D
+Is A, B, E, H, F, G, C, D a possible DFS order?
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - DFS
+FIT2004: Seminar 4 - Introduction to GraphsDepth -First Search (DFS)
+Traverses the graph as deeply as possible before backtracking and traversing 
+other nodes
+In the tree, one possible DFS order is: A, B, F , G, H, E, C, D
+Is A, B, E, H, F, G, C, D as possible DFS order?
+No!
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - DFS
+FIT2004: Seminar 4 - Introduction to GraphsDepth -First Search (DFS)
+Traverses the graph as deeply as possible before backtracking and traversing 
+other nodes
+In the tree, one possible DFS order is: A, B, F , G, H, E, C, D
+Is A, B, E, H, F, G, C, D as possible DFS order?
+No!
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - DFS
+FIT2004: Seminar 4 - Introduction to GraphsDepth -First Search (DFS)
+Traverses the graph as deeply as possible before backtracking and traversing 
+other nodes
+In the tree, one possible DFS order is: A, B, F , G, H, E, C, D
+Is A, B, E, H, F, G, C, D as possible DFS order?
+No!
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - DFS
+FIT2004: Seminar 4 - Introduction to GraphsDepth -First Search (DFS)
+Traverses the graph as deeply as possible before backtracking and traversing 
+other nodes
+In the tree, one possible DFS order is: A, B, F , G, H, E, C, D
+Is A, B, E, H, F, G, C, D as possible DFS order?
+No!
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - DFS
+FIT2004: Seminar 4 - Introduction to GraphsDepth -First Search (DFS)
+Traverses the graph as deeply as possible before backtracking and traversing 
+other nodes
+In the tree, one possible DFS order is: A, B, F , G, H, E, C, D
+Is A, B, E, H, F, G, C, D as possible DFS order?
+No!
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - DFS
+FIT2004: Seminar 4 - Introduction to GraphsDepth -First Search (DFS)
+Traverses the graph as deeply as possible before backtracking and traversing 
+other nodes
+In the tree, one possible DFS order is: A, B, F , G, H, E, C, D
+Is A, B, E, H, F, G, C, D as possible DFS order?
+No!
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - DFS
+FIT2004: Seminar 4 - Introduction to GraphsDepth -First Search (DFS)
+Traverses the graph as deeply as possible before backtracking and traversing 
+other nodes
+In the tree, one possible DFS order is: A, B, F , G, H, E, C, D
+Is A, B, E, H, F, G, C, D as possible DFS order?
+No!
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Graph Traversal - DFS
+FIT2004: Seminar 4 - Introduction to GraphsDepth -First Search (DFS)
+Traverses the graph as deeply as possible before backtracking and traversing 
+other nodes
+In the tree, one possible DFS order is: A, B, F , G, H, E, C, D
+Is A, B, E, H, F, G, C, D as possible DFS order?
+No!
+BA
+EF
+HG
+DC
+
+---PAGE_BREAK---
+
+Outline
+FIT2004: Seminar 4 - Introduction to Graphs1.Introduction to Graphs
+2.Graph Traversal Algorithms
+A.The idea
+B.Breadth -First Search (BFS)
+C.Depth -First Search (DFS)
+D.Applications
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 1In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+0 1 0 0 0 0 0 0
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 1In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+0 1 0 0 0 0 0 00 5
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 1In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 0 0 0 1 0 00 5
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 1In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 0 0 0 1 0 00 5
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 0In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 0 0 0 1 0 05
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 0In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 0 0 0 1 0 05 4
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 0In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 0 0 1 1 0 05 4
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 0In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 0 0 1 1 0 05 4
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 5In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 0 0 1 1 0 04
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 5In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 1 0 1 1 1 04
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 5In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 1 0 1 1 1 04 2 6
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 4In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 1 0 1 1 1 02 6
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 2In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 1 0 1 1 1 06
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 2In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 1 1 1 1 1 06 3
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 6In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 1 1 1 1 1 03
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 6In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 1 1 1 1 1 16 7
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 3In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 1 1 1 1 1 17
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current: 7In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 1 1 1 1 1 1
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsQueue:51
+62
+73
+40
+Current:In Queue:
+Finished:
+Current:
+Not yet seen:
+Visited:0 1 2 3 4 5 6 7
+1 1 1 1 1 1 1 1
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsInitialize “ queue” and “ visited”, both empty of vertices
+Put an initial vertex in queue
+Mark the initial vertex as visited
+While queue is not empty
+Get the first vertex, u, from queue
+For each edge ( u,v)
+If v is not visited
+Add v to visited
+Add v at the end of queue
+Assuming adjacency list representation.
+Time Complexity:
+We look at every edge twice
+For each edge, we do a lookup on visited O(1)
+We insert vertices to visited at most O(V) time𝑂(1)
+𝑂1
+𝑂𝐸 𝑡𝑜𝑡𝑎𝑙
+𝑂1∗𝐸
+𝑂1∗𝑉𝑂(𝑉)
+𝑂1∗𝑉
+𝑂1∗𝑉
+𝑂1∗𝑉
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsInitialize “ queue” and “ visited”, both empty of vertices
+Put an initial vertex in queue
+Mark the initial vertex as visited
+While queue is not empty
+Get the first vertex, u, from queue
+For each edge ( u,v)
+If v is not visited
+Add v to visited
+add v at the end of queue
+Assuming adjacency list representation.
+Time Complexity:
+O(V * 1 + E * 1) = O(V+E)
+Space Complexity:
+O(V+E)
+
+---PAGE_BREAK---
+
+Breadth -First Search (BFS)
+FIT2004: Seminar 4 - Introduction to GraphsAssuming adjacency list representation.
+Time Complexity:
+O(V+E)
+Space Complexity:
+O(V+E)
+
+
+---PAGE_BREAK---
+
+Outline
+FIT2004: Seminar 4 - Introduction to Graphs1.Introduction to Graphs
+2.Graph Traversal Algorithms
+A.The idea
+B.Breadth -First Search (BFS)
+C.Depth -First Search (DFS)
+D.Applications
+
+---PAGE_BREAK---
+
+Example with good data structures
+FIT2004: Seminar 4 - Introduction to GraphsNow that you have the idea of BFS
+And we have seen how to use a bit list to make it faster
+We will do the DFS example with a bit list
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+0 0 0 0 0 0 0 0AVisited is indexed by vertex ID. Normally, 
+the IDs are integers from from 0 to V -1 (to 
+allow O(1) lookup), but letters are used 
+here for ease of understanding
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 0 0 0 0 0 0 0A1
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 0 0 0 0 0 0 0A1
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 0 0 0 0B1
+2
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 0 0 0 0B1
+2
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 0 0 0E1
+2
+3
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 0 0 0E1
+2
+3
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 0 1 0G1
+2
+34
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 0 1 0G1
+2
+34
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 0F1
+2
+34 5
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 0F1
+2
+34 5
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 0F1
+2
+34 5
+•F is a dead end
+•Go back to the last 
+active node (G)
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 0G1
+2
+34 5
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+E HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 0G1
+2
+34 5
+F
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 0G1
+2
+34 5
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 1H1
+2
+34 5
+6
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+H DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 1H1
+2
+34 5
+6G
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 1H1
+2
+34 5
+6•H is a dead end
+•Speeding up 
+visualisation…
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:A
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 1G1
+24 5
+6EG
+B HF
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 1E1
+2
+34 5
+6
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA F
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 1B1
+2
+34 5
+6E
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 0 0 1 1 1 1A1
+2
+34 5
+6
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 1 0 1 1 1 1C1
+2
+34 5
+67
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 1 0 1 1 1 1C1
+2
+34 5
+67
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 1 1 1 1 1 1 1D1
+2
+34 5
+67
+8
+
+---PAGE_BREAK---
+
+Depth -First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsAssuming adjacency list representation.
+Time Complexity:
+Each vertex visited at most once
+Each edge accessed at most twice (once when u is visited once when v is visited)
+Total cost: O(V+E)
+Space Complexity:
+O(V+E) 
+
+
+---PAGE_BREAK---
+
+Outline
+FIT2004: Seminar 4 - Introduction to Graphs1.Introduction to Graphs
+2.Graph Traversal Algorithms
+A.The idea
+B.Breadth -First Search (BFS)
+C.Depth -First Search (DFS)
+D.Applications
+
+---PAGE_BREAK---
+
+Applications of DFS and BFS
+FIT2004: Seminar 4 - Introduction to GraphsThe algorithms we saw can also be applied on directed graphs.
+BFS and DFS have a wide variety of applications:
+Reachability
+Finding all connected components
+Testing a graph for bipartiteness
+A graph is bipartite when we can divide it into two sets, U and V, with every edge 
+having one vertex in set U and the other in set V
+Finding cycles
+Shortest paths on unweighted graphs
+Topological sort 
+…  
+More details are given in unit notes and applied classes.
+Example of bipartite graph
+
+---PAGE_BREAK---
+
+Shortest Path Problem
+FIT2004: Seminar 4 - Introduction to GraphsLength of a path:
+For unweighted graphs , the length of a path is the number of 
+edges  along the path.
+For weighted graphs , the length of a path is the sum of weights of 
+the edges along the path.
+
+---PAGE_BREAK---
+
+Shortest Path Problem
+FIT2004: Seminar 4 - Introduction to GraphsSingle source, single target:
+Given a source vertex s and a target vertex t, return the shortest 
+path from s to t.
+Single source, all targets:
+Given a source vertex s, return the shortest paths to every other 
+vertex in the graph.
+We will focus on single source, all targets problem because the 
+single source, single target problem is subsumed by it.
+
+---PAGE_BREAK---
+
+Shortest Path Algorithms
+FIT2004: Seminar 4 - Introduction to GraphsBreadth -First Search – (Single source, unweighted graphs) Today
+Dijkstra’s Algorithm – (Single Source, weighted graphs with non -
+negative weights) Week 5
+Bellman -Ford Algorithm – (Single source, weighted graphs 
+including negative weights) Week 7
+Floyd -Warshall  Algorithm – (All pairs, weighted graphs including 
+negative weights) Week 7
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+Current:
+A B C D E F G H
+1 0 0 0 0 0 0 0A Queue:Dist: 0
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 0 0 0 0 0 0 0A
+Queue:Dist: 0
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 0 0 0 0 0 0 0A
+Queue:Dist: 0
+Dist: 1
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 0 0 0 0 0 0BA
+Queue:Dist: 0
+Dist: 1Dist: 1
+Current: Always keep track of the predecessor nodes.
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 0 0 0 0 0B CA
+Queue:Dist: 0
+Dist: 1Dist: 1
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 0 0 0 0 0CB
+Queue:Dist: 0
+Dist: 1Dist: 1
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 0 0 0 0 0CB
+Queue:Dist: 0
+Dist: 1Dist: 1
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 0 1 0 0 0C EB
+Queue:Dist: 0
+Dist: 1Dist: 1 Dist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 0 1 1 0 0C E FB
+Queue:Dist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 0 1 1 0 0C E FB
+Queue:Dist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 0 1 1 0 0E F Queue:CDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 0 1 1 0 0E F Queue:CDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 0 0E F D Queue:CDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 0 0E F D Queue:CDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 0 0F D Queue:EDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 0 0F D Queue:EDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 2
+Current:Speeding up visualisation…
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 1 1F D G H Queue:EDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 2 Dist: 3Dist: 3
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 1 1D G H Queue:FDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 3Dist: 3
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 1 1G H Queue:DDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 3Dist: 3
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 1 1G H Queue:DDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 3Dist: 3
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 1 1H Queue:GDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 3Dist: 3
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 1 1H Queue:GDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 3Dist: 3
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 1 1Queue:HDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 3Dist: 3
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 1 1Queue:HDist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 3Dist: 3
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+BFS Shortest Path
+FIT2004: Seminar 4 - Introduction to GraphsVisited:Discovered:
+Visited:
+BA
+EF
+HG
+DC
+A B C D E F G H
+1 1 1 1 1 1 1 1Queue:Dist: 0
+Dist: 1Dist: 1
+Dist: 2Dist: 2
+Dist: 3Dist: 3
+Dist: 2
+Current:
+
+---PAGE_BREAK---
+
+Unweighted Shortest Paths
+FIT2004: Seminar 4 - Introduction to Graphs
+Note that distances are stored in an O(1) lookup structure.
+Distances are set by lookup at the distance of the current vertex and adding 1.
+Path from s to v can be found by backtracking from v to s using the array pred.
+Complexity is the same as regular BFS, O(V+E).
+
+---PAGE_BREAK---
+
+Directed Acyclic Graph (DAG)
+FIT2004: Seminar 4 - Introduction to GraphsA Directed Acyclic Graph (DAG) is 
+Directed
+Acyclic – has no cycles
+Graph
+Which of the two graphs is a DAG?
+CB
+ED
+A
+CB
+ED
+A
+Graph 1 Graph 2
+
+---PAGE_BREAK---
+
+DAG: Examples
+FIT2004: Seminar 4 - Introduction to GraphsSub-tasks of a project and which “ must finish before” 
+A → B means task A must finish before task B
+so, DAGs useful in project management
+Relationships between subjects for your degree  --  “is prerequisite for” 
+A→B means subject A must be completed before enrolling in subject B
+People genealogy – “is an ancestor of ” 
+A → B means A is an ancestor of B
+Power sets and “ is a subset of “ 
+A → B means A is a subset of B
+CB
+ED
+A
+Source: wikipedia
+
+---PAGE_BREAK---
+
+Topological Sort of a DAG
+FIT2004: Seminar 4 - Introduction to GraphsOrder of vertices in a DAG
+A < B if A→B. 
+Note that if A → B and B→D, we have A < B and B < D which implies that A < D (i.e., transitivity).
+Some vertices may be incomparable  (e.g., B and C are incomparable), i.e. A< B 
+and A < C but we do not know whether C < B or B < C.
+A topological order
+is a permutation of the vertices in the original DAG such that
+for every  directed edge u→v of the DAG
+u appears before v in the permutation
+Example:  A, B, C, E, D
+Topological sort of a DAG of “is prerequisite of” example  gives an ordering of the 
+subjects for studying your degree, one at a time, while obeying prerequisite rules.CB
+ED
+A
+
+---PAGE_BREAK---
+
+Topological Sort of a DAG
+FIT2004: Seminar 4 - Introduction to GraphsA DAG can have many valid topological sorts, e.g., let u and v be two incomparable 
+vertices,  u may appear before or after v.
+Which of these is NOT a valid topological ordering of the DAG?
+1.A, B, C, E, D
+2.A, C, B, E, D
+3.A, C, E, B, D
+4.A, B, E, C, D
+  
+CB
+ED
+A
+
+---PAGE_BREAK---
+
+Depth First Search (DFS)
+FIT2004: Seminar 4 - Introduction to GraphsAssume we call DFS(A), which of the following is NOT a possible order in which vertices are 
+marked visited?
+1.A, B, D, C, E
+2.A, C, E, D, B
+3.A, C, D, E, B
+4.A, C, E, B, D
+CB
+ED
+A
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted:Not accessed:
+DFS not finished yet :
+Sorted:
+
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted:
+Not accessed:
+DFS not finished yet :
+Sorted:
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted:
+Not accessed:
+DFS not finished yet :
+Sorted:
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted:
+Not accessed:
+DFS not finished yet :
+Sorted:
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted: D
+Not accessed:
+DFS not finished yet :
+Sorted:
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted: D B
+Not accessed:
+DFS not finished yet :
+Sorted:
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted: D B
+Not accessed:
+DFS not finished yet :
+Sorted:
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted: D B
+Not accessed:
+DFS not finished yet :
+Sorted:
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted: D B E
+Not accessed:
+DFS not finished yet :
+Sorted:
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted: D B E C
+Not accessed:
+DFS not finished yet :
+Sorted:
+
+---PAGE_BREAK---
+
+DFS for Topological Sort
+FIT2004: Seminar 4 - Introduction to GraphsCB
+ED
+A
+Sorted: D B E C A
+Not accessed:
+DFS not finished yet :
+Sorted:
+
+---PAGE_BREAK---
+
+Reading
+FIT2004: Seminar 4 - Introduction to GraphsCourse Notes: Chapter 5 
+You can also check algorithms’ textbooks for contents related to this 
+lecture, e.g.:
+CLRS: Chapter 22
+KT: Chapter 3
+Rou: Chapters 7 and 8
+
+---PAGE_BREAK---
+
+Concluding Remarks
+FIT2004: Seminar 4 - Introduction to GraphsThings to do (this list is not exhaustive)
+Read more about BFS, DFS and their applications
+Implement BFS and DFS
+Read course notes
+Coming Up Next
+Greedy (Graph) Algorithms

@@ -1,0 +1,665 @@
+FIT2004 - Algorithms and Data Structures
+Retrieval Data Structures for Strings
+Rafael Dowsley
+
+---PAGE_BREAK---
+
+Introduction
+Suppose you have a large text containing Nstrings. You want to
+pre-process it such that searching on this text is efficient.
+Sorting based approach:
+▶Pre-processing: sort the string
+▶Searching: Binary search to find
+Let M be length of strings. Comparison between two strings: O(M)
+Time complexity:
+▶Pre-processing: O(MNlogN) using merge sort or O(MN) using radix sort
+▶Searching: O(MlogN)
+ReTrieval data structures allow answering different queries efficiently
+1/35
+
+---PAGE_BREAK---
+
+Trie
+
+---PAGE_BREAK---
+
+Trie (ReTRIEval tree)
+Trie is an Σ-way (or multi-way) tree, where Σ is the alphabet size.
+▶Σ = 2 for binary
+▶Σ = 26 for english letters
+▶Σ = 4 for DNA
+Alphabet size could be part of the input to the problem! Unless
+otherwise specified we are focusing on alphabets of constant size in
+the slides.
+In a standard trie, all strings with the shared prefix fall within the
+same subtree/subtrie.
+In fact, it is the shortest possible tree that can be constructed such
+that all strings with the same prefix fall within the same subtree.
+2/35
+
+---PAGE_BREAK---
+
+Trie Example
+A trie that stores baby, bad, bank, box, dog, dogs, banks.
+We use $to denote the end of a string.
+b d
+a o o
+b d n x g
+y $ k $ $ s
+$ $ s $
+$3/35
+
+---PAGE_BREAK---
+
+Alternative Illustration
+We can also show characters on edges instead of nodes.
+b d
+a o
+o
+b
+dn
+x g
+y $ k $$ s
+$$ s
+$
+$
+4/35
+
+---PAGE_BREAK---
+
+Operations on Trie
+Insert a String
+Start from the root node
+For each character cin the string
+▶If a node containing cexists, move to the node.
+▶Otherwise, create the node and move to it.
+Time Complexity: O(M) where Mis the length of the string.
+5/35
+
+---PAGE_BREAK---
+
+Operations on Trie
+Insert baby, bad, bank, box, dog, dogs, banks
+b
+a
+b
+y
+$d
+$n
+k
+$o
+x
+$d
+o
+g
+$ s
+$ s
+$
+6/35
+
+---PAGE_BREAK---
+
+Operations on Trie
+Search a String
+Start from the root node
+For each character cin the string (including $)
+▶If a node containing cexists, move to the next node.
+Ifc== $, return “Found”.
+▶Otherwise, return “Not Found”.
+Time Complexity: O(M) where Mis the length of the string.
+7/35
+
+---PAGE_BREAK---
+
+Operations on Trie
+Searching for box:
+bb d
+a oo o
+b d n xx
+$$g
+y $ k $ s
+$ $ s $
+$
+String box was found. 8/35
+
+---PAGE_BREAK---
+
+Operations on Trie
+Searching for boxing:
+bb d
+a oo o
+b d n xx g
+y $ k $ $ s
+$ $ s $
+$
+String boxing was not found. 9/35
+
+---PAGE_BREAK---
+
+Operations on Trie
+Searching for ban:
+bb d
+aa o o
+b d nn x g
+y $ k $ $ s
+$ $ s $
+$
+String banwas not found. 10/35
+
+---PAGE_BREAK---
+
+Operations on Trie
+Prefix Matching
+Start from the root node
+For each character cin the prefix
+▶If a node containing c exists, move to the node
+▶Otherwise, return “Not Found”.
+Return all strings in the subtree rooted at the last node
+Time Complexity: O(M+U) where Mis the length of the query
+string and Uis the total number of characters in all returned strings.
+11/35
+
+---PAGE_BREAK---
+
+Operations on Trie
+Prefix matching for ban:
+bb d
+aa o o
+b d nn
+k
+$ s
+$k
+$ s
+$x g
+y $ $ $ s
+$ $
+Traverse the subtree to get bank andbanks . 12/35
+
+---PAGE_BREAK---
+
+Trie Implementation
+At each node, create an array of alphabet size
+▶26 for English letters
+▶4 for DNA strings
+Ifithnode exists, add pointer at array [i]. Otherwise, array [i] =Nil.
+The above implementation allows checking whether a node exists or
+not in O(1) (for constant-sized alphabets).
+Other implementations are possible (e.g., linked lists or hash tables).
+13/35
+
+---PAGE_BREAK---
+
+Advantages and Disadvantages of Trie
+Advantage
+A better search structure than a binary search tree with string keys.
+A more versatile search structure than hash table.
+Prefix matching in O(M) where Mis the length of prefix.
+Sorting collection of strings in O(MN) time where Mis the length
+of the longest string and Nis the total number of strings.
+Disadvantage
+On average tries can be slower (in some cases) than hash tables for
+looking up patterns/queries.
+Wastes space, since even when a node has few children, you need to
+create an array of size alphabet.
+14/35
+
+---PAGE_BREAK---
+
+Some properties of Trie
+The maximum depth is the length of longest string in the collection.
+Insertion, Deletion, Lookup operations take time proportional to the
+length of the string/pattern being inserted, deleted, or searched.
+But we waste a lot of space if
+▶each node has 1 pointer per symbol in the alphabet.
+▶deeper nodes typically have mostly null pointers.
+Can reduce total space usage by turning each node into a linked list
+or binary search tree etc, trading off time for space.
+15/35
+
+---PAGE_BREAK---
+
+Exercises
+Longest Prefix Matching: Given a set of words and a query string
+s, find the longest prefix of sthat matches any word in the Trie.
+Lexicographic Sorting: Sort a set of strings in lexicographic order.
+Autocompletion: Given a prefix string s, list the top kmost
+frequent completions, i.e. strings that are have prefix s.
+Text Search: Search for a string swithin a large text or document.
+16/35
+
+---PAGE_BREAK---
+
+Suffix Trie
+
+---PAGE_BREAK---
+
+Prefixes and Suffixes
+Goal: make a prefix trie of suffixes to efficiently search substrings.
+(Prefix) Tries are very useful for quickly looking up whole words, but
+more generally, prefixes of words
+A prefix of a word s[1..m] is some string s[1..i] where 1 ≤i≤m
+A suffix of a word s[1..m] iss[i..m] where 1 ≤i≤m.
+Any substring of a word is a prefix of some suffix.
+s
+1 2 3 i········· j m−1m
+17/35
+
+---PAGE_BREAK---
+
+Suffix Tries
+A trie constructed using all suffixes of the text is called a Suffix Trie.
+r e f $
+r e $
+e
+r
+$f
+e
+r
+r
+e
+r
+$r
+$f
+e
+r
+r
+e
+r
+$r
+r
+e
+r
+$$e
+r
+r
+e
+r
+$
+18/35
+
+---PAGE_BREAK---
+
+Suffix Tries
+A substring “efe” of “referrer” traces a path from root to some node.
+r e f $
+r e $
+e
+r
+$f
+e
+r
+r
+e
+r
+$r
+$f
+e
+r
+r
+e
+r
+$r
+r
+e
+r
+$$e
+r
+r
+e
+r
+$
+19/35
+
+---PAGE_BREAK---
+
+Construct Suffix Tries
+Insert all suffix of “referrer” in the trie. Insert suffix “referrer $” into the
+trie. Insert suffix “eferrer $” into the trie. Insert suffix “ferrer $” into the
+trie. Insert suffix “errer $” into the trie. Insert suffix “rrer $” into the trie.
+Insert suffix “rer $” into the trie. Insert suffix “er $” into the trie. Insert
+suffix “r $” into the trie. Insert suffix “ $” into the trie.
+r e f $
+e $ r
+e
+r
+$f
+e
+r
+r
+e
+r
+$r
+$f
+e
+r
+r
+e
+r
+$r
+r
+e
+r
+$$e
+r
+r
+e
+r
+$20/35
+
+---PAGE_BREAK---
+
+Operations on Suffix Trie
+Substring Search
+Start from the root node
+For each character cin the prefix
+▶If a node containing c exists, move to the node
+▶Otherwise, return “Not Found”.
+Return ”Found”.
+Time Complexity: O(M) where Mis the length of the query string.
+21/35
+
+---PAGE_BREAK---
+
+Operations on Suffix Trie
+Substring search: find “err” in the suffix tree. Found!
+r ee f $
+r e $
+e
+r
+$f
+e
+r
+r
+e
+r
+$r
+$f
+e
+r
+r
+e
+r
+$rr
+rr
+e
+r
+$$e
+r
+r
+e
+r
+$
+22/35
+
+---PAGE_BREAK---
+
+Operations on Suffix Trie
+Substring search: find “fers” in the suffix tree. Not found.
+r e ff $
+r e $
+e
+r
+$f
+e
+r
+r
+e
+r
+$r
+$f
+e
+r
+r
+e
+r
+$r
+r
+e
+r
+$$ee
+rr
+r
+e
+r
+$
+23/35
+
+---PAGE_BREAK---
+
+Operations on Suffix Trie
+Counting Occurrences
+Start from the root node
+For each character cin the prefix
+▶If a node containing c exists, move to the node
+▶Otherwise, return “Not Found”.
+Traverse the subtree and count the number of leaf nodes ( $).
+Time Complexity: ?
+24/35
+
+---PAGE_BREAK---
+
+Operations on Suffix Trie
+Count occurrences of “er”
+r e f $
+r e $
+e
+r
+$f
+e
+r
+r
+e
+r
+$r
+$f
+e
+r
+r
+e
+r
+$r
+r
+e
+r
+$$e
+r
+r
+e
+r
+$
+25/35
+
+---PAGE_BREAK---
+
+Operations on Suffix Trie
+Counting Occurrences
+Start from the root node
+For each character cin the prefix
+▶If a node containing c exists, move to the node
+▶Otherwise, return “Not Found”.
+Traverse the subtree and count the number of leaf nodes ( $).
+Time Complexity: O(M) where Mis the length of the query string if
+the number of leaf nodes is maintained during insertion of strings.
+26/35
+
+---PAGE_BREAK---
+
+Operations on Suffix Trie
+Find the longest repeated substring?
+r e f $
+r e $
+e
+r
+$f
+e
+r
+r
+e
+r
+$r
+$f
+e
+r
+r
+e
+r
+$r
+r
+e
+r
+$$e
+r
+r
+e
+r
+$
+27/35
+
+---PAGE_BREAK---
+
+Space Complexity of Suffix Trie
+LetNbe the size of the string for which suffix trie is constructed, what is
+the space complexity?total space cost: O(N2)
+r e f $
+r e $
+e
+r
+$f
+e
+r
+r
+e
+r
+$r
+$f
+e
+r
+r
+e
+r
+$r
+r
+e
+r
+$$e
+r
+r
+e
+r
+$
+28/35
+
+---PAGE_BREAK---
+
+Suffix Tree
+Compress branches by merging the nodes that have only one child.
+r e f$
+r e $
+e
+r
+$f
+e
+r
+r
+e
+r
+$r
+$f
+e
+r
+r
+e
+r
+$r
+r
+e
+r
+$$e
+r
+r
+e
+r
+$
+r eferrer $$
+rer $ e $
+ferrer $r $ferrer $r
+rer $ $
+The space complexity is still the same: O(N2).
+How to reduce space complexity?29/35
+
+---PAGE_BREAK---
+
+Suffix Tree
+Replace every substring with numbers ( x,y) where xis the starting index
+of the substring and yis its length.
+r eferrer $$
+rer $ e $
+ferrer $r $ferrer $r
+rer $ $
+(1,1) (2,1) (3,7) (9,1)
+(6,4) (2,1) (9,1)
+(3,7) (8,2)(3,7) (5,1)
+(6,4) (9,1)
+r e f e r r e r $
+1 2 3 4 5 6 7 8 9
+Prove: the space complexity of suffix tree is O(N)?30/35
+
+---PAGE_BREAK---
+
+Space Complexity of Suffix Tree
+There are exactly N+ 1 leaves.
+Every (internal) node has at least 2 children. (Why?)
+There are at most Ninternal nodes.
+Each node stores two integers, so the space is bounded by O(N).
+31/35
+
+---PAGE_BREAK---
+
+Time Complexity of Constructing Suffix Tree
+The algorithm described earlier inserts O(N) suffixes
+Insertion cost of each suffix is linear in the size of suffix
+Average suffix size is O(N)
+Compressing the trie requires traversing it, O(N2)
+Thus, total time complexity to construct tree is O(N2)
+Ukkonen’s algorithm is able to construct a suffix tree in O(N)!
+32/35
+
+---PAGE_BREAK---
+
+Exercises
+Text Search: Find all occurrences of a pattern string swithin a
+large text or document.
+Longest Repeated Substring: Given a string S[1..n], find the
+longest substring that appears at least twice in S.
+Longest Common Substring (Two Strings): Given two strings s1
+ands2, find the longest substring common to both.
+Longest Common Substring (Multiple Strings): Given a set of
+strings S={s1,s2, . . . , sn}, find the longest substring that occurs in
+at least kof them.
+33/35
+
+---PAGE_BREAK---
+
+Reading
+Course Notes: Chapter 12 and 13
+You can also check algorithms’ textbooks for contents related to this
+lecture, e.g.:
+▶CLRS: Chapters 18
+For a more advanced treatment of trie and suffix trees: Dan
+Gusfield, Algorithms on Strings, Trees and Sequences, Cambridge
+University Press.
+34/35
+
+---PAGE_BREAK---
+
+Concluding remarks
+Take home message
+▶Tries and suffix trees provide efficient text search and pattern matching
+(typically linear in number of characters in string)
+▶Linear time construction for both is possible (beyond the scope of this unit)
+Things to do:
+▶Implement tries and suffix trees
+▶Run various queries on the data structures
+Coming up next:
+▶AVL Trees, 2-3 Search Trees and Red Black Trees
+35/35

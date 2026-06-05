@@ -1,0 +1,347 @@
+Week 8 Applied Sheet
+(Solutions)
+Useful advice:The following solutions pertain to the theoretical problems given in the applied classes. You are
+strongly advised to attempt the problems thoroughly before looking at these solutions. Simply reading the solu-
+tions without thinking about the problems will rob you of the practice required to be able to solve complicated
+problems on your own. You will perform poorly on the exam if you simply attempt to memorise solutions to
+these problems. Thinking about a problem, even if you do not solve it, will greatly increase your understanding
+of the underlying concepts. Solutions are typically not provided for Python implementation questions. In some
+cases, pseudocode may be provided where it illustrates a particular useful concept.
+Problems
+Problem 1.Consider the following algorithm for single-source shortest paths on a graph with negative weights:
+• Find the minimum weight edge in the graph, say it has weightw
+• Subtractwfrom the weight of every edge in the graph. The graph now has no negative weights
+• Run Dijkstra’s algorithm on the modified graph
+• Addwback to the weight of the edges and compute the lengths of the resulting shortest paths
+Prove by giving a counterexample that this algorithm is incorrect.
+Solution
+The problem with this algorithm is that it changes the length of paths with more edges a larger amount
+than it changes the lengths of paths with fewer edges, since it adds a constant amount to every edge
+weight. A good graph to break this would therefore be one where a shortest path has more edges than an
+alternative.
+s
+ab
+d−4
+−5
+−3−4
+In this case, the shortest path fromstobiss→a→d→bwith length−12. If we subtract−5 from every
+edge weight in the graph, then it becomes the following, where the shortest path is nows→b, so we get
+the wrong answer.
+s
+ab
+d0
+211
+Problem 2.Describe an algorithm that given a directed connected graphG= (V,E)determines whether or not
+Gcontains a negative cycle. Your algorithm should run inO(|V|·|E|)time.
+1
+
+---PAGE_BREAK---
+
+Solution
+Remember that the Bellman-Ford algorithm can detect whether there is a negative cycle that is reach-
+able from the source vertex. The obvious tempting solution is to just run Bellman-Ford from every pos-
+sible source vertex and see whether a negative cycle is detected. This would be very slow though, taking
+O(|V|2·|E|)time. Instead, we would rather run just one Bellman-Ford, but how can we be sure that we
+can definitely reach the negative cycle if one exists? The easiest way to ensure this is to simply add a
+new vertex to the graph, and add an edge from that vertex to every other vertex in the graph. Running
+Bellman-Ford on this vertex will then definitely visit every vertex, and hence will definitely detect a nega-
+tive cycle if one is present. Since we only need to run Bellman-Ford once, this algorithm takesO(|V|·|E|)
+time.
+Note that if the original graphG= (V,E)was not connected, then we could still use the same strategy, but
+the running time would beO(|V|·|E|+|V|2)to account for cases such as a graph with|V|isolated nodes
+(i.e.,|E|=0). Note also thatO(|V|·|E|+|V|2)simplifies toO(|V|·|E|)for connected graphs.
+Problem 3.Given a connected graphG= (V,E)that contains a negative weight cycle, give an algorithm to
+determine the vertices of one such cycle. Your algorithm should run inO(|V|·|E|)time.
+Solution
+Recall from Problem 2 that we can use Bellman-Ford to detect the presence of a negative cycle by adding
+a new source vertex that connects to all others. Let’s start by doing this. Remember that when Bellman-
+Ford terminates, the predecessors will all form a shortest path tree, except for the vertices reachable from
+a negative cycle.
+Arbitrarily select a vertex which had its distance updated during the|V|-th iteration. This vertex may not
+necessarily beina negative cycle, as it could be on a path that simply travels through one and then leaves
+it. In order to get to the negative cycle that caused this, we should travel backwards along the predecessors
+until we see a repeated nodeu. The negative cycle consists ofutogether with all nodes that appeared
+between the first and second occurrences ofu.
+The graph below provides an example where a vertex which is not part of a negative cycle has its distance
+updated during the|V|-th iteration. This highlights how not all updated vertices are necessarily part of
+a negative cycle. Also note how notallvertices that are part of the negative cycle have their distances
+updated in the|V|-th iteration (in this example,dandb).
+s d
+ba c
+0
+00−5
+2−1
+10
+2
+
+---PAGE_BREAK---
+
+Iteration # sa b c d
+|V|−1 0 -1 -4 -5 -2
+|V| 0-3 -4 -7 -2
+If a graph does indeed have a negative cycle, at least one of the vertices on the cycle will always update
+every iteration, but potentially also vertices that are reachable from the vertices in the negative cycle via
+offshoot branches, as those distance updates will ripple down each branch. The number of these extra
+detected vertices will depend on the specific relaxation order of edges. Therefore, we must follow the
+backtracking process outlined above to guarantee we find one negative cycle.
+For the backtracking process we can keep a “visited” array to detect what is the first vertex to be visited
+twice. If we do not want to use extra auxiliary space, we can instead initially travel backwards|V|−1
+vertices to guarantee that one gets to some vertexuin a negative cycle, and from there travel the negative
+cycle once until getting back tou.
+Problem 4.Improve the Floyd-Warshall algorithm so that you can also reconstruct the shortest paths in addition
+to the distances. Your improvement should not worsen the time complexity of Floyd-Warshall, and you should
+be able to reconstruct a path of lengthℓinO(ℓ)time.
+Solution
+There are many approaches to make this work.
+Solution 1: Track the intermediate vertex
+One way to keep track of the path information is to record, for each pair of verticesu,v, which inter-
+mediate vertex was optimal for going between them. This can be tracked during the algorithm like so.
+1:functionFLOYD_WARSHALL(G=(V , E))
+2:Set dist[1..n][1..n] =∞
+3:Set dist[v][v] =0for allvertices v
+4:Set dist[u][v] =w(u,v)for alledges e=(u,v)inE
+5:Set mid[1..n][1..n] =null//mid[u][v] =optimal intermediate vertex
+6:for eachvertex k=1tondo
+7:for eachvertex u=1tondo
+8:for eachvertex v=1tondo
+9:ifdist[u][k] +dist[k][v] <dist[u][v]then
+10:dist[u][v] =dist[u][k] +dist[k][v]
+11:mid[u][v] =k
+12:returndist[1..n][1..n], mid[1..n][1..n]
+For each pair of nodesuandvthat have a finite distance, to reconstruct the path, we then need to do a
+sort of divide-and-conquer style path reconstruction.
+1:functionGET_PATH(u, v)
+2:ifmid[u][v] =null then
+3:return[u, v]
+4:else
+5:left=GET_PATH(u, mid[u][v])
+6:right=GET_PATH(mid[u][v], v)
+7:returnleft.pop_back()+right//Remove the duplicate from the middle
+Note that this is only efficient if the concatenation on line 7 isO(1), which means thatleftandright
+3
+
+---PAGE_BREAK---
+
+would need to be implemented as linked lists.Solution 2: Track the successor
+To avoid having to use linked lists, we could take a different approach. We will remember, for each pair
+u,v, the first vertex on a shortest path fromutov(i.e the successor ofuon the shortest path tov). To
+maintain this, if we update the pairu,vand decide that vertexkis the new best intermediate vertex,
+then the first vertex on a shortest path fromutovis just the first vertex on a shortest path fromutok.
+We can implement this as follows.
+1:functionFLOYD_WARSHALL(G=(V , E))
+2:Set dist[1..n][1..n] =∞
+3:Set dist[v][v] =0for allvertices v
+4:Set dist[u][v] =w(u,v)for alledges e=(u,v)inE
+5:Set succ[1..n][1..n] =null//succ[u][v] =successor of u on shortest path to v
+6:Set succ[u][v] =vfor alledges e=(u,v)inE
+7:for eachvertex k=1tondo
+8:for eachvertex u=1tondo
+9:for eachvertex v=1tondo
+10:ifdist[u][k] +dist[k][v] <dist[u][v]then
+11:dist[u][v] =dist[u][k] +dist[k][v]
+12:succ[u][v] =succ[u][k]
+13:returndist[1..n][1..n], succ[1..n][1..n]
+Reconstructing the paths is now easier as we do not need any fancy recursion or linked lists, since we only
+need to append one vertex at a time rather than concatenating two lists.
+1:functionGET_PATH(u, v)
+2:Set path= [u]
+3:whileu̸=vdo
+4:u=succ[u][v]
+5:path.append(u)
+In both cases, we add only a constant amount of overhead to the algorithm so we do not worsen the
+complexity. We can also reconstruct paths of lengthℓinO(ℓ)time in both cases.
+Problem 5.Add a post-processing step to Floyd-Warshall that sets dist[u][v] =−∞if there is an arbitrarily short
+path between vertexuand vertexv, i.e. ifucan travel tovvia a negative weight cycle. Your post processing
+should run inO(|V|3)time or better, i.e. it should not worsen the complexity of the overall algorithm.
+Solution
+Recall that the Floyd-Warshall algorithm can detect the presence of negative cycles by looking at the dis-
+tances of vertices to themselves. If a vertex can reach itself with a negative distance, then it must be
+contained in a negative cycle. We can therefore post process the graph by checking each intermediate
+vertexkthat is part of a negative cycle, and then setting the lengths of all pathsu⇝vsuch thatucan
+reachkandkcan reachvto−∞. This process takesO(|V|3). See the pseudocode below.
+1:functionFLOYD_WARSHALL_POSTPROCESS(G=(V , E), dist[1..n])
+2:for eachvertex k=1tondo
+3:ifdist[k][k]<0then
+4:for eachvertex u=1tondo
+5:for eachvertex v=1tondo
+6:ifdist[u][k] +dist[k][v] <∞then
+7:dist[u][v] =−∞
+4
+
+---PAGE_BREAK---
+
+Problem 6.Arbitrage is the process of exploiting conversion rates between commodities to make a profit, and
+it may occur over many steps. For example, one could purchase US dollars, convert it into British pounds, and
+then back into Australian dollars. If the prices were right, this could result in a profit. Given a list ofncurrencies
+and the best available conversion rate between some pairs of currencies (i.e., how much of the first currency you
+need to spend to get 1 unit of the second currency), devise an algorithm that determines whether arbitrage is
+possible, i.e. whether or not you could make a profit. Your algorithm should run inO(n3)wherenis the number
+of currencies.
+Solution
+Let’s imagine this as a shortest path problem. We wish to begin at one currency and walk through a path
+containing some other currencies before arriving back at our initial currency with a net profit. Making a
+profit means that the net conversion rate between a currency and itself should be less than 1. Note that
+if we convert between currencies whose exchange rates arer 1,r2, ...,r k, then the final conversion rate is
+r1×r 2×...×r k. One way to model this problem is to therefore create a graph onnvertices where each
+vertex represents a currency. We add a directed edge between a pair of vertices with the exchange rate as
+the weight. We could then modify the Floyd-Warshall algorithm to compute the product of the weights
+rather than the sum, and it would then find for us the best conversion rate between any pair of currencies.
+Arbitrage is possible if a currency can be converted into itself at a rate of less than 1, i.e. if we find an entry
+on the diagonal of the distance matrix that is less than 1.
+An alternate solution that does not require us to modify Floyd-Warshall is to create the same graph but use
+the logarithms of the exchange rates as the edge weights. We can then run the ordinary Floyd-Warshall
+algorithm. This works because log(r 1) +log(r 2) =log(r 1×r 2). Since log(r)<0 if and only ifr<1, we know
+that arbitrage is possible if and only if the graph contained a negative cycle, i.e. if a vertex has a negative
+distance to itself.
+Problem 7.In this problem, we will derive Johnson’s algorithm, a fast algorithm for the all-pairs shortest path
+problem on sparse graphsG= (V,E)with negative weights assuming that the graph has no negative cycles. The
+key ingredient of the algorithm is based on the idea ofpotentials.
+(a) Letd[v]:v∈Vbe the distances to each vertexv∈Vfrom an arbitrary source vertex. Prove that for each
+edge(u,v)∈E
+d[u]−d[v] +w(u,v)≥0.
+We define the quantityp[u] =d[u]as thepotentialof the vertexu.
+(b) Give a simple algorithm to compute a set of valid potentials. Potentials should not be infinity for any vertex.
+Suppose now that we modify the weight of every edge(u,v)in the graph to
+w′(u,v) =p[u]−p[v] +w(u,v).
+(c) Prove that a shortest path in the modified graph was also a shortest path in the original, unmodified graph.
+(d) Deduce that we can solve the all-pairs shortest path problem on sparse graphs with negative weights in
+O(|V|2·log|V|)time.
+Solution
+(a) This is a direct result of the triangle inequality. The triangle inequality states that
+d[u] +w(u,v)≥d[v],
+which must be true since if this quantity were less thand[v], then the paths⇝u→vwould be
+shorter than the shortest path tov, a contradiction. Subtractingd[v]from both sides of the triangle
+inequality yields the desired result.
+(b) A solution that almost works is to pick an arbitrary source vertex and run Bellman-Ford to compute
+5
+
+---PAGE_BREAK---
+
+the shortest distances. This will fail though if the source we pick cannot reach every vertex since
+then some of the distances will be infinity. To correct this, we instead add a new vertex to the graph
+and connect it to every vertex with an edge weight of zero. We then run Bellman-Ford from this
+new vertex. By design, it is connected to every other vertex so none of the distances will be infinity.
+The resulting distances can be used as potentials.
+(c) Consider a path in the modified graphv 1→v 2→...→v k. Its total length will be
+p[v 1]−p[v 2] +w(v 1,v2) +p[v 2]−p[v 3] +w(v 2,v3) +...+p[v k−1]−p[v k] +w(v k−1,vk).
+Observe that except for the first and last, the potentials all cancel since they appear as a positive
+term and then as a negative term immediately after. This leaves us with
+p[v 1] +w(v 1,v2) +w(v 2,v3) +...+w(v k−1,vk)−p[v k].
+Note that the only potentials left in the equation are of the first and last vertex, in other words, they
+do not depend on the path taken at all. The remaining terms simply constitute the path length
+of the pathv 1→v 2→...→v kin the original, unmodified graph, hence any shortest path in the
+modified graph is also a shortest path in the unmodified graph.
+(d) With all of these ingredients, we can deriveJohnson’s algorithm. First, we run Bellman-Ford from
+a new source vertex that connects to every other vertex in order to obtain a set of valid potentials.
+We then create the new graph by modifying the edge weights as above. Now since all of the edge
+weights are nonnegative by (a), we can use Dijkstra’s algorithm to compute shortest paths from
+every possible source vertex. Finally we can recover the true shortest paths by subtracting away the
+potentials that we added. In sparse graphs one invocation of Bellman-Ford costsO(|V|2)and|V|
+Dijkstra’s costsO(|V|2·log|V|), and hence the total cost isO(|V|2·log|V|).
+Supplementary Problems
+Problem 8.Implement Bellman-Ford and test your code’s correctness by solving the following problem on UVA
+Online Judge:https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&
+problem=499.
+Problem 9.Devise an algorithm for counting the number of paths between two given verticessandtin a
+directed acyclic graphG= (V,E)which runs inO(|V|+|E|). Don’t worry about the magnitude of the answer (i.e.
+assume that all arithmetic operations take constant time, despite the fact that the answer might be exponential
+in the input size.)
+Solution
+We will approach this using a dynamic programming algorithm. Suppose we are at some vertexu. Then
+the number of different ways in which we could get totinvolves trying all of our different edges(u,v)and
+then counting the number of resulting paths from all of thev. So let us define the following subproblems.
+DP[u] ={The number of paths fromutot}.
+The recurrence is then given by
+DP[u] =
+
+1 ifu=t,X
+v∈adj[u]DP[v]otherwise.
+The answer is the value ofDP[s]. The subproblems are dependent in a reverse topological order, since in
+order to computeDP[u]we must know the value of all ofu’s descendants.
+6
+
+---PAGE_BREAK---
+
+1:functionCOUNT_PATHS(G=(V , E), s, t)
+2:Set count[1..n] =0
+3:count[t] =1
+4:Set order=reverse(topological_sort(G))
+5:for eachvertex uinorderdo
+6:for eachedge(u,v)adjacent to udo
+7:count[u] =count[u] +count[v]
+8:returncount[s]
+Problem 10.Consider a directed acyclic graphG= (V,E)where each edge is labelled with a character from
+some finite alphabetA. Given a stringSover the alphabetA, count the number of paths inGwhose edge labels
+spell out the stringS. Your algorithm should run inO((|V|+|E|)·n), wherenis the length of the stringS.
+Solution
+This problem can be solved very similarly to the ordinary path-counting problem on a DAG (Problem 9).
+We will use dynamic programming. Let us define the subproblems
+DP[u,i] ={The number of paths fromuthat spell outS[i..n]}
+If we are at a particular vertexuand we want to writeS[i..n], then we need to find all of our outgoing edges
+(u,v)that are labelledS[i], and then try to writeS[i+1..n]from vertexv. A recurrence can therefore be
+written as follows.
+DP[u,i] =
+
+1 ifi=n+1,X
+v∈adj[u]
+ℓ(u,v)=S[i]DP[v,i+1]otherwise
+whereℓ(u,v)denotes the label of the edge(u,v). The solution to the problem is then the sum ofDP[u, 1]
+for all verticesu∈V. We haveV·nsubproblems, and for each edge in the graph, it gets processed at
+most once per value ofi, so the total time complexity isO(|V|·n+|E|·n) =O((|V|+|E|)·n)as required.
+Problem 11.An improvement to the Bellman-Ford algorithm is the so-called “Shortest Paths Faster Algorithm” ,
+or SPFA. SPFA works like Bellman-Ford, relaxing edges until no more improvements are made, but instead of
+relaxing every edge|V|−1 times, we maintain a queue of vertices that have been relaxed. At each iteration, we
+take an item from the queue, relax each of its outgoing edges, and add any vertices whose distances changed to
+the queue if they are not in it already. The queue initially contains the source vertexs.
+(a) Reason why SPFA is correct if the graph contains no negative-weight cycles.
+(b) The algorithm described above will cycle forever in the presence of a negative-weight cycle. Add a simple
+condition to the algorithm to fix this and detect the presence of negative cycle if encountered.
+(c) What is the worst-case time complexity of SPFA?
+Solution
+The proof of correctness for SPFA is pretty much exactly the same as for Bellman-Ford, so we will not
+write the whole thing formally. At the first iteration, all shortest paths consisting of at most 1 edge will be
+found by relaxing the edges out ofs. Subsequently, all shortest paths of length at most two will be found
+when those vertices relax their outgoing edges, and so on. By induction, we can show that all shortest
+paths of lengthkwill be relaxed after the shortest paths of lengthk−1. SPFA essentially does the same
+thing as Bellman-Ford, but it avoids relaxing edges that will not make a difference.
+In the presence of a negative weight cycle, SPFA will continue to add the vertices of the cycle to the queue
+7
+
+---PAGE_BREAK---
+
+forever. To stop this, we enforce that each vertex can only be removed from the queue at mostn−1
+times. If a vertex is removedntimes, this implies that the shortest path to it containsn+1 vertices since
+the queue always serves vertices in order of the number of edges on their shortest path, and in between
+multiple occurrences of the same vertex, the path length must increase.
+Since we may remove each vertex from the queuentimes, and each time we process every one of its
+edges, the amount of work done is at mostO(|V|·|E|), the same as Bellman-Ford. Although this sounds
+bad, on average SPFA performs much better.
+Problem 12.Describe how an instance of the unbounded knapsack problem can be converted into a corre-
+sponding directed acyclic graph. Which graph problem correctly models the unbounded knapsack problem on
+this graph?
+Solution
+Create a graph withC+1 vertices, labelled 0 toC, whereCis the capacity of the knapsack. For each item
+available with weightwand valuev, create an edge from every vertexc≥wto the vertexc−wwith
+weightv. The solution to the unbounded knapsack problem is the critical path of this graph.
+Problem 13. (Advanced)A problem closely related to the transitive closure problem mentioned in the lecture
+recordings is thetransitive reduction. In a sense, the transitive reduction is the opposite of the transitive closure.
+It is a directed graph with the fewest possible edges that has the same reachability as the original graph. In other
+words, for all pairs of verticesuandv, there is a path betweenuandvin the transitive reduction if and only if
+there is a path betweenuandvin the original graph. Give an algorithm for computing the transitive reduction
+of an unweighted directed acyclic graphG= (V,E). Your algorithm should run inO(|V|2+|V|·|E|)time.
+Solution
+As usual, we will assume thatGis a simple graph. If it is not, we can simply remove duplicate edges and
+loops at the beginning since they contribute nothing to the reachability. Consider each edge(u,v)in the
+graphG. If(u,v)is the only way to travel fromutov, then clearly we must keep it. Otherwise, if there is
+some other way to get fromutov, since the graph is simple, there must be a path consisting of multiple
+edges that leads fromutov. If this is the case, removing(u,v)does not harm the reachability, and since
+the other vertices on theu⇝vpath must maintain their respective reachabilities, we should remove
+(u,v), rather than removing anything on that path.
+Given this, our algorithm is as follows. Let’s use the critical path dynamic programming algorithm to
+compute the longest paths between every pair of vertices in the graph. Computing the longest paths that
+start at a particular vertex takesO(|V|+|E|), so doing this from every vertex takesO(|V|2+|V|·|E|)time.
+Then, for each edge(u,v), we decide to keep it if the longest path fromutovis length 1 (i.e. just this
+edge), otherwise we delete it. This algorithm takesO(|V|2+|V|·|E|)time in total.
+This can be easily generalised to weighted directed acyclic graphs by considering weights 1 for all edges
+while computing the longest paths.
+8
