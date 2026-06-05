@@ -1,1 +1,0 @@
-self.__SSG_MANIFEST=new Set(["\u002F","\u002Falgorithms","\u002Falgorithms\u002F[slug]","\u002Fdata-structures","\u002Fdata-structures\u002F[slug]","\u002Fexam","\u002Fknowledge","\u002Fquestions"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
