@@ -37,12 +37,38 @@ function SecPill({section, small}){
   </span>;
 }
 
-// Render PDF-extracted math/text as a readable monospace block.
+// Render a string that may contain $...$ (inline) or $$...$$ (display) KaTeX math.
+function renderMath(str){
+  // Split on $$...$$ first (display), then $...$ (inline)
+  const segments = [];
+  const re = /(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/g;
+  let last = 0, m;
+  while((m = re.exec(str)) !== null){
+    if(m.index > last) segments.push({t:'text', s: str.slice(last, m.index)});
+    const raw = m[1];
+    const display = raw.startsWith('$$');
+    const expr = display ? raw.slice(2,-2) : raw.slice(1,-1);
+    try{
+      const html = window.katex.renderToString(expr, {displayMode: display, throwOnError: false});
+      segments.push({t:'math', html, display});
+    } catch(e){
+      segments.push({t:'text', s: raw});
+    }
+    last = m.index + m[0].length;
+  }
+  if(last < str.length) segments.push({t:'text', s: str.slice(last)});
+  return segments.map((seg,i)=>{
+    if(seg.t === 'text') return <span key={i}>{seg.s}</span>;
+    if(seg.display) return <div key={i} className="math-display" dangerouslySetInnerHTML={{__html: seg.html}}/>;
+    return <span key={i} className="math-inline" dangerouslySetInnerHTML={{__html: seg.html}}/>;
+  });
+}
+
 function SolutionText({text}){
   if(!text) return <div style={{color:'var(--faint)'}}>No solution recorded for this one.</div>;
   const parts = text.split(/\n{2,}/);
   return <div className="soln-body">
-    {parts.map((p,i)=> <p key={i} className="soln-para">{p}</p>)}
+    {parts.map((p,i)=> <p key={i} className="soln-para">{renderMath(p)}</p>)}
   </div>;
 }
 window.useFitScale=useFitScale; window.secMeta=secMeta; window.SecPill=SecPill;
