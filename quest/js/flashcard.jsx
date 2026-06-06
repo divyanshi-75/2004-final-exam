@@ -113,7 +113,7 @@ function Flashcard({qid, queue, onClose}){
         {showPad && <textarea className="scratchpad" value={scratch} onChange={e=>setScratch(e.target.value)}
           placeholder="Optional scratchpad — jot working or notes (saved locally). The real exam is on paper, so practising by hand is best."/>}
 
-        {flipped && <TechniquePanel week={q.week}/>}
+        {flipped && <TechniquePanel week={q.week-1}/>}
       </div>
 
       {toast && <div className="xp-toast pop">
